@@ -38,4 +38,6 @@ void MMAMapInitialize(MMAMap *, MMASize);
 void MMAMapDelete(MMAMap *);
 
 void clearMap(MMAMap *);
+void randomizeMap(MMAMap *, unsigned int, unsigned int, unsigned int, unsigned int);
+
 void step(MMAMap *);

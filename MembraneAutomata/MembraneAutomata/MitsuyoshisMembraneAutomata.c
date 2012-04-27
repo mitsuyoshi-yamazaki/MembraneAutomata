@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "MitsuyoshisMembraneAutomata.h"
 
 MMASize suitableSize(MMASize);
@@ -77,7 +78,7 @@ int unstabilityBetween(byte substanceA, byte substanceB) {
 */
 
 
-#pragma mark - Initializer
+#pragma mark - Map Initializer
 MMASize MMASizeMake(int x, int y) {
 	MMASize size;
 	
@@ -96,7 +97,12 @@ void MMAMapInitialize(MMAMap *map, MMASize size) {
 	clearMap(map);
 }
 
+void MMAMapDelete(MMAMap *map) {
+	free((*map).currentCells);
+}
 
+
+#pragma mark - Cell Initializer
 void clearMap(MMAMap *map) {
 	
 	int xMax = (*map).size.width;
@@ -112,9 +118,39 @@ void clearMap(MMAMap *map) {
 	}
 }
 
-void MMAMapDelete(MMAMap *map) {
-	free((*map).currentCells);
+void randomizeMap(MMAMap *map, unsigned int water, unsigned int oil, unsigned int wFamilier, unsigned int oFamilier) {
+	
+	srand(time(NULL));
+	srand(rand());
+	
+	int position = 0;
+	int xMax = (*map).size.width;
+	int yMax = (*map).size.height;
+	int maximum = water + oil + wFamilier + oFamilier;
+	int randomValue = 0;
+	
+	for (int x = 0; x < xMax; x++) {
+		for (int y = 0; y < yMax; y++) {
+			position = x + y * xMax;
+			
+			randomValue = rand() % maximum;
+			
+			if (randomValue < water) {
+				(*map).currentCells[position] = MMAWater;
+			}
+			else if (randomValue < water + oil) {
+				(*map).currentCells[position] = MMAOil;
+			}
+			else if (randomValue < water + oil + wFamilier) {
+				(*map).currentCells[position] = MMAWaterFamilier;
+			}
+			else {
+				(*map).currentCells[position] = MMAOilFamilier;
+			}
+		}
+	}
 }
+
 
 #pragma mark - Execution
 void step(MMAMap *map) {

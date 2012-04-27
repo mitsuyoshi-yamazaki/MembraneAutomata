@@ -8,7 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-
+#define kLBLifeViewControllerRefreshTimeInterval	0.1f
+#define kLBLifeViewControllerRefreshPerCaliculation	1
 
 @class LBLifeView;
 

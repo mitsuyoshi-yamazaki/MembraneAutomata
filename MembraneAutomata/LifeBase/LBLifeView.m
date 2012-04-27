@@ -92,7 +92,7 @@
 
 #pragma mark - Execution
 - (void)clearCells {
-	
+	clearMap(&map);
 }
 
 - (void)randomizeCells:(NSUInteger)rate {

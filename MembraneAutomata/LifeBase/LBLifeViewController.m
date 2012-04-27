@@ -10,12 +10,6 @@
 
 #import "LBLifeView.h"
 
-#define kLBLifeViewControllerLabelPointer	@"Pointer"
-#define kLBLifeViewControllerLabelRegister	@"Register"
-#define kLBLifeViewControllerLabelExecution	@"Will execute"
-#define kLBLifeViewControllerLabelError		@"Error"
-#define kLBLifeViewControllerLabelOpcode	@"Code"
-
 @interface LBLifeViewController ()
 
 @property (nonatomic, getter = isRunning) BOOL running;
@@ -38,43 +32,11 @@
 
 #pragma mark - behavior
 
-- (void)save
-{
-	[self.lifeView save];
-}
-
-- (void)export
-{
-	[self.lifeView export];
-}
-
-- (void)showSource
-{
-	[self.lifeView showSource];
-}
-
-
 - (void)redrawLifeView
 {
 	for (NSUInteger i = 0; i < kLBLifeViewControllerRefreshPerCaliculation; i++) {
 		[self.lifeView calculateNextPattern];
 	}
-	
-	self.pointerFieldCell.title = [NSString stringWithFormat:@"%@: %lu", kLBLifeViewControllerLabelPointer, self.lifeView.previousPointer];
-	self.registerFieldCell.title = [NSString stringWithFormat:@"%@: %lu", kLBLifeViewControllerLabelRegister, self.lifeView.mainRegister];
-	self.executionFlagFieldCell.title = [NSString stringWithFormat:@"%@: %d", kLBLifeViewControllerLabelExecution, self.lifeView.previousWillExecute];
-	self.errorFlagFieldCell.title = [NSString stringWithFormat:@"%@: %d", kLBLifeViewControllerLabelError, self.lifeView.previousError];
-	
-	if (self.lifeView.previousWillExecute) {
-		self.opcodeFieldCell.title = [NSString stringWithFormat:@"%@: %@", kLBLifeViewControllerLabelOpcode, [self.lifeView currentCode]];
-	}
-	else {
-		self.opcodeFieldCell.title = [NSString stringWithFormat:@"%@: (%@)", kLBLifeViewControllerLabelOpcode, [self.lifeView currentCode]];
-	}
-	
-	if (self.lifeView.previousError) {
-//		NSLog(@"error");
-	}	
 	
 	[self.lifeView setNeedsDisplay:YES];
 }
@@ -94,7 +56,7 @@
 
 - (void)initializeLifeView
 {
-	[self.lifeView initializeCells:kLBLifeViewControllerCellPerLine];
+	[self.lifeView initializeCells:8];
 	
 	self.running = NO;
 	
@@ -160,21 +122,6 @@
 	
 	[self.lifeView calculateNextPattern];
 	
-	self.pointerFieldCell.title = [NSString stringWithFormat:@"%@: %lu", kLBLifeViewControllerLabelPointer, self.lifeView.previousPointer];
-	self.registerFieldCell.title = [NSString stringWithFormat:@"%@: %lu", kLBLifeViewControllerLabelRegister, self.lifeView.mainRegister];
-	self.executionFlagFieldCell.title = [NSString stringWithFormat:@"%@: %d", kLBLifeViewControllerLabelExecution, self.lifeView.previousWillExecute];
-	self.errorFlagFieldCell.title = [NSString stringWithFormat:@"%@: %d", kLBLifeViewControllerLabelError, self.lifeView.previousError];
-	
-	if (self.lifeView.previousWillExecute) {
-		self.opcodeFieldCell.title = [NSString stringWithFormat:@"%@: %@", kLBLifeViewControllerLabelOpcode, [self.lifeView currentCode]];
-	}
-	else {
-		self.opcodeFieldCell.title = [NSString stringWithFormat:@"%@: (%@)", kLBLifeViewControllerLabelOpcode, [self.lifeView currentCode]];
-	}
-	
-	if (self.lifeView.previousError) {
-		//		NSLog(@"error");
-	}	
 	
 	[self.lifeView setNeedsDisplay:YES];
 }
