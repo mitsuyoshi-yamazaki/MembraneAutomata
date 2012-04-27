@@ -13,6 +13,7 @@
 		2CF581EA154AB252004CF830 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2CF581E8154AB252004CF830 /* Credits.rtf */; };
 		2CF581ED154AB252004CF830 /* MMAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF581EC154AB252004CF830 /* MMAAppDelegate.m */; };
 		2CF581F0154AB253004CF830 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF581EE154AB253004CF830 /* MainMenu.xib */; };
+		2CF581F9154AC351004CF830 /* MitsuyoshisMembraneAutomata.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CF581F8154AC351004CF830 /* MitsuyoshisMembraneAutomata.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		2CF581EC154AB252004CF830 /* MMAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMAAppDelegate.m; sourceTree = "<group>"; };
 		2CF581EF154AB253004CF830 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2CF581F7154AB281004CF830 /* MitsuyoshisMembraneAutomata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MitsuyoshisMembraneAutomata.h; sourceTree = "<group>"; };
+		2CF581F8154AC351004CF830 /* MitsuyoshisMembraneAutomata.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MitsuyoshisMembraneAutomata.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				2CF581F7154AB281004CF830 /* MitsuyoshisMembraneAutomata.h */,
+				2CF581F8154AC351004CF830 /* MitsuyoshisMembraneAutomata.c */,
 			);
 			path = MembraneAutomata;
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 			files = (
 				2CF581E6154AB252004CF830 /* main.m in Sources */,
 				2CF581ED154AB252004CF830 /* MMAAppDelegate.m in Sources */,
+				2CF581F9154AC351004CF830 /* MitsuyoshisMembraneAutomata.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
