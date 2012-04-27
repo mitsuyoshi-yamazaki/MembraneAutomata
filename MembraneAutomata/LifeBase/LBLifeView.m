@@ -51,19 +51,19 @@
 			
 			switch (map.currentCells[position]) {
 				case MMAWater:
-					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.1f, 0.2f, 0.6f, 0.8f));
+					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.3f, 0.3f, 1.0f, 0.8f));
 					break;
 					
 				case MMAOil:
-					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.6f, 0.1f, 0.1f, 0.8f));
+					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(1.0f, 0.3f, 0.3f, 0.8f));
 					break;
 					
 				case MMAWaterFamilier:
-					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.1f, 0.6f, 0.4f, 0.8f));
+					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.1f, 1.0f, 0.4f, 0.8f));
 					break;
 					
 				case MMAOilFamilier:
-					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.4f, 0.4f, 0.1f, 0.8f));
+					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.8f, 0.8f, 0.1f, 0.8f));
 					break;
 					
 				default:
@@ -85,6 +85,7 @@
 	
 	map = aMap;
 	MMAMapInitialize(&map, MMASizeMake(size, height));
+	randomizeMap(&map, 5, 5, 2, 2);
 	
 	[self setNeedsDisplay:YES];
 }
@@ -96,11 +97,11 @@
 }
 
 - (void)randomizeCells:(NSUInteger)rate {
-	
+	randomizeMap(&map, 5, 5, 2, 2);
 }
 
 - (void)calculateNextPattern {
-	
+	step(&map);
 }
 
 
