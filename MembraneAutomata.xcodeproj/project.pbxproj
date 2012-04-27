@@ -14,6 +14,9 @@
 		2CF581ED154AB252004CF830 /* MMAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF581EC154AB252004CF830 /* MMAAppDelegate.m */; };
 		2CF581F0154AB253004CF830 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF581EE154AB253004CF830 /* MainMenu.xib */; };
 		2CF581F9154AC351004CF830 /* MitsuyoshisMembraneAutomata.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CF581F8154AC351004CF830 /* MitsuyoshisMembraneAutomata.c */; };
+		2CF5820F154AE6BA004CF830 /* LBLifeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF5820A154AE6BA004CF830 /* LBLifeView.m */; };
+		2CF58210154AE6BA004CF830 /* LBLifeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF5820C154AE6BA004CF830 /* LBLifeViewController.m */; };
+		2CF58211154AE6BA004CF830 /* LBLifeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF5820D154AE6BA004CF830 /* LBLifeViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +35,13 @@
 		2CF581EF154AB253004CF830 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2CF581F7154AB281004CF830 /* MitsuyoshisMembraneAutomata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MitsuyoshisMembraneAutomata.h; sourceTree = "<group>"; };
 		2CF581F8154AC351004CF830 /* MitsuyoshisMembraneAutomata.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MitsuyoshisMembraneAutomata.c; sourceTree = "<group>"; };
+		2CF58209154AE6BA004CF830 /* LBLifeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBLifeView.h; sourceTree = "<group>"; };
+		2CF5820A154AE6BA004CF830 /* LBLifeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBLifeView.m; sourceTree = "<group>"; };
+		2CF5820B154AE6BA004CF830 /* LBLifeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBLifeViewController.h; sourceTree = "<group>"; };
+		2CF5820C154AE6BA004CF830 /* LBLifeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBLifeViewController.m; sourceTree = "<group>"; };
+		2CF5820D154AE6BA004CF830 /* LBLifeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LBLifeViewController.xib; sourceTree = "<group>"; };
+		2CF58212154AE6C6004CF830 /* LBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBAppDelegate.h; sourceTree = "<group>"; };
+		2CF58213154AE6C6004CF830 /* LBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBAppDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +98,7 @@
 				2CF581EB154AB252004CF830 /* MMAAppDelegate.h */,
 				2CF581EC154AB252004CF830 /* MMAAppDelegate.m */,
 				2CF581EE154AB253004CF830 /* MainMenu.xib */,
+				2CF58206154AE6BA004CF830 /* LifeBase */,
 				2CF581F6154AB270004CF830 /* MembraneAutomata */,
 				2CF581E0154AB252004CF830 /* Supporting Files */,
 			);
@@ -113,6 +124,20 @@
 				2CF581F8154AC351004CF830 /* MitsuyoshisMembraneAutomata.c */,
 			);
 			path = MembraneAutomata;
+			sourceTree = "<group>";
+		};
+		2CF58206154AE6BA004CF830 /* LifeBase */ = {
+			isa = PBXGroup;
+			children = (
+				2CF58212154AE6C6004CF830 /* LBAppDelegate.h */,
+				2CF58213154AE6C6004CF830 /* LBAppDelegate.m */,
+				2CF58209154AE6BA004CF830 /* LBLifeView.h */,
+				2CF5820A154AE6BA004CF830 /* LBLifeView.m */,
+				2CF5820B154AE6BA004CF830 /* LBLifeViewController.h */,
+				2CF5820C154AE6BA004CF830 /* LBLifeViewController.m */,
+				2CF5820D154AE6BA004CF830 /* LBLifeViewController.xib */,
+			);
+			path = LifeBase;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +194,7 @@
 				2CF581E4154AB252004CF830 /* InfoPlist.strings in Resources */,
 				2CF581EA154AB252004CF830 /* Credits.rtf in Resources */,
 				2CF581F0154AB253004CF830 /* MainMenu.xib in Resources */,
+				2CF58211154AE6BA004CF830 /* LBLifeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,6 +208,8 @@
 				2CF581E6154AB252004CF830 /* main.m in Sources */,
 				2CF581ED154AB252004CF830 /* MMAAppDelegate.m in Sources */,
 				2CF581F9154AC351004CF830 /* MitsuyoshisMembraneAutomata.c in Sources */,
+				2CF5820F154AE6BA004CF830 /* LBLifeView.m in Sources */,
+				2CF58210154AE6BA004CF830 /* LBLifeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

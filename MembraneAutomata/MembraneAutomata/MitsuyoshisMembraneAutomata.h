@@ -35,6 +35,7 @@ typedef struct MMAMap MMAMap;
 
 MMASize MMASizeMake(int, int);
 void MMAMapInitialize(MMAMap *, MMASize);
-void clearMap(MMAMap *);
+void MMAMapDelete(MMAMap *);
 
+void clearMap(MMAMap *);
 void step(MMAMap *);

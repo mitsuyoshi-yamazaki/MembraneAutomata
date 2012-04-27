@@ -92,6 +92,8 @@ void MMAMapInitialize(MMAMap *map, MMASize size) {
 
 //	(*map).previousCells = (byte *)malloc(sizeof(byte) * (*map).size.x * (*map).size.y);
 	(*map).currentCells = (byte *)malloc(sizeof(byte) * (*map).size.x * (*map).size.y);
+	
+	clearMap(map);
 }
 
 
@@ -108,6 +110,10 @@ void clearMap(MMAMap *map) {
 			(*map).currentCells[position] = MMAWater;
 		}
 	}
+}
+
+void MMAMapDelete(MMAMap *map) {
+	free((*map).currentCells);
 }
 
 #pragma mark - Execution

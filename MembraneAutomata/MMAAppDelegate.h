@@ -7,9 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "LBAppDelegate.h"
 
-@interface MMAAppDelegate : NSObject <NSApplicationDelegate>
+@interface MMAAppDelegate : LBAppDelegate
 
-@property (assign) IBOutlet NSWindow *window;
 
 @end
