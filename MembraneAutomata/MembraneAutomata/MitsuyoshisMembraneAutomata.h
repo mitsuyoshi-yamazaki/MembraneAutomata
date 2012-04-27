@@ -14,8 +14,8 @@
 typedef unsigned char byte;
 
 struct MMASize {
-	unsigned long x;
-	unsigned long y;
+	int x;
+	int y;
 };
 typedef struct MMASize MMASize;
 
@@ -31,8 +31,8 @@ struct MMAMap {
 };
 typedef struct MMAMap MMAMap;
 
-MMASize MMASizeMake(unsigned long, unsigned long);
+MMASize MMASizeMake(int, int);
 void MMAMapInitialize(MMAMap *, MMASize);
+void clearMap(MMAMap *);
 
 void step(MMAMap *);
-void clearMap(MMAMap *);
