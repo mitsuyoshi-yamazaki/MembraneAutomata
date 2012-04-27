@@ -18,8 +18,4 @@
 
 @property (assign) IBOutlet NSWindow *window;
 
-- (IBAction)save:(id)sender;
-- (IBAction)export:(id)sender;
-- (IBAction)showSource:(id)sender;
-
 @end

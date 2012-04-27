@@ -45,8 +45,4 @@
 - (IBAction)startPause:(id)sender;
 - (IBAction)step:(id)sender;
 
-- (void)save;
-- (void)export;
-- (void)showSource;
-
 @end

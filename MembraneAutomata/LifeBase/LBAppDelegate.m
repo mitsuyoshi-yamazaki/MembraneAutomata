@@ -23,24 +23,6 @@
 
 #pragma mark - Behavior
 
-- (IBAction)save:(id)sender
-{
-	NSLog(@"save");
-	[self.lifeViewController save];
-}
-
-- (IBAction)export:(id)sender
-{
-	NSLog(@"Export");
-	[self.lifeViewController export];
-}
-
-- (IBAction)showSource:(id)sender
-{
-	[self.lifeViewController showSource];
-}
-
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	_lifeViewController = [[LBLifeViewController alloc] initWithNibName:@"LBLifeViewController" bundle:nil];
