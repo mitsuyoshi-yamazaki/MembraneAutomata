@@ -38,55 +38,40 @@
 {
 	CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
 		
-	CGSize gridSize = CGSizeMake(self.bounds.size.width / map.size.width,);
-	CGFloat margin = kLBLifeViewCellMargin * gridSize.width;
-	CGSize cellSize = CGSizeMake(gridSize.width - margin, gridSize.height - margin);
+	NSUInteger width = map.size.width;
+	NSUInteger height = map.size.height;
 	
-	height++;
-	
-//	NSLog(@"w : %lu, h : %lu", width, height);
-//	NSLog(@"w * h : %lu, size : %lu", width * height, self.memorySize);
-	
-	if (width * height > self.memorySize) {
-//		return;
-	}
-
-
-	CGContextSetStrokeColorWithColor(context, CGColorCreateGenericRGB(0.0f, 0.0f, 0.0f, 1.0f));
+	CGFloat gridSize = self.bounds.size.width / width;	
 	
 	NSUInteger position;
 	
 	for (NSUInteger y = 0; y < height; y++) {
 		for (NSUInteger x = 0; x < width; x++) {
 			position = x + y * width;
-			if (position < self.memorySize) {
-				if (memory[position] != 0x00) {
-					//				CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(1 - ((float)memory[x + y * width] / 0x1c), ((float)(memory[x + y * width] % 5) / 6), ((float)(memory[x + y * width] % 10) / 10), 1.0f));
-					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(1.0f, 1 - ((float)memory[x + y * width] / 0x1c), 1.0f, 1.0f));
-				}
-				else {
-					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(1.0f, 1.0f, 1.0f, 1.0f));
-				}
-				CGContextFillRect(context, CGRectMake(x * gridSize.width + margin, y * gridSize.height + margin, cellSize.width, cellSize.height));
-				
-				if (self.previousPointer == position) {
-					CGContextStrokeRect(context, CGRectMake(x * gridSize.width, y * gridSize.height, gridSize.width, gridSize.height));
-				}
-			}
-		}
-	}
-	
-	
-	CGContextSetStrokeColorWithColor(context, CGColorCreateGenericRGB(0.0f, 0.0f, 1.0f, 1.0f));
-	
-	for (NSString *rangeString in self.referedPointers) {
-		NSRange range = NSRangeFromString(rangeString);
-		
-		if (range.length) {			
-			NSUInteger i = range.location % width;
-			NSUInteger j = range.location / width;
 			
-			CGContextStrokeRect(context, CGRectMake(i * gridSize.width + margin, j * gridSize.height + margin, cellSize.width * range.length, cellSize.height));
+			switch (map.currentCells[position]) {
+				case MMAWater:
+					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.1f, 0.2f, 0.6f, 0.8f));
+					break;
+					
+				case MMAOil:
+					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.6f, 0.1f, 0.1f, 0.8f));
+					break;
+					
+				case MMAWaterFamilier:
+					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.1f, 0.6f, 0.4f, 0.8f));
+					break;
+					
+				case MMAOilFamilier:
+					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.4f, 0.4f, 0.1f, 0.8f));
+					break;
+					
+				default:
+					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.0f, 0.0f, 0.0f, 1.0f));
+					break;
+			}
+			
+			CGContextFillEllipseInRect(context, CGRectMake(x * gridSize, y * gridSize, gridSize, gridSize));
 		}
 	}
 }
