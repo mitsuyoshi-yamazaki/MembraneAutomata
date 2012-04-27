@@ -6,14 +6,12 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-typedef unsigned char byte;
+#define MMAWater	0x00
+#define MMAOil		0x01
+#define MMAWaterFamilier	0x02
+#define MMAOilFamilier		0x03
 
-typedef enum {
-	MMAWater,
-	MMAOil,
-	MMAWaterFamilier,
-	MMAOilFamilier,
-}MMASubstance;
+typedef unsigned char byte;
 
 struct MMASize {
 	unsigned long x;
@@ -22,19 +20,20 @@ struct MMASize {
 typedef struct MMASize MMASize;
 
 struct MMACell {
-	byte substance;
+
 };
 typedef struct MMACell MMACell;
 
 struct MMAMap {
 	byte rule;
 	MMASize size;
-	MMACell *currentCells;
-	MMACell *previousCells;
+	byte *currentCells;
+	byte *previousCells;
 };
 typedef struct MMAMap MMAMap;
 
 MMASize MMASizeMake(unsigned long, unsigned long);
-MMAMap MMAMapMake(byte, MMASize);
+void MMAMapInitialize(MMAMap *,byte, MMASize);
 
 void step(MMAMap *);
+void clearMap(MMAMap *);

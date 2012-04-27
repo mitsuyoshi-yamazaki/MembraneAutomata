@@ -7,6 +7,7 @@
 //
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "MitsuyoshisMembraneAutomata.h"
 
 #pragma mark - Initializer
@@ -18,15 +19,32 @@ MMASize MMASizeMake(unsigned long x, unsigned long y) {
 	return size;
 }
 
-MMAMap MMAMapMake(byte rule, MMASize size) {
-	MMAMap map;
+void MMAMapInitialize(MMAMap *map, byte rule, MMASize size) {	
 	
-	map.rule = rule;
-	map.size = size;
-	return map;
+	(*map).rule = rule;
+	(*map).size = size;
+
+	(*map).previousCells = (byte *)malloc(sizeof(byte) * (*map).size.x * (*map).size.y);
+	(*map).currentCells = (byte *)malloc(sizeof(byte) * (*map).size.x * (*map).size.y);
 }
 
 #pragma mark - Execution
 void step(MMAMap *map) {
 	
+	
+}
+
+void clearMap(MMAMap *map) {
+	
+	int xMax = (*map).size.x;
+	int yMax = (*map).size.y;
+	int position = 0;
+	
+	for (int x = 0; x < xMax; x++) {
+		for (int y = 0; y < yMax; y++) {
+			position = x + y * xMax;
+			(*map).previousCells[position] = MMAWater;
+			(*map).currentCells[position] = MMAWater;
+		}
+	}
 }
