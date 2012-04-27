@@ -6,10 +6,11 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#define MMAWater	0x00
-#define MMAOil		0x01
-#define MMAWaterFamilier	0x02
-#define MMAOilFamilier		0x03
+#define MMANull		0x00
+#define MMAWater	0x01
+#define MMAOil		0x02
+#define MMAWaterFamilier	0x03
+#define MMAOilFamilier		0x04
 
 #define MMAUnstableMax	8
 
@@ -27,6 +28,7 @@ struct MMACell {
 typedef struct MMACell MMACell;
 
 struct MMAMap {
+	int range;
 	MMASize size;
 	byte *currentCells;
 //	byte *previousCells;
@@ -38,9 +40,9 @@ void MMAMapInitialize(MMAMap *, MMASize);
 void MMAMapDelete(MMAMap *);
 
 void clearMap(MMAMap *);
-void randomizeMap(MMAMap *, unsigned int, unsigned int, unsigned int, unsigned int);
+void randomizeMap(MMAMap *, int *);
 
 void stepMap(MMAMap *);
-void stepCell(MMAMap *, int);
+//void stepCell(MMAMap *, int);
 void printMap(MMAMap *);
 void countSubstances(MMAMap *);

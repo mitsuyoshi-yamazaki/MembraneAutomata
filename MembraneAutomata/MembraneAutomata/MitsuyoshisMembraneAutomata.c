@@ -17,6 +17,10 @@ int unstabilityInThePosition(MMAMap *, byte, int);
 #pragma mark - Calculate Stability
 int unstabilityBetween(byte substanceA, byte substanceB) {
 	
+	if (substanceA == MMANull || substanceB == MMANull) {
+		return 0;
+	}
+	
 	switch (substanceA) {
 		case MMAWater:
 			switch (substanceB) {
@@ -71,8 +75,11 @@ int unstabilityInThePosition(MMAMap *map, byte substance, int position) {
 	int subPosition;
 	int unstability = 0;
 	
-	for (int i = -1; i < 2; i++) {
-		for (int j = -1; j < 2; j++) {
+	int minimumRange = 0 - (*map).range;
+	int maxRange = (*map).range + 1;
+	
+	for (int i = minimumRange; i < maxRange; i++) {
+		for (int j = minimumRange; j < maxRange; j++) {
 			subPosition = ((x + i + xMax) % xMax) + ((y + j + yMax) % yMax) * xMax;
 
 			unstability += unstabilityBetween(substance, (*map).currentCells[subPosition]);
@@ -94,6 +101,7 @@ MMASize MMASizeMake(int x, int y) {
 
 void MMAMapInitialize(MMAMap *map, MMASize size) {	
 	
+	(*map).range = 1;
 	(*map).size = size;
 
 //	(*map).previousCells = (byte *)malloc(sizeof(byte) * (*map).size.x * (*map).size.y);
@@ -123,7 +131,7 @@ void clearMap(MMAMap *map) {
 	}
 }
 
-void randomizeMap(MMAMap *map, unsigned int water, unsigned int oil, unsigned int wFamilier, unsigned int oFamilier) {
+void randomizeMap(MMAMap *map, int *rate) {
 	
 	srand(time(NULL));
 	srand(rand());
@@ -131,7 +139,7 @@ void randomizeMap(MMAMap *map, unsigned int water, unsigned int oil, unsigned in
 	int position = 0;
 	int xMax = (*map).size.width;
 	int yMax = (*map).size.height;
-	int maximum = water + oil + wFamilier + oFamilier;
+	int maximum = rate[MMANull] + rate[MMAWater] + rate[MMAOil] + rate[MMAWaterFamilier] + rate[MMAOilFamilier];
 	int randomValue = 0;
 	
 	for (int x = 0; x < xMax; x++) {
@@ -140,17 +148,20 @@ void randomizeMap(MMAMap *map, unsigned int water, unsigned int oil, unsigned in
 			
 			randomValue = rand() % maximum;
 			
-			if (randomValue < water) {
+			if (randomValue < rate[MMAWater]) {
 				(*map).currentCells[position] = MMAWater;
 			}
-			else if (randomValue < water + oil) {
+			else if (randomValue < rate[MMAWater] + rate[MMAOil]) {
 				(*map).currentCells[position] = MMAOil;
 			}
-			else if (randomValue < water + oil + wFamilier) {
+			else if (randomValue < rate[MMAWater] + rate[MMAOil] + rate[MMAWaterFamilier]) {
 				(*map).currentCells[position] = MMAWaterFamilier;
 			}
-			else {
+			else if (randomValue < rate[MMAWater] + rate[MMAOil] + rate[MMAWaterFamilier] + rate[MMAOilFamilier]) {
 				(*map).currentCells[position] = MMAOilFamilier;
+			}
+			else {
+				(*map).currentCells[position] = MMANull;
 			}
 		}
 	}
@@ -168,32 +179,38 @@ void stepMap(MMAMap *map) {
 	int mostStableUnstability;
 	int subUnstability;
 	byte currentSubstance;
-	
+
+	int minimumRange = 0 - (*map).range;
+	int maxRange = (*map).range + 1;
+
 	for (int x = 0; x < xMax; x++) {
 		for (int y = 0; y < yMax; y++) {
 			position = x + y * xMax;
-			mostStablePosition = position;
-			mostStableUnstability = MMAUnstableMax;
 			currentSubstance = (*map).currentCells[position];
-			
-			for (int i = -1; i < 2; i++) {
-				for (int j = -1; j < 2; j++) {
-					subPosition = ((x + i + xMax) % xMax) + ((y + j + yMax) % yMax) * xMax;
-					subUnstability = unstabilityInThePosition(map, currentSubstance, subPosition);
-					
-					if (subUnstability < mostStableUnstability) {
-						mostStableUnstability = subUnstability;
-						mostStablePosition = subPosition;
+
+			if (1) {//(currentSubstance != MMANull) {
+				mostStablePosition = position;
+				mostStableUnstability = MMAUnstableMax;
+				
+				for (int i = minimumRange; i < maxRange; i++) {
+					for (int j = minimumRange; j < maxRange; j++) {
+						subPosition = ((x + i + xMax) % xMax) + ((y + j + yMax) % yMax) * xMax;
+						subUnstability = unstabilityInThePosition(map, currentSubstance, subPosition);
+						
+						if (subUnstability < mostStableUnstability) {
+							mostStableUnstability = subUnstability;
+							mostStablePosition = subPosition;
+						}
 					}
 				}
+				
+				(*map).currentCells[position] = (*map).currentCells[mostStablePosition];
+				(*map).currentCells[mostStablePosition] = currentSubstance;
 			}
-			
-			(*map).currentCells[position] = (*map).currentCells[mostStablePosition];
-			(*map).currentCells[mostStablePosition] = currentSubstance;
 		}
 	}
 }
-
+/*
 void stepCell(MMAMap *map, int position) {
 
 	int xMax = (*map).size.width;
@@ -222,7 +239,7 @@ void stepCell(MMAMap *map, int position) {
 	(*map).currentCells[position] = (*map).currentCells[mostStablePosition];
 	(*map).currentCells[mostStablePosition] = currentSubstance;
 }
-
+*/
 
 #pragma mark - Print
 void printMap(MMAMap *map) {

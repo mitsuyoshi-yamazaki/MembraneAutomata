@@ -36,6 +36,13 @@
 {
 	for (NSUInteger i = 0; i < kLBLifeViewControllerRefreshPerCaliculation; i++) {
 		[self.lifeView calculateNextPattern];
+		steps++;
+		
+		if (kLBLifeViewControllerStopAfterNSteps && steps > kLBLifeViewControllerSteps) {
+			self.running = NO;
+			[self.lifeView setNeedsDisplay:YES];
+			break;
+		}
 	}
 	
 	[self.lifeView setNeedsDisplay:YES];
@@ -67,6 +74,8 @@
 		self.startButton.title = @"Start";
 	}
 	
+	steps = 0;
+	
 	//	[self repeat];
 	//	[self performSelector:@selector(repeat) withObject:nil afterDelay:2.0f];
 }
@@ -88,7 +97,10 @@
 		self.startButton.title = @"Start";
 	}
 	
+	steps = 0;
+	
 	[self.lifeView clearCells];
+	[self redraw:self];
 }
 
 
@@ -96,6 +108,10 @@
 {
 	[self.lifeView clearCells];
 	[self.lifeView randomizeCells:50];
+	
+	steps = 0;
+
+	[self redraw:self];
 }
 
 

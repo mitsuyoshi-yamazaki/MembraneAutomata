@@ -13,6 +13,9 @@
 
 #define kLBLifeViewControllerDefaultMapSize		100
 
+#define kLBLifeViewControllerStopAfterNSteps	1
+#define kLBLifeViewControllerSteps				100
+
 @class LBLifeView;
 
 @interface LBLifeViewController : NSViewController {
@@ -26,6 +29,8 @@
 	NSTextFieldCell *opcodeFieldCell;
 	
 	BOOL running;
+	
+	NSUInteger steps;
 }
 
 @property (nonatomic, retain) IBOutlet LBLifeView *lifeView;
