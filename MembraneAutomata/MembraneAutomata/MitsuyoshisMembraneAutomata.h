@@ -16,8 +16,8 @@
 typedef unsigned char byte;
 
 struct MMASize {
-	int x;
-	int y;
+	int width;
+	int height;
 };
 typedef struct MMASize MMASize;
 

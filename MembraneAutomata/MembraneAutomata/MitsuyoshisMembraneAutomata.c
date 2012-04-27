@@ -18,8 +18,8 @@ int unstabilityBetween(byte, byte);
 MMASize suitableSize(MMASize size) {
 	MMASize newSize;
 	
-	newSize.x = ((unsigned long)(size.x / 2)) * 2;
-	newSize.y = ((unsigned long)(size.y / 2)) * 2;
+	newSize.width = ((unsigned long)(size.width / 2)) * 2;
+	newSize.height = ((unsigned long)(size.height / 2)) * 2;
 	
 	return newSize;
 }
@@ -81,8 +81,8 @@ int unstabilityBetween(byte substanceA, byte substanceB) {
 MMASize MMASizeMake(int x, int y) {
 	MMASize size;
 	
-	size.x = x;
-	size.y = y;
+	size.width = x;
+	size.height = y;
 	return size;
 }
 
@@ -91,7 +91,7 @@ void MMAMapInitialize(MMAMap *map, MMASize size) {
 	(*map).size = suitableSize(size);
 
 //	(*map).previousCells = (byte *)malloc(sizeof(byte) * (*map).size.x * (*map).size.y);
-	(*map).currentCells = (byte *)malloc(sizeof(byte) * (*map).size.x * (*map).size.y);
+	(*map).currentCells = (byte *)malloc(sizeof(byte) * (*map).size.width * (*map).size.height);
 	
 	clearMap(map);
 }
@@ -99,8 +99,8 @@ void MMAMapInitialize(MMAMap *map, MMASize size) {
 
 void clearMap(MMAMap *map) {
 	
-	int xMax = (*map).size.x;
-	int yMax = (*map).size.y;
+	int xMax = (*map).size.width;
+	int yMax = (*map).size.height;
 	int position = 0;
 	
 	for (int x = 0; x < xMax; x++) {
@@ -119,8 +119,8 @@ void MMAMapDelete(MMAMap *map) {
 #pragma mark - Execution
 void step(MMAMap *map) {
 	
-	int xMax = (*map).size.x;
-	int yMax = (*map).size.y;
+	int xMax = (*map).size.width;
+	int yMax = (*map).size.height;
 	int position = 0;
 	int subPosition = 0;
 	int mostStablePosition = 0;

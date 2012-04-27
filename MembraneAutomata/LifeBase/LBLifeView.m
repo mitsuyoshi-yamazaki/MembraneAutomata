@@ -38,13 +38,7 @@
 {
 	CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
 		
-	
-	CGFloat constant = sqrtf(self.memorySize / (self.bounds.size.width * 4 * self.bounds.size.height));
-	
-	NSUInteger width = constant * self.bounds.size.width * 4;
-	NSUInteger height = constant * self.bounds.size.height;
-	
-	CGSize gridSize = CGSizeMake(1 / (4 * constant), (height / ((height + 1) * constant)));
+	CGSize gridSize = CGSizeMake(self.bounds.size.width / map.size.width,);
 	CGFloat margin = kLBLifeViewCellMargin * gridSize.width;
 	CGSize cellSize = CGSizeMake(gridSize.width - margin, gridSize.height - margin);
 	
