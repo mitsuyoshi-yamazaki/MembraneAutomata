@@ -192,6 +192,7 @@ void step(MMAMap *map) {
 
 #pragma mark - Print
 void printMap(MMAMap *map) {
+	
 	int xMax = (*map).size.width;
 	int yMax = (*map).size.height;
 	int position = 0;
@@ -208,4 +209,36 @@ void printMap(MMAMap *map) {
 	}
 }
 
+void countSubstances(MMAMap *map) {
+	
+	int xMax = (*map).size.width;
+	int yMax = (*map).size.height;
+	int position = 0;
+	
+	int water	= 0;
+	int oil		= 0; 
+	int wFamilier = 0;
+	int oFamilier = 0;
+	
+	printf("\nCount substances\n");
+	
+	for (int y = 0; y < yMax; y++) {
+		for (int x = 0; x < xMax; x++) {
+			position = x + y * xMax;
+			
+			switch ((*map).currentCells[position]) {
+				case MMAWater:	water++;	break;
+				case MMAOil:	oil++;		break;
+				case MMAWaterFamilier:	wFamilier++;	break;
+				case MMAOilFamilier:	oFamilier++;	break;
+				default:	break;
+			}
+		}
+	}
+
+	printf("Water  : %5d\n", water);
+	printf("Oil    : %5d\n", oil);
+	printf("wFamil : %5d\n", wFamilier);
+	printf("oFamil : %5d\n", oFamilier);
+}
 

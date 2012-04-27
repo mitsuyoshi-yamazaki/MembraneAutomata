@@ -101,6 +101,7 @@
 }
 
 - (void)calculateNextPattern {
+//	countSubstances(&map);
 	step(&map);
 }
 

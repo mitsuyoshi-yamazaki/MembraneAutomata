@@ -42,3 +42,4 @@ void randomizeMap(MMAMap *, unsigned int, unsigned int, unsigned int, unsigned i
 
 void step(MMAMap *);
 void printMap(MMAMap *);
+void countSubstances(MMAMap *);
