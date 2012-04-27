@@ -25,7 +25,6 @@ struct MMACell {
 typedef struct MMACell MMACell;
 
 struct MMAMap {
-	byte rule;
 	MMASize size;
 	byte *currentCells;
 	byte *previousCells;
@@ -33,7 +32,7 @@ struct MMAMap {
 typedef struct MMAMap MMAMap;
 
 MMASize MMASizeMake(unsigned long, unsigned long);
-void MMAMapInitialize(MMAMap *,byte, MMASize);
+void MMAMapInitialize(MMAMap *, MMASize);
 
 void step(MMAMap *);
 void clearMap(MMAMap *);

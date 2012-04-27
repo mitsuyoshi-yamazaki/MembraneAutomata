@@ -19,9 +19,8 @@ MMASize MMASizeMake(unsigned long x, unsigned long y) {
 	return size;
 }
 
-void MMAMapInitialize(MMAMap *map, byte rule, MMASize size) {	
+void MMAMapInitialize(MMAMap *map, MMASize size) {	
 	
-	(*map).rule = rule;
 	(*map).size = size;
 
 	(*map).previousCells = (byte *)malloc(sizeof(byte) * (*map).size.x * (*map).size.y);
@@ -31,7 +30,16 @@ void MMAMapInitialize(MMAMap *map, byte rule, MMASize size) {
 #pragma mark - Execution
 void step(MMAMap *map) {
 	
+	int xMax = (*map).size.x;
+	int yMax = (*map).size.y;
+	int position = 0;
 	
+	for (int x = 0; x < xMax; x++) {
+		for (int y = 0; y < yMax; y++) {
+			position = x + y * xMax;
+
+		}
+	}
 }
 
 void clearMap(MMAMap *map) {
