@@ -40,6 +40,7 @@ void MMAMapDelete(MMAMap *);
 void clearMap(MMAMap *);
 void randomizeMap(MMAMap *, unsigned int, unsigned int, unsigned int, unsigned int);
 
-void step(MMAMap *);
+void stepMap(MMAMap *);
+void stepCell(MMAMap *, int);
 void printMap(MMAMap *);
 void countSubstances(MMAMap *);

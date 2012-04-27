@@ -51,19 +51,19 @@
 			
 			switch (map.currentCells[position]) {
 				case MMAWater:
-					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.3f, 0.3f, 1.0f, 0.8f));
+					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.3f, 0.3f, 1.0f, 0.8f));	// Blue
 					break;
 					
 				case MMAOil:
-					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(1.0f, 0.3f, 0.3f, 0.8f));
+					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(1.0f, 0.3f, 0.3f, 0.8f));	// Red
 					break;
 					
 				case MMAWaterFamilier:
-					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.1f, 1.0f, 0.4f, 0.8f));
+					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.1f, 1.0f, 0.4f, 0.8f));	// Green
 					break;
 					
 				case MMAOilFamilier:
-					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.8f, 0.8f, 0.1f, 0.8f));
+					CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.8f, 0.8f, 0.1f, 0.8f));	// Yellow
 					break;
 					
 				default:
@@ -85,7 +85,12 @@
 	
 	map = aMap;
 	MMAMapInitialize(&map, MMASizeMake(size, height));
-	randomizeMap(&map, 5, 5, 2, 2);
+	randomizeMap(&map, 5, 5, 1, 1);
+	
+//	map.currentCells[3 + 30] = MMAOil;
+//	map.currentCells[2 + 10] = MMAOil;
+//	map.currentCells[3 + 10] = MMAOil;
+//	map.currentCells[4 + 10] = MMAOil;
 	
 	[self setNeedsDisplay:YES];
 }
@@ -102,7 +107,7 @@
 
 - (void)calculateNextPattern {
 //	countSubstances(&map);
-	step(&map);
+	stepMap(&map);
 }
 
 

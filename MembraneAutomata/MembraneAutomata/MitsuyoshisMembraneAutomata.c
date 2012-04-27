@@ -11,19 +11,8 @@
 #include <time.h>
 #include "MitsuyoshisMembraneAutomata.h"
 
-MMASize suitableSize(MMASize);
-
 int unstabilityBetween(byte, byte);
-//int unstabilityBetween(byte, byte);
-
-MMASize suitableSize(MMASize size) {
-	MMASize newSize;
-	
-	newSize.width = ((unsigned long)(size.width / 2)) * 2;
-	newSize.height = ((unsigned long)(size.height / 2)) * 2;
-	
-	return newSize;
-}
+int unstabilityInThePosition(MMAMap *, byte, int);
 
 #pragma mark - Calculate Stability
 int unstabilityBetween(byte substanceA, byte substanceB) {
@@ -71,11 +60,27 @@ int unstabilityBetween(byte substanceA, byte substanceB) {
 	
 	return 0;
 }
-/*
-int unstabilityBetween(byte substanceA, byte substanceB) {
+
+int unstabilityInThePosition(MMAMap *map, byte substance, int position) {
 	
+	int xMax = (*map).size.width;
+	int yMax = (*map).size.height;
+	int x = position % xMax;
+	int y = position / xMax;
+
+	int subPosition;
+	int unstability = 0;
+	
+	for (int i = -1; i < 2; i++) {
+		for (int j = -1; j < 2; j++) {
+			subPosition = ((x + i + xMax) % xMax) + ((y + j + yMax) % yMax) * xMax;
+
+			unstability += unstabilityBetween(substance, (*map).currentCells[subPosition]);
+		}
+	}
+
+	return unstability;
 }
-*/
 
 
 #pragma mark - Map Initializer
@@ -89,7 +94,7 @@ MMASize MMASizeMake(int x, int y) {
 
 void MMAMapInitialize(MMAMap *map, MMASize size) {	
 	
-	(*map).size = suitableSize(size);
+	(*map).size = size;
 
 //	(*map).previousCells = (byte *)malloc(sizeof(byte) * (*map).size.x * (*map).size.y);
 	(*map).currentCells = (byte *)malloc(sizeof(byte) * (*map).size.width * (*map).size.height);
@@ -153,7 +158,7 @@ void randomizeMap(MMAMap *map, unsigned int water, unsigned int oil, unsigned in
 
 
 #pragma mark - Execution
-void step(MMAMap *map) {
+void stepMap(MMAMap *map) {
 	
 	int xMax = (*map).size.width;
 	int yMax = (*map).size.height;
@@ -174,7 +179,7 @@ void step(MMAMap *map) {
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
 					subPosition = ((x + i + xMax) % xMax) + ((y + j + yMax) % yMax) * xMax;
-					subUnstability = unstabilityBetween(currentSubstance, (*map).currentCells[subPosition]);
+					subUnstability = unstabilityInThePosition(map, currentSubstance, subPosition);
 					
 					if (subUnstability < mostStableUnstability) {
 						mostStableUnstability = subUnstability;
@@ -187,6 +192,35 @@ void step(MMAMap *map) {
 			(*map).currentCells[mostStablePosition] = currentSubstance;
 		}
 	}
+}
+
+void stepCell(MMAMap *map, int position) {
+
+	int xMax = (*map).size.width;
+	int yMax = (*map).size.height;
+	int x = position % xMax;
+	int y = position / xMax;
+	
+	int mostStablePosition = position;
+	int mostStableUnstability = MMAUnstableMax;
+	byte currentSubstance = (*map).currentCells[position];
+	int subPosition = 0;
+	int subUnstability;
+
+	for (int i = -1; i < 2; i++) {
+		for (int j = -1; j < 2; j++) {
+			subPosition = ((x + i + xMax) % xMax) + ((y + j + yMax) % yMax) * xMax;
+			subUnstability = unstabilityBetween(currentSubstance, (*map).currentCells[subPosition]);
+			
+			if (subUnstability < mostStableUnstability) {
+				mostStableUnstability = subUnstability;
+				mostStablePosition = subPosition;
+			}
+		}
+	}
+	
+	(*map).currentCells[position] = (*map).currentCells[mostStablePosition];
+	(*map).currentCells[mostStablePosition] = currentSubstance;
 }
 
 
