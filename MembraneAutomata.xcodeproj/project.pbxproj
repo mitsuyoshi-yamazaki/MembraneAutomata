@@ -21,14 +21,15 @@
 		2CF581DC154AB252004CF830 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		2CF581DD154AB252004CF830 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2CF581DE154AB252004CF830 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		2CF581E1154AB252004CF830 /* MembraneAutomata-Info.plist */ = {isa = PBXFileReference; path = "MembraneAutomata-Info.plist"; sourceTree = "<group>"; };
+		2CF581E1154AB252004CF830 /* MembraneAutomata-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MembraneAutomata-Info.plist"; sourceTree = "<group>"; };
 		2CF581E3154AB252004CF830 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2CF581E5154AB252004CF830 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		2CF581E7154AB252004CF830 /* MembraneAutomata-Prefix.pch */ = {isa = PBXFileReference; path = "MembraneAutomata-Prefix.pch"; sourceTree = "<group>"; };
+		2CF581E7154AB252004CF830 /* MembraneAutomata-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MembraneAutomata-Prefix.pch"; sourceTree = "<group>"; };
 		2CF581E9154AB252004CF830 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		2CF581EB154AB252004CF830 /* MMAAppDelegate.h */ = {isa = PBXFileReference; path = MMAAppDelegate.h; sourceTree = "<group>"; };
+		2CF581EB154AB252004CF830 /* MMAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMAAppDelegate.h; sourceTree = "<group>"; };
 		2CF581EC154AB252004CF830 /* MMAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMAAppDelegate.m; sourceTree = "<group>"; };
 		2CF581EF154AB253004CF830 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		2CF581F7154AB281004CF830 /* MitsuyoshisMembraneAutomata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MitsuyoshisMembraneAutomata.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +86,7 @@
 				2CF581EB154AB252004CF830 /* MMAAppDelegate.h */,
 				2CF581EC154AB252004CF830 /* MMAAppDelegate.m */,
 				2CF581EE154AB253004CF830 /* MainMenu.xib */,
+				2CF581F6154AB270004CF830 /* MembraneAutomata */,
 				2CF581E0154AB252004CF830 /* Supporting Files */,
 			);
 			path = MembraneAutomata;
@@ -100,6 +102,14 @@
 				2CF581E8154AB252004CF830 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2CF581F6154AB270004CF830 /* MembraneAutomata */ = {
+			isa = PBXGroup;
+			children = (
+				2CF581F7154AB281004CF830 /* MitsuyoshisMembraneAutomata.h */,
+			);
+			path = MembraneAutomata;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
