@@ -41,3 +41,4 @@ void clearMap(MMAMap *);
 void randomizeMap(MMAMap *, unsigned int, unsigned int, unsigned int, unsigned int);
 
 void step(MMAMap *);
+void printMap(MMAMap *);

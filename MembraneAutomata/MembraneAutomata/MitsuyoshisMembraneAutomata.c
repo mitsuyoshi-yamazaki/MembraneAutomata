@@ -189,3 +189,23 @@ void step(MMAMap *map) {
 	}
 }
 
+
+#pragma mark - Print
+void printMap(MMAMap *map) {
+	int xMax = (*map).size.width;
+	int yMax = (*map).size.height;
+	int position = 0;
+
+	printf("\nPrint map\n");
+	
+	for (int y = 0; y < yMax; y++) {
+		for (int x = 0; x < xMax; x++) {
+			position = x + y * xMax;
+			
+			printf("%d ", (*map).currentCells[position]);
+		}
+		printf("\n");
+	}
+}
+
+
