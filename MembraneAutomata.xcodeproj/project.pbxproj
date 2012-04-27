@@ -17,6 +17,7 @@
 		2CF5820F154AE6BA004CF830 /* LBLifeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF5820A154AE6BA004CF830 /* LBLifeView.m */; };
 		2CF58210154AE6BA004CF830 /* LBLifeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF5820C154AE6BA004CF830 /* LBLifeViewController.m */; };
 		2CF58211154AE6BA004CF830 /* LBLifeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF5820D154AE6BA004CF830 /* LBLifeViewController.xib */; };
+		2CF58214154AEE88004CF830 /* LBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF58213154AE6C6004CF830 /* LBAppDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -205,6 +206,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CF58214154AEE88004CF830 /* LBAppDelegate.m in Sources */,
 				2CF581E6154AB252004CF830 /* main.m in Sources */,
 				2CF581ED154AB252004CF830 /* MMAAppDelegate.m in Sources */,
 				2CF581F9154AC351004CF830 /* MitsuyoshisMembraneAutomata.c in Sources */,
