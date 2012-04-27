@@ -11,6 +11,8 @@
 #define kLBLifeViewControllerRefreshTimeInterval	0.1f
 #define kLBLifeViewControllerRefreshPerCaliculation	1
 
+#define kLBLifeViewControllerDefaultMapSize		200
+
 @class LBLifeView;
 
 @interface LBLifeViewController : NSViewController {

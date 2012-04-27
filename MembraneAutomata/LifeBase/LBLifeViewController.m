@@ -56,7 +56,7 @@
 
 - (void)initializeLifeView
 {
-	[self.lifeView initializeCells:8];
+	[self.lifeView initializeCells:kLBLifeViewControllerDefaultMapSize];
 	
 	self.running = NO;
 	
