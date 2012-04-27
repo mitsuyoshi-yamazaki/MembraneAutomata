@@ -12,7 +12,7 @@
 
 MMASize suitableSize(MMASize);
 
-int stabilityBetween(byte, byte);
+int unstabilityBetween(byte, byte);
 //int unstabilityBetween(byte, byte);
 
 MMASize suitableSize(MMASize size) {
@@ -25,7 +25,7 @@ MMASize suitableSize(MMASize size) {
 }
 
 #pragma mark - Calculate Stability
-int stabilityBetween(byte substanceA, byte substanceB) {
+int unstabilityBetween(byte substanceA, byte substanceB) {
 	
 	switch (substanceA) {
 		case MMAWater:
@@ -90,7 +90,7 @@ void MMAMapInitialize(MMAMap *map, MMASize size) {
 	
 	(*map).size = suitableSize(size);
 
-	(*map).previousCells = (byte *)malloc(sizeof(byte) * (*map).size.x * (*map).size.y);
+//	(*map).previousCells = (byte *)malloc(sizeof(byte) * (*map).size.x * (*map).size.y);
 	(*map).currentCells = (byte *)malloc(sizeof(byte) * (*map).size.x * (*map).size.y);
 }
 
@@ -104,7 +104,7 @@ void clearMap(MMAMap *map) {
 	for (int x = 0; x < xMax; x++) {
 		for (int y = 0; y < yMax; y++) {
 			position = x + y * xMax;
-			(*map).previousCells[position] = MMAWater;
+//			(*map).previousCells[position] = MMAWater;
 			(*map).currentCells[position] = MMAWater;
 		}
 	}
@@ -116,11 +116,34 @@ void step(MMAMap *map) {
 	int xMax = (*map).size.x;
 	int yMax = (*map).size.y;
 	int position = 0;
+	int subPosition = 0;
+	int mostStablePosition = 0;
+	int mostStableUnstability;
+	int subUnstability;
+	byte currentSubstance;
 	
 	for (int x = 0; x < xMax; x++) {
 		for (int y = 0; y < yMax; y++) {
 			position = x + y * xMax;
+			mostStablePosition = position;
+			mostStableUnstability = MMAUnstableMax;
+			currentSubstance = (*map).currentCells[position];
 			
+			for (int i = -1; i < 2; i++) {
+				for (int j = -1; j < 2; j++) {
+					subPosition = ((x + i + xMax) % xMax) + ((y + j + yMax) % yMax) * xMax;
+					subUnstability = unstabilityBetween(currentSubstance, (*map).currentCells[subPosition]);
+					
+					if (subUnstability < mostStableUnstability) {
+						mostStableUnstability = subUnstability;
+						mostStablePosition = subPosition;
+					}
+				}
+			}
+			
+			(*map).currentCells[position] = (*map).currentCells[mostStablePosition];
+			(*map).currentCells[mostStablePosition] = currentSubstance;
 		}
 	}
 }
+

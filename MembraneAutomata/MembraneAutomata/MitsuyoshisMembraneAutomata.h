@@ -11,6 +11,8 @@
 #define MMAWaterFamilier	0x02
 #define MMAOilFamilier		0x03
 
+#define MMAUnstableMax	8
+
 typedef unsigned char byte;
 
 struct MMASize {
@@ -27,7 +29,7 @@ typedef struct MMACell MMACell;
 struct MMAMap {
 	MMASize size;
 	byte *currentCells;
-	byte *previousCells;
+//	byte *previousCells;
 };
 typedef struct MMAMap MMAMap;
 
