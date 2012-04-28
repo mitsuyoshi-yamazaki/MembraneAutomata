@@ -13,5 +13,7 @@ char* ruleDescription(MMARule);
 char* ruleNameOfMap(MMAMap *);
 char* ruleDescriptionOfMap(MMAMap *);
 
+void stepMap(MMAMap *);
+
 void stepInRuleExchanging(MMAMap *);
 void stepInRuleAutomata(MMAMap *);

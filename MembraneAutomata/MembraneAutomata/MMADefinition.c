@@ -9,11 +9,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <string.h>
 #include <math.h>
 #include "MMADefinition.h"
-
-void copyCells(MMAMap *);
 
 #pragma mark - Calculate Stability
 int unstabilityBetween(byte substanceA, byte substanceB) {
@@ -197,64 +194,6 @@ void frameWith(MMAMap *map, byte substance, int margin) {
 	}
 }
 
-
-#pragma mark - Execution
-void copyCells(MMAMap *map) {
-	memcpy((*map).previousCells, (*map).currentCells, (*map).size.width * (*map).size.height * sizeof(byte));
-}
-
-void stepMap(MMAMap *map) {
-	
-	switch ((*map).rule) {
-		case MMARuleExchange:
-			
-			break;
-			
-		case MMARuleAutomata:
-			copyCells(map);
-			
-			break;
-			
-		case MMARuleAtomSet:
-			
-			break;
-			
-		default:
-			break;
-	}
-}
-
-
-/*
- void stepCell(MMAMap *map, int position) {
- 
- int xMax = (*map).size.width;
- int yMax = (*map).size.height;
- int x = position % xMax;
- int y = position / xMax;
- 
- int mostStablePosition = position;
- int mostStableUnstability = MMAUnstableMax;
- byte currentSubstance = (*map).currentCells[position];
- int subPosition = 0;
- int subUnstability;
- 
- for (int i = -1; i < 2; i++) {
- for (int j = -1; j < 2; j++) {
- subPosition = ((x + i + xMax) % xMax) + ((y + j + yMax) % yMax) * xMax;
- subUnstability = unstabilityBetween(currentSubstance, (*map).currentCells[subPosition]);
- 
- if (subUnstability < mostStableUnstability) {
- mostStableUnstability = subUnstability;
- mostStablePosition = subPosition;
- }
- }
- }
- 
- (*map).currentCells[position] = (*map).currentCells[mostStablePosition];
- (*map).currentCells[mostStablePosition] = currentSubstance;
- }
- */
 
 #pragma mark - Print
 void printMap(MMAMap *map) {

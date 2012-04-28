@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "MMARule.h"
 
 #define MMARuleNameExchange	"Exchange"
@@ -18,6 +19,7 @@
 #define MMARuleDescriptionAutomata	"It changes cell statuses like cellular automata. Oil drops and membrane appear. Works well"
 #define MMARuleDescriptionAtomSet	"Now working"
 
+void copyCells(MMAMap *);
 
 #pragma mark - Rule Name and Description
 char* ruleName(MMARule rule) {
@@ -60,6 +62,33 @@ char* ruleNameOfMap(MMAMap *map) {
 
 char* ruleDescriptionOfMap(MMAMap *map) {
 	return ruleDescription((*map).rule);
+}
+
+
+#pragma mark - Execution
+void copyCells(MMAMap *map) {
+	memcpy((*map).previousCells, (*map).currentCells, (*map).size.width * (*map).size.height * sizeof(byte));
+}
+
+void stepMap(MMAMap *map) {
+	
+	switch ((*map).rule) {
+		case MMARuleExchange:
+			stepInRuleExchanging(map);
+			break;
+			
+		case MMARuleAutomata:
+			copyCells(map);
+			stepInRuleAutomata(map);
+			break;
+			
+		case MMARuleAtomSet:
+			
+			break;
+			
+		default:
+			break;
+	}
 }
 
 

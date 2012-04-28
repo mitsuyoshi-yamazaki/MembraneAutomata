@@ -57,8 +57,6 @@ void clearMap(MMAMap *);
 void randomizeMap(MMAMap *, int *);
 void frameWith(MMAMap *, byte, int);
 
-void stepMap(MMAMap *);
-//void stepCell(MMAMap *, int);
 void printMap(MMAMap *);
 void countSubstances(MMAMap *);
 
