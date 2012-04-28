@@ -22,11 +22,8 @@
 	LBLifeView *lifeView;
 	
 	NSButton *startButton;
-	NSTextFieldCell *pointerFieldCell;
-	NSTextFieldCell *registerFieldCell;
-	NSTextFieldCell *executionFlagFieldCell;
-	NSTextFieldCell *errorFlagFieldCell;
-	NSTextFieldCell *opcodeFieldCell;
+	NSTextFieldCell *rangeField;
+	NSTextFieldCell *ruleField;
 	
 	BOOL running;
 	
@@ -35,11 +32,8 @@
 
 @property (nonatomic, retain) IBOutlet LBLifeView *lifeView;
 @property (nonatomic, retain) IBOutlet NSButton *startButton;
-@property (nonatomic, retain) IBOutlet NSTextFieldCell *pointerFieldCell;
-@property (nonatomic, retain) IBOutlet NSTextFieldCell *registerFieldCell;
-@property (nonatomic, retain) IBOutlet NSTextFieldCell *executionFlagFieldCell;
-@property (nonatomic, retain) IBOutlet NSTextFieldCell *errorFlagFieldCell;
-@property (nonatomic, retain) IBOutlet NSTextFieldCell *opcodeFieldCell;
+@property (nonatomic, retain) IBOutlet NSTextFieldCell *rangeField;
+@property (nonatomic, retain) IBOutlet NSTextFieldCell *ruleField;
 
 - (void)redrawLifeView;
 - (void)repeat;

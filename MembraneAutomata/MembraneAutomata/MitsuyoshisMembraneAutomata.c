@@ -366,3 +366,7 @@ void countSubstances(MMAMap *map) {
 	printf("oFamil : %5d\n", oFamilier);
 }
 
+char* ruleName() {
+	char *rule = MMARuleAutomata;
+	return rule;
+}

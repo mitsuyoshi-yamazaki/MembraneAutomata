@@ -23,11 +23,8 @@
 @synthesize lifeView;
 @synthesize startButton;
 @synthesize running;
-@synthesize pointerFieldCell;
-@synthesize registerFieldCell;
-@synthesize executionFlagFieldCell;
-@synthesize errorFlagFieldCell;
-@synthesize opcodeFieldCell;
+@synthesize rangeField;
+@synthesize ruleField;
 
 
 #pragma mark - behavior
@@ -64,6 +61,9 @@
 - (void)initializeLifeView
 {
 	[self.lifeView initializeCells:kLBLifeViewControllerDefaultMapSize];
+	
+	self.rangeField.title = [NSString stringWithFormat:@"Range: %d", self.lifeView.range];
+	self.ruleField.title = [NSString stringWithFormat:@"Rule: %@", self.lifeView.rule];
 	
 	self.running = NO;
 	
@@ -160,11 +160,9 @@
 {
 	self.lifeView = nil;
 	self.startButton = nil;
-    self.pointerFieldCell = nil;
-	self.registerFieldCell = nil;
-	self.executionFlagFieldCell = nil;
-	self.errorFlagFieldCell = nil;
-	self.opcodeFieldCell = nil;
+	
+	self.rangeField = nil;
+	self.ruleField = nil;
 	
     [super dealloc];
 }

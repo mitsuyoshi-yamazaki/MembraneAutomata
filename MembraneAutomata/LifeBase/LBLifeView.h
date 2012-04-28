@@ -19,4 +19,7 @@
 
 - (void)initializeCells:(NSUInteger)size;
 
+- (NSString *)rule;
+- (NSUInteger)range;
+
 @end

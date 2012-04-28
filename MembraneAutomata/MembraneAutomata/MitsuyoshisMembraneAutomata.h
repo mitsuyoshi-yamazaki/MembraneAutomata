@@ -14,6 +14,9 @@
 
 #define MMAUnstableMax	8
 
+#define MMARuleExchange	"Exchange"
+#define MMARuleAutomata	"Automata"
+
 typedef unsigned char byte;
 
 struct MMASize {
@@ -46,3 +49,5 @@ void stepMap(MMAMap *);
 //void stepCell(MMAMap *, int);
 void printMap(MMAMap *);
 void countSubstances(MMAMap *);
+
+char* ruleName();

@@ -174,4 +174,14 @@
 }
 
 
+#pragma mark - Behavior
+- (NSString *)rule {
+	return [NSString stringWithCString:ruleName() encoding:NSUTF8StringEncoding];
+}
+
+- (NSUInteger)range {
+	return map.range;
+}
+
+
 @end
