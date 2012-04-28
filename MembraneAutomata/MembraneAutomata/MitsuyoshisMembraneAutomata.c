@@ -9,10 +9,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 #include "MitsuyoshisMembraneAutomata.h"
 
 int unstabilityBetween(byte, byte);
 int unstabilityInThePosition(MMAMap *, byte, int);
+
+void stepInRuleExchanging(MMAMap *);
+void stepInRuleAutomata(MMAMap *);
+
+void copyCells(MMAMap *);
 
 #pragma mark - Calculate Stability
 int unstabilityBetween(byte substanceA, byte substanceB) {
@@ -104,7 +110,7 @@ void MMAMapInitialize(MMAMap *map, MMASize size) {
 	(*map).range = 1;
 	(*map).size = size;
 
-//	(*map).previousCells = (byte *)malloc(sizeof(byte) * (*map).size.x * (*map).size.y);
+	(*map).previousCells = (byte *)malloc(sizeof(byte) * (*map).size.width * (*map).size.height);
 	(*map).currentCells = (byte *)malloc(sizeof(byte) * (*map).size.width * (*map).size.height);
 	
 	clearMap(map);
@@ -112,6 +118,7 @@ void MMAMapInitialize(MMAMap *map, MMASize size) {
 
 void MMAMapDelete(MMAMap *map) {
 	free((*map).currentCells);
+	free((*map).previousCells);
 }
 
 
@@ -125,7 +132,7 @@ void clearMap(MMAMap *map) {
 	for (int x = 0; x < xMax; x++) {
 		for (int y = 0; y < yMax; y++) {
 			position = x + y * xMax;
-//			(*map).previousCells[position] = MMAWater;
+			(*map).previousCells[position] = MMAWater;
 			(*map).currentCells[position] = MMAWater;
 		}
 	}
@@ -150,18 +157,23 @@ void randomizeMap(MMAMap *map, int *rate) {
 			
 			if (randomValue < rate[MMAWater]) {
 				(*map).currentCells[position] = MMAWater;
+				(*map).previousCells[position] = MMAWater;
 			}
 			else if (randomValue < rate[MMAWater] + rate[MMAOil]) {
 				(*map).currentCells[position] = MMAOil;
+				(*map).previousCells[position] = MMAOil;
 			}
 			else if (randomValue < rate[MMAWater] + rate[MMAOil] + rate[MMAWaterFamilier]) {
 				(*map).currentCells[position] = MMAWaterFamilier;
+				(*map).previousCells[position] = MMAWaterFamilier;
 			}
 			else if (randomValue < rate[MMAWater] + rate[MMAOil] + rate[MMAWaterFamilier] + rate[MMAOilFamilier]) {
 				(*map).currentCells[position] = MMAOilFamilier;
+				(*map).previousCells[position] = MMAOilFamilier;
 			}
 			else {
 				(*map).currentCells[position] = MMANull;
+				(*map).previousCells[position] = MMANull;
 			}
 		}
 	}
@@ -169,7 +181,16 @@ void randomizeMap(MMAMap *map, int *rate) {
 
 
 #pragma mark - Execution
+void copyCells(MMAMap *map) {
+	memcpy((*map).previousCells, (*map).currentCells, (*map).size.width * (*map).size.height * sizeof(byte));
+}
+
 void stepMap(MMAMap *map) {
+//	stepInRuleExchanging(map);
+	stepInRuleAutomata(map);
+}
+
+void stepInRuleExchanging(MMAMap *map) {
 	
 	int xMax = (*map).size.width;
 	int yMax = (*map).size.height;
@@ -179,15 +200,15 @@ void stepMap(MMAMap *map) {
 	int mostStableUnstability;
 	int subUnstability;
 	byte currentSubstance;
-
+	
 	int minimumRange = 0 - (*map).range;
 	int maxRange = (*map).range + 1;
-
+	
 	for (int x = 0; x < xMax; x++) {
 		for (int y = 0; y < yMax; y++) {
 			position = x + y * xMax;
 			currentSubstance = (*map).currentCells[position];
-
+			
 			if (1) {//(currentSubstance != MMANull) {
 				mostStablePosition = position;
 				mostStableUnstability = MMAUnstableMax;
@@ -210,6 +231,58 @@ void stepMap(MMAMap *map) {
 		}
 	}
 }
+
+void stepInRuleAutomata(MMAMap *map) {
+	
+	copyCells(map);
+	
+	int xMax = (*map).size.width;
+	int yMax = (*map).size.height;
+	int position = 0;
+	int subPosition = 0;
+	
+	int range = (*map).range;
+	int waterCount = 0;
+	int oilCount = 0;
+	int changeCount = range * (range * 2 + 1) + range * 2;
+
+	int minimumRange = 0 - range;
+	int maxRange = range + 1;
+
+	for (int x = 0; x < xMax; x++) {
+		for (int y = 0; y < yMax; y++) {
+			position = x + y * xMax;
+			waterCount = 0;
+			oilCount = 0;
+			
+			for (int i = minimumRange; i < maxRange; i++) {
+				for (int j = minimumRange; j < maxRange; j++) {
+					subPosition = ((x + i + xMax) % xMax) + ((y + j + yMax) % yMax) * xMax;
+					
+					if ((*map).previousCells[subPosition] == MMAWater) {
+						waterCount++;
+					}
+					else {
+						oilCount++;
+					}
+				}
+			}
+			
+			if ((*map).previousCells[position] == MMAWater) {
+				if (oilCount >= changeCount) {
+					(*map).currentCells[position] = MMAOil;
+				}
+			}
+			else {
+				if (waterCount >= changeCount) {
+					(*map).currentCells[position] = MMAWater;
+				}
+			}
+		}
+	}
+}
+
+
 /*
 void stepCell(MMAMap *map, int position) {
 

@@ -10,12 +10,19 @@
 
 @interface LBLifeView ()
 
+- (void)randomizeAsDefault;
+
 @end
 
 @implementation LBLifeView
 
-#pragma mark - Lifecycle
+- (void)randomizeAsDefault {
+	int rate[5] = {0,50,50,0,0};
+	randomizeMap(&map, rate);
+}
 
+
+#pragma mark - Lifecycle
 - (id)initWithFrame:(NSRect)frame
 {
     self = [super initWithFrame:frame];
@@ -93,9 +100,9 @@
 	
 	MMAMapInitialize(&map, MMASizeMake(size, height));
 	
-	map.range = 3;
-	int rate[5] = {8,50,50,10,10};
-	randomizeMap(&map, rate);
+	map.range = 10;
+	[self randomizeAsDefault];
+	
 /*	
 	map.currentCells[50 + 500] = MMANull;
 	map.currentCells[51 + 500] = MMANull;
@@ -158,8 +165,7 @@
 }
 
 - (void)randomizeCells:(NSUInteger)aRate {
-	int rate[5] = {8,50,50,10,10};
-	randomizeMap(&map, rate);
+	[self randomizeAsDefault];
 }
 
 - (void)calculateNextPattern {

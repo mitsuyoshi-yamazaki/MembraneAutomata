@@ -31,7 +31,7 @@ struct MMAMap {
 	int range;
 	MMASize size;
 	byte *currentCells;
-//	byte *previousCells;
+	byte *previousCells;
 };
 typedef struct MMAMap MMAMap;
 
