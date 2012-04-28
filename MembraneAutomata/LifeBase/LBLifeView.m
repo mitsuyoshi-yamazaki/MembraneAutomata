@@ -17,7 +17,7 @@
 @implementation LBLifeView
 
 - (void)randomizeAsDefault {
-	int rate[5] = {0,50,50,0,0};
+	int rate[MMANumberOfSubstance] = {0,50,50,0,0,1};
 	randomizeMap(&map, rate);
 }
 
@@ -100,7 +100,7 @@
 	
 	MMAMapInitialize(&map, MMASizeMake(size, height));
 	
-	map.range = 8;
+	map.range = 1;
 	[self randomizeAsDefault];
 	
 /*	

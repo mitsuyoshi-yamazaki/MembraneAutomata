@@ -146,7 +146,7 @@ void randomizeMap(MMAMap *map, int *rate) {
 	int position = 0;
 	int xMax = (*map).size.width;
 	int yMax = (*map).size.height;
-	int maximum = rate[MMANull] + rate[MMAWater] + rate[MMAOil] + rate[MMAWaterFamilier] + rate[MMAOilFamilier];
+	int maximum = rate[MMANull] + rate[MMAWater] + rate[MMAOil] + rate[MMAWaterFamilier] + rate[MMAOilFamilier] + rate[MMAMembrane];
 	int randomValue = 0;
 	
 	for (int x = 0; x < xMax; x++) {
@@ -170,6 +170,10 @@ void randomizeMap(MMAMap *map, int *rate) {
 			else if (randomValue < rate[MMAWater] + rate[MMAOil] + rate[MMAWaterFamilier] + rate[MMAOilFamilier]) {
 				(*map).currentCells[position] = MMAOilFamilier;
 				(*map).previousCells[position] = MMAOilFamilier;
+			}
+			else if (randomValue < rate[MMAWater] + rate[MMAOil] + rate[MMAWaterFamilier] + rate[MMAOilFamilier] + rate[MMAMembrane]) {
+				(*map).currentCells[position] = MMAMembrane;
+				(*map).previousCells[position] = MMAMembrane;
 			}
 			else {
 				(*map).currentCells[position] = MMANull;
@@ -244,7 +248,10 @@ void stepInRuleAutomata(MMAMap *map) {
 	int range = (*map).range;
 	int waterCount = 0;
 	int oilCount = 0;
-	int changeCount = range * (range * 2 + 1) + range * 2;
+	int membraneCount = 0;
+	int changeThreshold = range * (range * 2 + 1) + range * 2;
+	int membraneMaximum = range * 3 + 1;
+	int membraneThreshold = range * 2;
 
 	int minimumRange = 0 - range;
 	int maxRange = range + 1;
@@ -254,28 +261,59 @@ void stepInRuleAutomata(MMAMap *map) {
 			position = x + y * xMax;
 			waterCount = 0;
 			oilCount = 0;
+			membraneCount = 0;
 			
 			for (int i = minimumRange; i < maxRange; i++) {
 				for (int j = minimumRange; j < maxRange; j++) {
 					subPosition = ((x + i + xMax) % xMax) + ((y + j + yMax) % yMax) * xMax;
-					
-					if ((*map).previousCells[subPosition] == MMAWater) {
-						waterCount++;
-					}
-					else {
-						oilCount++;
+
+					switch ((*map).previousCells[subPosition]) {
+						case MMAWater:
+							waterCount++;
+							break;
+							
+						case MMAOil:
+							oilCount++;
+							break;
+							
+						case MMAMembrane:
+							membraneCount++;
+							break;
+							
+						default:
+							break;
 					}
 				}
 			}
 			
-			if ((*map).previousCells[position] == MMAWater) {
-				if (oilCount >= changeCount) {
-					(*map).currentCells[position] = MMAOil;
-				}
+			if (membraneCount > 0 && membraneCount < membraneMaximum && abs(waterCount - oilCount) <= membraneThreshold) {
+				(*map).currentCells[position] = MMAMembrane;
 			}
 			else {
-				if (waterCount >= changeCount) {
-					(*map).currentCells[position] = MMAWater;
+				switch ((*map).previousCells[position]) {
+					case MMAWater:
+						if (oilCount >= changeThreshold) {
+							(*map).currentCells[position] = MMAOil;
+						}
+						break;
+						
+					case MMAOil:
+						if (waterCount >= changeThreshold) {
+							(*map).currentCells[position] = MMAWater;
+						}
+						break;
+						
+					case MMAMembrane:
+						if (waterCount > oilCount) {
+							(*map).currentCells[position] = MMAWater;
+						}
+						else {
+							(*map).currentCells[position] = MMAOil;
+						}
+						break;
+						
+					default:
+						break;
 				}
 			}
 		}

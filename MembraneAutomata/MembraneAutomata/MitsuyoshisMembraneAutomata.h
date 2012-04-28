@@ -11,6 +11,9 @@
 #define MMAOil		0x02
 #define MMAWaterFamilier	0x03
 #define MMAOilFamilier		0x04
+#define MMAMembrane			0x05
+
+#define MMANumberOfSubstance	6
 
 #define MMAUnstableMax	8
 
