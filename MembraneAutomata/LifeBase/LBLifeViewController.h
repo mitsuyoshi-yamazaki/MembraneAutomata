@@ -11,9 +11,9 @@
 #define kLBLifeViewControllerRefreshTimeInterval	0.1f
 #define kLBLifeViewControllerRefreshPerCaliculation	1
 
-#define kLBLifeViewControllerDefaultMapSize		400
+#define kLBLifeViewControllerDefaultMapSize		600
 
-#define kLBLifeViewControllerStopAfterNSteps	1
+#define kLBLifeViewControllerStopAfterNSteps	0
 #define kLBLifeViewControllerSteps				100
 
 @class LBLifeView;
@@ -24,6 +24,7 @@
 	NSButton *startButton;
 	NSTextFieldCell *rangeField;
 	NSTextFieldCell *ruleField;
+	NSTextFieldCell *stepField;
 	
 	BOOL running;
 	
@@ -34,6 +35,7 @@
 @property (nonatomic, retain) IBOutlet NSButton *startButton;
 @property (nonatomic, retain) IBOutlet NSTextFieldCell *rangeField;
 @property (nonatomic, retain) IBOutlet NSTextFieldCell *ruleField;
+@property (nonatomic, retain) IBOutlet NSTextFieldCell *stepField;
 
 - (void)redrawLifeView;
 - (void)repeat;

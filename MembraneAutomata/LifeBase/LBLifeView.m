@@ -17,8 +17,9 @@
 @implementation LBLifeView
 
 - (void)randomizeAsDefault {
-	int rate[MMANumberOfSubstance] = {0,50,50,0,0,1};
+	int rate[MMANumberOfSubstance] = {0,1000,1000,0,0,1};
 	randomizeMap(&map, rate);
+	frameWith(&map, MMAWater, map.size.width * 0.01);
 }
 
 
@@ -51,7 +52,7 @@
 	CGFloat gridSize = self.bounds.size.width / width;	
 	
 	NSUInteger position;
-	
+
 	for (NSUInteger y = 0; y < height; y++) {
 		for (NSUInteger x = 0; x < width; x++) {
 			position = x + y * width;
@@ -83,7 +84,12 @@
 						break;
 				}
 
-				CGContextFillEllipseInRect(context, CGRectMake(x * gridSize, y * gridSize, gridSize, gridSize));
+				if (gridSize > 1.0f) {
+					CGContextFillEllipseInRect(context, CGRectMake(x * gridSize, y * gridSize, gridSize, gridSize));
+				}
+				else {
+					CGContextFillRect(context, CGRectMake(x * gridSize, y * gridSize, gridSize, gridSize));
+				}
 			}
 		}
 	}
@@ -100,61 +106,32 @@
 	
 	MMAMapInitialize(&map, MMASizeMake(size, height));
 	
-	map.range = 1;
+	map.range = 4;
 	[self randomizeAsDefault];
 	
-/*	
-	map.currentCells[50 + 500] = MMANull;
-	map.currentCells[51 + 500] = MMANull;
-	map.currentCells[52 + 500] = MMANull;
-	map.currentCells[53 + 500] = MMANull;
-	map.currentCells[54 + 500] = MMANull;
-	map.currentCells[55 + 500] = MMANull;
-	map.currentCells[56 + 500] = MMANull;
-	map.currentCells[50 + 600] = MMANull;
-	map.currentCells[51 + 600] = MMANull;
-	map.currentCells[52 + 600] = MMANull;
-	map.currentCells[53 + 600] = MMANull;
-	map.currentCells[54 + 600] = MMANull;
-	map.currentCells[55 + 600] = MMANull;
-	map.currentCells[56 + 600] = MMANull;
-	map.currentCells[50 + 700] = MMANull;
-	map.currentCells[51 + 700] = MMANull;
-	map.currentCells[52 + 700] = MMANull;
-	map.currentCells[53 + 700] = MMANull;
-	map.currentCells[54 + 700] = MMANull;
-	map.currentCells[55 + 700] = MMANull;
-	map.currentCells[56 + 700] = MMANull;
-	map.currentCells[50 + 800] = MMANull;
-	map.currentCells[51 + 503] = MMANull;
-	map.currentCells[52 + 503] = MMANull;
-	map.currentCells[53 + 503] = MMANull;
-	map.currentCells[54 + 503] = MMANull;
-	map.currentCells[55 + 503] = MMANull;
-	map.currentCells[56 + 503] = MMANull;
-	map.currentCells[50 + 900] = MMANull;
-	map.currentCells[51 + 900] = MMANull;
-	map.currentCells[52 + 900] = MMANull;
-	map.currentCells[53 + 900] = MMANull;
-	map.currentCells[54 + 900] = MMANull;
-	map.currentCells[55 + 900] = MMANull;
-	map.currentCells[56 + 900] = MMANull;
-	map.currentCells[50 + 1000] = MMANull;
-	map.currentCells[51 + 1000] = MMANull;
-	map.currentCells[52 + 1000] = MMANull;
-	map.currentCells[53 + 1000] = MMANull;
-	map.currentCells[54 + 1000] = MMANull;
-	map.currentCells[55 + 1000] = MMANull;
-	map.currentCells[56 + 1000] = MMANull;
-	map.currentCells[50 + 1100] = MMANull;
-	map.currentCells[51 + 1100] = MMANull;
-	map.currentCells[52 + 1100] = MMANull;
-	map.currentCells[53 + 1100] = MMANull;
-	map.currentCells[54 + 1100] = MMANull;
-	map.currentCells[55 + 1100] = MMANull;
-	map.currentCells[56 + 1100] = MMANull;
-*/
+	/*
+	[self clearCells];
 	
+	int xMax = map.size.width;
+	int yMax = map.size.height;
+	
+	for (int x = 0; x < xMax; x++) {
+		for (int y = 0; y < yMax; y++) {
+			map.currentCells[x + y * xMax] = MMAOil;
+			if (y == x) {
+				map.currentCells[x + y * xMax] = MMAMembrane;
+			}
+			else if (y > x) {
+				map.currentCells[x + y * xMax] = MMAWater;
+			}
+		}
+	}
+	
+	int centerPosition = xMax / 2 + ((yMax / 2) - 1) * xMax;
+//	map.currentCells[centerPosition + 0] = MMAMembrane;
+//	map.currentCells[centerPosition + 1] = MMAOil;
+//	map.currentCells[centerPosition + 2] = MMAMembrane;
+	*/
 	[self setNeedsDisplay:YES];
 }
 
@@ -169,7 +146,7 @@
 }
 
 - (void)calculateNextPattern {
-	countSubstances(&map);
+//	countSubstances(&map);
 	stepMap(&map);
 }
 

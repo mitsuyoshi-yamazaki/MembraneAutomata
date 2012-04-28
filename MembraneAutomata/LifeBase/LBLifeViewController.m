@@ -25,6 +25,7 @@
 @synthesize running;
 @synthesize rangeField;
 @synthesize ruleField;
+@synthesize stepField;
 
 
 #pragma mark - behavior
@@ -42,6 +43,7 @@
 		}
 	}
 	
+	self.stepField.title = [NSString stringWithFormat:@"Steps: %d", steps];
 	[self.lifeView setNeedsDisplay:YES];
 }
 
@@ -163,6 +165,7 @@
 	
 	self.rangeField = nil;
 	self.ruleField = nil;
+	self.stepField = nil;
 	
     [super dealloc];
 }

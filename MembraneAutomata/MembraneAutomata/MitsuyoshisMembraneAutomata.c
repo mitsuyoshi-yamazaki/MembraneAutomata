@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <math.h>
 #include "MitsuyoshisMembraneAutomata.h"
 
 int unstabilityBetween(byte, byte);
@@ -178,6 +179,24 @@ void randomizeMap(MMAMap *map, int *rate) {
 			else {
 				(*map).currentCells[position] = MMANull;
 				(*map).previousCells[position] = MMANull;
+			}			
+		}
+	}
+}
+
+void frameWith(MMAMap *map, byte substance, int margin) {
+	
+	int position = 0;
+	int xMax = (*map).size.width;
+	int yMax = (*map).size.height;
+
+	for (int x = 0; x < xMax; x++) {
+		for (int y = 0; y < yMax; y++) {
+			position = x + y * xMax;
+
+			if (x < margin || x > (xMax - margin) || y < margin || y > (yMax - margin)) {
+				(*map).currentCells[position] = substance;
+				(*map).previousCells[position] = substance;
 			}
 		}
 	}
@@ -249,10 +268,16 @@ void stepInRuleAutomata(MMAMap *map) {
 	int waterCount = 0;
 	int oilCount = 0;
 	int membraneCount = 0;
-	int changeThreshold = range * (range * 2 + 1) + range * 2;
+	int oFamilCount = 0;
+	
+	int changeThreshold = (range * (range * 2 + 1)) + (range * 2);
+	
 	int membraneMaximum = range * 3 + 1;
 	int membraneThreshold = range * 2;
 
+	int oFamilMaximum = range * 3;
+	int oFamilThreshold = (int)((range * 2 + 1) * (range * 2 + 1) * 0.6);
+	
 	int minimumRange = 0 - range;
 	int maxRange = range + 1;
 
@@ -262,6 +287,7 @@ void stepInRuleAutomata(MMAMap *map) {
 			waterCount = 0;
 			oilCount = 0;
 			membraneCount = 0;
+			oFamilCount = 0;
 			
 			for (int i = minimumRange; i < maxRange; i++) {
 				for (int j = minimumRange; j < maxRange; j++) {
@@ -280,6 +306,10 @@ void stepInRuleAutomata(MMAMap *map) {
 							membraneCount++;
 							break;
 							
+						case MMAOilFamilier:
+							oFamilCount++;
+							break;
+							
 						default:
 							break;
 					}
@@ -288,6 +318,9 @@ void stepInRuleAutomata(MMAMap *map) {
 			
 			if (membraneCount > 0 && membraneCount < membraneMaximum && abs(waterCount - oilCount) <= membraneThreshold) {
 				(*map).currentCells[position] = MMAMembrane;
+			}
+			else if (oFamilCount > 0 && oFamilCount < oFamilMaximum && oilCount > oFamilThreshold) {
+				(*map).currentCells[position] = MMAOilFamilier;
 			}
 			else {
 				switch ((*map).previousCells[position]) {
@@ -310,6 +343,10 @@ void stepInRuleAutomata(MMAMap *map) {
 						else {
 							(*map).currentCells[position] = MMAOil;
 						}
+						break;
+						
+					case MMAOilFamilier:
+						(*map).currentCells[position] = MMAOil;
 						break;
 						
 					default:
