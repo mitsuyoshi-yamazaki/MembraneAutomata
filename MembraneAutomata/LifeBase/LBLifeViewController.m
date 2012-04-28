@@ -63,10 +63,13 @@
 - (void)initializeLifeView
 {
 	[self.lifeView initializeCells:kLBLifeViewControllerDefaultMapSize];
-	
+
+	steps = 0;
+
 	self.rangeField.title = [NSString stringWithFormat:@"Range: %d", self.lifeView.range];
 	self.ruleField.title = [NSString stringWithFormat:@"Rule: %@", self.lifeView.rule];
-	
+	self.stepField.title = [NSString stringWithFormat:@"Steps: %d", steps];
+
 	self.running = NO;
 	
 	if (self.isRunning) {
@@ -76,7 +79,6 @@
 		self.startButton.title = @"Start";
 	}
 	
-	steps = 0;
 	
 	//	[self repeat];
 	//	[self performSelector:@selector(repeat) withObject:nil afterDelay:2.0f];
@@ -138,8 +140,9 @@
 		self.startButton.title = @"Start";
 	}
 	
+	steps++;
 	[self.lifeView calculateNextPattern];
-	
+	self.stepField.title = [NSString stringWithFormat:@"Steps: %d", steps];
 	
 	[self.lifeView setNeedsDisplay:YES];
 }

@@ -275,7 +275,7 @@ void stepInRuleAutomata(MMAMap *map) {
 	int membraneMaximum = range * 3 + 1;
 	int membraneThreshold = range * 2;
 
-	int oFamilMaximum = range * 3;
+	int oFamilMaximum = range * 2;
 	int oFamilThreshold = (int)((range * 2 + 1) * (range * 2 + 1) * 0.6);
 	
 	int minimumRange = 0 - range;
@@ -316,7 +316,7 @@ void stepInRuleAutomata(MMAMap *map) {
 				}
 			}
 			
-			if (membraneCount > 0 && membraneCount < membraneMaximum && abs(waterCount - oilCount) <= membraneThreshold) {
+			if (membraneCount > 0 && membraneCount < membraneMaximum && abs(waterCount - (oilCount + oFamilCount)) <= membraneThreshold) {
 				(*map).currentCells[position] = MMAMembrane;
 			}
 			else if (oFamilCount > 0 && oFamilCount < oFamilMaximum && oilCount > oFamilThreshold) {
@@ -325,7 +325,7 @@ void stepInRuleAutomata(MMAMap *map) {
 			else {
 				switch ((*map).previousCells[position]) {
 					case MMAWater:
-						if (oilCount >= changeThreshold) {
+						if ((oilCount + oFamilCount) >= changeThreshold) {
 							(*map).currentCells[position] = MMAOil;
 						}
 						break;
@@ -337,7 +337,7 @@ void stepInRuleAutomata(MMAMap *map) {
 						break;
 						
 					case MMAMembrane:
-						if (waterCount > oilCount) {
+						if (waterCount > (oilCount + oFamilCount)) {
 							(*map).currentCells[position] = MMAWater;
 						}
 						else {

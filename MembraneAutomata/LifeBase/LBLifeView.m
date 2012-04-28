@@ -17,7 +17,7 @@
 @implementation LBLifeView
 
 - (void)randomizeAsDefault {
-	int rate[MMANumberOfSubstance] = {0,1000,1000,0,0,1};
+	int rate[MMANumberOfSubstance] = {0,1000,1000,0,2,1};
 	randomizeMap(&map, rate);
 	frameWith(&map, MMAWater, map.size.width * 0.01);
 }
