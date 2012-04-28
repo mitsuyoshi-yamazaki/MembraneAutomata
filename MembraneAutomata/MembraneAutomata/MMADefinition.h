@@ -23,7 +23,7 @@ typedef unsigned char byte;
 typedef enum rule {
 	MMARuleExchange,
 	MMARuleAutomata,
-	MMARuleAtomSet,
+	MMARuleRuleSet,
 }MMARule;
 
 struct MMASize {

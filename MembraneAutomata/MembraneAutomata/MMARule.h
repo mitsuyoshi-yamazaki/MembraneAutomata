@@ -6,7 +6,8 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#include "MMADefinition.h"
+//#include "MMADefinition.h" // included in MMARuleSetSubheader.h
+#include "MMARuleSetSubheader.h"
 
 char* ruleName(MMARule);
 char* ruleDescription(MMARule);
@@ -17,3 +18,4 @@ void stepMap(MMAMap *);
 
 void stepInRuleExchanging(MMAMap *);
 void stepInRuleAutomata(MMAMap *);
+void stepInRuleRuleSet(MMAMap *);

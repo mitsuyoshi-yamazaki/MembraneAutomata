@@ -13,11 +13,11 @@
 
 #define MMARuleNameExchange	"Exchange"
 #define MMARuleNameAutomata	"Automata"
-#define MMARuleNameAtomSet	"Atom Set"
+#define MMARuleNameRuleSet	"Atom Set"
 
 #define MMARuleDescriptionExchange	"It exchanges cell statuses as like real world. Amount of each substances never change. Not very succeeded."
 #define MMARuleDescriptionAutomata	"It changes cell statuses like cellular automata. Oil drops and membrane appear. Works well"
-#define MMARuleDescriptionAtomSet	"Now working"
+#define MMARuleDescriptionRuleSet	"Now working"
 
 void copyCells(MMAMap *);
 
@@ -31,8 +31,8 @@ char* ruleName(MMARule rule) {
 		case MMARuleAutomata:
 			return MMARuleNameAutomata;
 			
-		case MMARuleAtomSet:
-			return MMARuleNameAtomSet;
+		case MMARuleRuleSet:
+			return MMARuleNameRuleSet;
 			
 		default:
 			return NULL;
@@ -48,8 +48,8 @@ char* ruleDescription(MMARule rule) {
 		case MMARuleAutomata:
 			return MMARuleDescriptionAutomata;
 			
-		case MMARuleAtomSet:
-			return MMARuleDescriptionAtomSet;
+		case MMARuleRuleSet:
+			return MMARuleDescriptionRuleSet;
 			
 		default:
 			return NULL;
@@ -82,8 +82,9 @@ void stepMap(MMAMap *map) {
 			stepInRuleAutomata(map);
 			break;
 			
-		case MMARuleAtomSet:
-			
+		case MMARuleRuleSet:
+			copyCells(map);
+			stepInRuleRuleSet(map);
 			break;
 			
 		default:
@@ -234,4 +235,9 @@ void stepInRuleAutomata(MMAMap *map) {
 		}
 	}
 }
+
+void stepInRuleRuleSet(MMAMap *map) {
+	
+}
+
 

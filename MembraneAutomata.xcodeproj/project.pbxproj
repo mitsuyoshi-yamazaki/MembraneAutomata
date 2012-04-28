@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2C8F9B2B154C4FE100D75557 /* MMADefinition.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F9B2A154C4FE000D75557 /* MMADefinition.c */; };
+		2C8F9B2E154C58EC00D75557 /* MMARuleSetSubheader.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F9B2D154C58EC00D75557 /* MMARuleSetSubheader.c */; };
 		2CF581DA154AB252004CF830 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF581D9154AB252004CF830 /* Cocoa.framework */; };
 		2CF581E4154AB252004CF830 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CF581E2154AB252004CF830 /* InfoPlist.strings */; };
 		2CF581E6154AB252004CF830 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF581E5154AB252004CF830 /* main.m */; };
@@ -25,6 +26,8 @@
 /* Begin PBXFileReference section */
 		2C8F9B28154C4FD300D75557 /* MMADefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMADefinition.h; sourceTree = "<group>"; };
 		2C8F9B2A154C4FE000D75557 /* MMADefinition.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MMADefinition.c; sourceTree = "<group>"; };
+		2C8F9B2C154C56CB00D75557 /* MMARuleSetSubheader.h */ = {isa = PBXFileReference; path = MMARuleSetSubheader.h; sourceTree = "<group>"; };
+		2C8F9B2D154C58EC00D75557 /* MMARuleSetSubheader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MMARuleSetSubheader.c; sourceTree = "<group>"; };
 		2CF581D5154AB252004CF830 /* MembraneAutomata.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MembraneAutomata.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CF581D9154AB252004CF830 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		2CF581DC154AB252004CF830 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -131,6 +134,8 @@
 				2CF581F8154AC351004CF830 /* MitsuyoshisMembraneAutomata.c */,
 				2C8F9B28154C4FD300D75557 /* MMADefinition.h */,
 				2C8F9B2A154C4FE000D75557 /* MMADefinition.c */,
+				2C8F9B2C154C56CB00D75557 /* MMARuleSetSubheader.h */,
+				2C8F9B2D154C58EC00D75557 /* MMARuleSetSubheader.c */,
 				2CF58220154C4C08004CF830 /* MMARule.h */,
 				2CF58221154C4C0F004CF830 /* MMARule.c */,
 			);
@@ -224,6 +229,7 @@
 				2CF58210154AE6BA004CF830 /* LBLifeViewController.m in Sources */,
 				2CF58222154C4C0F004CF830 /* MMARule.c in Sources */,
 				2C8F9B2B154C4FE100D75557 /* MMADefinition.c in Sources */,
+				2C8F9B2E154C58EC00D75557 /* MMARuleSetSubheader.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
