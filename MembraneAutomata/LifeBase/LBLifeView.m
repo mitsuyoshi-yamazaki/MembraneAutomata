@@ -100,7 +100,7 @@
 	
 	MMAMapInitialize(&map, MMASizeMake(size, height));
 	
-	map.range = 10;
+	map.range = 8;
 	[self randomizeAsDefault];
 	
 /*	
@@ -169,7 +169,7 @@
 }
 
 - (void)calculateNextPattern {
-//	countSubstances(&map);
+	countSubstances(&map);
 	stepMap(&map);
 }
 
