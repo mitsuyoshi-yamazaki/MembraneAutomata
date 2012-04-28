@@ -153,7 +153,7 @@
 
 #pragma mark - Behavior
 - (NSString *)rule {
-	return [NSString stringWithCString:ruleName() encoding:NSUTF8StringEncoding];
+	return [NSString stringWithCString:ruleNameOfMap(&map) encoding:NSUTF8StringEncoding];
 }
 
 - (NSUInteger)range {

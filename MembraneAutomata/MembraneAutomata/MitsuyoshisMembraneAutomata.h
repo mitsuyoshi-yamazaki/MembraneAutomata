@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#include "MMARule.h"
+
 #define MMANull		0x00
 #define MMAWater	0x01
 #define MMAOil		0x02
@@ -17,8 +19,6 @@
 
 #define MMAUnstableMax	8
 
-#define MMARuleExchange	"Exchange"
-#define MMARuleAutomata	"Automata"
 
 typedef unsigned char byte;
 
@@ -34,6 +34,7 @@ struct MMACell {
 typedef struct MMACell MMACell;
 
 struct MMAMap {
+	MMARule rule;
 	int range;
 	MMASize size;
 	byte *currentCells;
@@ -54,4 +55,5 @@ void stepMap(MMAMap *);
 void printMap(MMAMap *);
 void countSubstances(MMAMap *);
 
-char* ruleName();
+char* ruleNameOfMap(MMAMap *);
+char* ruleDescriptionOfMap(MMAMap *);

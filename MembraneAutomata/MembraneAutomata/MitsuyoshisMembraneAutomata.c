@@ -418,6 +418,7 @@ void countSubstances(MMAMap *map) {
 	int oil		= 0; 
 	int wFamilier = 0;
 	int oFamilier = 0;
+	int membrane = 0;
 	
 	printf("\nCount substances\n");
 	
@@ -430,6 +431,7 @@ void countSubstances(MMAMap *map) {
 				case MMAOil:	oil++;		break;
 				case MMAWaterFamilier:	wFamilier++;	break;
 				case MMAOilFamilier:	oFamilier++;	break;
+				case MMAMembrane:		membrane++;		break;
 				default:	break;
 			}
 		}
@@ -439,9 +441,14 @@ void countSubstances(MMAMap *map) {
 	printf("Oil    : %5d\n", oil);
 	printf("wFamil : %5d\n", wFamilier);
 	printf("oFamil : %5d\n", oFamilier);
+	printf("Membra : %5d\n", membrane);
 }
 
-char* ruleName() {
-	char *rule = MMARuleAutomata;
-	return rule;
+char* ruleNameOfMap(MMAMap *map) {
+	return ruleName((*map).rule);
 }
+
+char* ruleDescriptionOfMap(MMAMap *map) {
+	return ruleDescription((*map).rule);
+}
+
