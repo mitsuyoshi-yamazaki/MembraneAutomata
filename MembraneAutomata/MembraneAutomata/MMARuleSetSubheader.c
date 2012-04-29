@@ -19,19 +19,10 @@ MMARuleSet defaultSet() {
 	MMARuleSet set;
 	int numberOfSubstances = 3;
 	
-	MMASubstance substances[numberOfSubstances];
-	
-	substances[0].code = MMAWater;
-	substances[1].code = MMAOil;
-	substances[2].code = MMAMembrane;
+	MMASubstance substances[numberOfSubstances]; // 消すと動作不良　消すな
 	
 	int amount[numberOfSubstances];
-	
-//	amount[0] = 0;
-//	amount[1] = 0;
-//	amount[2] = 0;
-	
-//	set.rules = substances;
+
 	set.amount = amount;
 	set.ruleCount = numberOfSubstances;
 

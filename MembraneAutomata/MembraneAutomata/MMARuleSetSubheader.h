@@ -16,7 +16,6 @@ struct MMASubstance {
 typedef struct MMASubstance MMASubstance;
 
 struct MMARuleSet {
-//	MMASubstance *rules;
 	int *amount;
 	int ruleCount;
 };
