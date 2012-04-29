@@ -114,7 +114,7 @@ byte isComposed(int range, MMARuleSet *set, byte substance) {
 			int maximum = (range * 3 + 1) * 2;
 			int threshold = (oilCount + (*set).amount[3]) - (waterCount);
 			
-			if ((*set).amount[6] > 0 && membraneCount < maximum && threshold > 0 && threshold < 14 && (*set).amount[4] < 4) {
+			if ((*set).amount[6] > 0 && membraneCount < maximum && threshold > 0 && threshold < 14 && (*set).amount[4] < 3) {
 				return 1;
 			}
 			
