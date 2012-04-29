@@ -54,6 +54,7 @@ int unstabilityBetween(byte, byte);
 int unstabilityInThePosition(MMAMap *, byte, int);
 
 void clearMap(MMAMap *);
+void fillMapWith(MMAMap *, byte);
 void randomizeMap(MMAMap *, int *);
 void frameWith(MMAMap *, byte, int);
 

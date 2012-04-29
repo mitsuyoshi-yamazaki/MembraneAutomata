@@ -117,6 +117,10 @@ void MMAMapDelete(MMAMap *map) {
 
 #pragma mark - Cell Initializer
 void clearMap(MMAMap *map) {
+	fillMapWith(map, 0);
+}
+
+void fillMapWith(MMAMap *map, byte substance) {
 	
 	int xMax = (*map).size.width;
 	int yMax = (*map).size.height;
@@ -125,8 +129,8 @@ void clearMap(MMAMap *map) {
 	for (int x = 0; x < xMax; x++) {
 		for (int y = 0; y < yMax; y++) {
 			position = x + y * xMax;
-			(*map).previousCells[position] = MMAWater;
-			(*map).currentCells[position] = MMAWater;
+			(*map).previousCells[position] = substance;
+			(*map).currentCells[position] = substance;
 		}
 	}
 }

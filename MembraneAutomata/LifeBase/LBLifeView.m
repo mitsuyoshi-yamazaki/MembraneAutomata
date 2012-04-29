@@ -18,7 +18,7 @@
 
 - (void)randomizeAsDefault {
 //	int rate[MMANumberOfSubstance] = {0,1000,1000,0,2,1};	// Rule Automata用
-	int rate[MMANumberOfSubstance] = {1000,1000,1,2,0,0};	// Rule Rule Set用
+	int rate[MMANumberOfSubstance] = {10000,10000,1,10,1,0};	// Rule Rule Set用
 	randomizeMap(&map, rate);
 	frameWith(&map, 0, map.size.width * 0.01);
 }
@@ -69,7 +69,7 @@
 						break;
 						
 					case MMAOil:
-						CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(1.0f, 0.3f, 0.3f, 0.8f));	// Red
+						CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(1.0f, 0.5f, 0.3f, 0.8f));	// Red
 						break;
 						
 					case MMAWaterFamilier:
@@ -77,7 +77,7 @@
 						break;
 						
 					case MMAOilFamilier:
-						CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.8f, 0.8f, 0.1f, 0.8f));	// Yellow
+						CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(1.0f, 0.1f, 0.8f, 0.8f));	// Purple
 						break;
 						
 					default:
@@ -110,6 +110,10 @@
 	map.rule = MMARuleRuleSet;
 	map.range = 4;
 	[self randomizeAsDefault];
+	
+//	fillMapWith(&map, 1);
+//	frameWith(&map, 0, map.size.width * 0.1);
+//	map.currentCells[(int)(map.size.width * 0.1) + (int)(map.size.height * 0.5) * map.size.width] = 4;
 	
 /*	
 	[self clearCells];

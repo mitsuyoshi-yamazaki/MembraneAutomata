@@ -16,7 +16,7 @@ byte decompose(int, MMARuleSet *, byte);
 #pragma mark - 
 void initializeSetAsDefault(MMARuleSet *set) {
 
-	int numberOfSubstances = 4;
+	int numberOfSubstances = 5;
 	
 	(*set).amount = (int *)malloc(sizeof(int) * numberOfSubstances);
 	(*set).ruleCount = numberOfSubstances;
@@ -59,22 +59,38 @@ byte isComposed(int range, MMARuleSet *set, byte substance) {
 			
 			int waterCount = (*set).amount[0];
 			int oilCount = (*set).amount[1];
-			int membraneCount = (*set).amount[2];
+			int membraneCount = (*set).amount[2] + (*set).amount[4];
 			
 			int membraneMaximum = range * 3 + 1;
 			int membraneThreshold = range * 2;
 			
-			if (membraneCount > 0 && membraneCount < membraneMaximum && abs(waterCount - (oilCount  + (*set).amount[3])) <= membraneThreshold) {
+			if ((*set).amount[2] > 0 && membraneCount < membraneMaximum && abs(waterCount - (oilCount  + (*set).amount[3])) <= membraneThreshold) {
 				return 1;
 			}
 			return 0;
 		}
 			
 		case 3:
-			if ((*set).amount[2] > 0 && (*set).amount[2] < range * 2 + 1 && (*set).amount[0] > 0 && (*set).amount[0] < 40) {
+			if ((*set).amount[2] > 0 && (*set).amount[3] > 0 && (*set).amount[2] < range * 2 + 1 && (*set).amount[0] > 0 && (*set).amount[0] < 40) {
 				return 1;
 			}
 			return 0;
+			
+		case 4: {
+			
+			int waterCount = (*set).amount[0];
+			int oilCount = (*set).amount[1];
+			int membraneCount = (*set).amount[2] + (*set).amount[4];
+			
+			int maximum = (range * 3 + 1) * 2;
+			int threshold = waterCount - (oilCount  + (*set).amount[3]);
+			
+			if ((*set).amount[4] > 0 && membraneCount < maximum && threshold > 0 && threshold < 16) {
+				return 1;
+			}
+
+			return 0;
+		}
 			
 		default:
 			return 0;
@@ -115,6 +131,17 @@ byte decompose(int range, MMARuleSet *set, byte target) {
 			if (waterCount == 0 || waterCount >= changeThreshold) {
 				return 1;
 			}
+			break;
+			
+		case 4:
+			if (waterCount > oilCount) {
+				return 0;
+			}
+			else {
+				return 1;
+			}
+			break;
+
 			break;
 			
 		default:
