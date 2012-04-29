@@ -18,8 +18,8 @@
 
 - (void)randomizeAsDefault {
 //	int rate[MMANumberOfSubstance] = {0,1000,1000,0,2,1};	// Rule Automata用
-	int rate[6] = {10000,10000,1,100,1,0};	// Rule Rule Set用
-	randomizeMap(&map, rate, 6);
+	int rate[7] = {10000,10000,1,100,1,0,1};	// Rule Rule Set用
+	randomizeMap(&map, rate, 7);
 	frameWith(&map, 0, map.size.width * 0.01);
 }
 
@@ -78,6 +78,14 @@
 						
 					case MMAOilFamilier:
 						CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(1.0f, 0.1f, 0.8f, 0.8f));	// Purple
+						break;
+						
+					case 5:
+						CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.2f, 0.2f, 0.4f, 0.8f));
+						break;
+						
+					case 6:
+						CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.0f, 0.8f, 1.0f, 0.8f));
 						break;
 						
 					default:
