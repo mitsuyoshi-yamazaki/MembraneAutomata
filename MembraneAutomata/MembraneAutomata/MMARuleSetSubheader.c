@@ -71,8 +71,7 @@ byte isComposed(int range, MMARuleSet *set, byte substance) {
 		}
 			
 		case 3:
-			return 0;
-			if ((*set).amount[3] != 0 && (*set).amount[3] < 20) {
+			if ((*set).amount[2] > 0 && (*set).amount[2] < range * 2 + 1 && (*set).amount[0] > 0 && (*set).amount[0] < 40) {
 				return 1;
 			}
 			return 0;
@@ -113,8 +112,7 @@ byte decompose(int range, MMARuleSet *set, byte target) {
 			break;
 			
 		case 3:
-			break;
-			if (waterCount == 0 || waterCount >= changeThreshold || (*set).amount[3] >= 2) {
+			if (waterCount == 0 || waterCount >= changeThreshold) {
 				return 1;
 			}
 			break;

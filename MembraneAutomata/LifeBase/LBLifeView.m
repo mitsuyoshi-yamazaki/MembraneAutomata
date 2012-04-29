@@ -20,7 +20,7 @@
 //	int rate[MMANumberOfSubstance] = {0,1000,1000,0,2,1};	// Rule Automata用
 	int rate[MMANumberOfSubstance] = {1000,1000,1,2,0,0};	// Rule Rule Set用
 	randomizeMap(&map, rate);
-	frameWith(&map, MMAWater, map.size.width * 0.01);
+	frameWith(&map, 0, map.size.width * 0.01);
 }
 
 
