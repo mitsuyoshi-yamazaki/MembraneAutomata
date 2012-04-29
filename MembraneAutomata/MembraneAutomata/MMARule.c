@@ -248,7 +248,8 @@ void stepInRuleRuleSet(MMAMap *map) {
 	int minimumRange = 0 - range;
 	int maxRange = range + 1;
 	
-	MMARuleSet set = defaultSet();
+	MMARuleSet set;
+	initializeSetAsDefault(&set);
 
 	for (int x = 0; x < xMax; x++) {
 		for (int y = 0; y < yMax; y++) {
@@ -262,8 +263,8 @@ void stepInRuleRuleSet(MMAMap *map) {
 					set.amount[(*map).previousCells[subPosition]]++;
 				}
 			}
-			
-			(*map).currentCells[position] = nextSubstance(range, set, (*map).previousCells[position]);
+
+			(*map).currentCells[position] = nextSubstance(range, &set, (*map).previousCells[position]);
 		}
 	}
 }

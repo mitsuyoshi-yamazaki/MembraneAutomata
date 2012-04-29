@@ -22,7 +22,7 @@ struct MMARuleSet {
 typedef struct MMARuleSet MMARuleSet;
 
 
-MMARuleSet defaultSet();
+void initializeSetAsDefault(MMARuleSet *);
 void resetAmount(MMARuleSet *);
 
-byte nextSubstance(int, MMARuleSet, byte);
+byte nextSubstance(int, MMARuleSet *, byte);
