@@ -8,4 +8,22 @@
 
 #include "MMADefinition.h"
 
-byte nextSubstance(int, int *, int *);
+struct MMASubstance {
+	byte code;
+//	byte composeRule;
+//	byte decomposeRule;
+};
+typedef struct MMASubstance MMASubstance;
+
+struct MMARuleSet {
+//	MMASubstance *rules;
+	int *amount;
+	int ruleCount;
+};
+typedef struct MMARuleSet MMARuleSet;
+
+
+MMARuleSet defaultSet();
+void resetAmount(MMARuleSet *);
+
+byte nextSubstance(int, MMARuleSet, byte);

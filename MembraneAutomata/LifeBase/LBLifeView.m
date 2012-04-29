@@ -17,7 +17,8 @@
 @implementation LBLifeView
 
 - (void)randomizeAsDefault {
-	int rate[MMANumberOfSubstance] = {0,1000,1000,0,2,1};
+//	int rate[MMANumberOfSubstance] = {0,1000,1000,0,2,1};	// Rule Automata用
+	int rate[MMANumberOfSubstance] = {1000,1000,2,0,0,0};	// Rule Rule Set用
 	randomizeMap(&map, rate);
 	frameWith(&map, MMAWater, map.size.width * 0.01);
 }
@@ -106,10 +107,11 @@
 	
 	MMAMapInitialize(&map, MMASizeMake(size, height));
 	
+	map.rule = MMARuleRuleSet;
 	map.range = 4;
 	[self randomizeAsDefault];
 	
-	/*
+/*	
 	[self clearCells];
 	
 	int xMax = map.size.width;
@@ -117,20 +119,17 @@
 	
 	for (int x = 0; x < xMax; x++) {
 		for (int y = 0; y < yMax; y++) {
-			map.currentCells[x + y * xMax] = MMAOil;
-			if (y == x) {
-				map.currentCells[x + y * xMax] = MMAMembrane;
-			}
-			else if (y > x) {
-				map.currentCells[x + y * xMax] = MMAWater;
+			map.currentCells[x + y * xMax] = 0;
+			if (y >= yMax / 2) {
+				map.currentCells[x + y * xMax] = 1;
 			}
 		}
 	}
 	
 	int centerPosition = xMax / 2 + ((yMax / 2) - 1) * xMax;
-//	map.currentCells[centerPosition + 0] = MMAMembrane;
-//	map.currentCells[centerPosition + 1] = MMAOil;
-//	map.currentCells[centerPosition + 2] = MMAMembrane;
+	map.currentCells[centerPosition - 1] = 2;
+	map.currentCells[centerPosition + 0] = 2;
+	map.currentCells[centerPosition + 1] = 2;
 	*/
 	[self setNeedsDisplay:YES];
 }

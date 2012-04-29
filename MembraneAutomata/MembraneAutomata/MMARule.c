@@ -17,7 +17,7 @@
 
 #define MMARuleDescriptionExchange	"It exchanges cell statuses as like real world. Amount of each substances never change. Not very succeeded."
 #define MMARuleDescriptionAutomata	"It changes cell statuses like cellular automata. Oil drops and membrane appear. Works well"
-#define MMARuleDescriptionRuleSet	"Now working"
+#define MMARuleDescriptionRuleSet	"It changes cell statuses like cellular automata. Automata rules are created from combination of small rules. Now working"
 
 void copyCells(MMAMap *);
 
@@ -144,6 +144,7 @@ void stepInRuleAutomata(MMAMap *map) {
 	int subPosition = 0;
 	
 	int range = (*map).range;
+	
 	int waterCount = 0;
 	int oilCount = 0;
 	int membraneCount = 0;
@@ -238,6 +239,33 @@ void stepInRuleAutomata(MMAMap *map) {
 
 void stepInRuleRuleSet(MMAMap *map) {
 	
+	int xMax = (*map).size.width;
+	int yMax = (*map).size.height;
+	int position = 0;
+	int subPosition = 0;
+	
+	int range = (*map).range;
+	int minimumRange = 0 - range;
+	int maxRange = range + 1;
+	
+	MMARuleSet set = defaultSet();
+
+	for (int x = 0; x < xMax; x++) {
+		for (int y = 0; y < yMax; y++) {
+			position = x + y * xMax;
+			resetAmount(&set);
+			
+			for (int i = minimumRange; i < maxRange; i++) {
+				for (int j = minimumRange; j < maxRange; j++) {
+					subPosition = ((x + i + xMax) % xMax) + ((y + j + yMax) % yMax) * xMax;
+					
+					set.amount[(*map).previousCells[subPosition]]++;
+				}
+			}
+			
+			(*map).currentCells[position] = nextSubstance(range, set, (*map).previousCells[position]);
+		}
+	}
 }
 
 
