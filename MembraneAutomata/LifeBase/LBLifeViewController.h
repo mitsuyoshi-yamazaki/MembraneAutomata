@@ -11,7 +11,7 @@
 #define kLBLifeViewControllerRefreshTimeInterval	0.1f
 #define kLBLifeViewControllerRefreshPerCaliculation	5
 
-#define kLBLifeViewControllerDefaultMapSize		600
+#define kLBLifeViewControllerDefaultMapSize		500
 
 #define kLBLifeViewControllerStopAfterNSteps	0
 #define kLBLifeViewControllerSteps				100

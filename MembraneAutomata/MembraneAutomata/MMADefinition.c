@@ -135,7 +135,7 @@ void fillMapWith(MMAMap *map, byte substance) {
 	}
 }
 
-void randomizeMap(MMAMap *map, int *rate) {
+void randomizeMap(MMAMap *map, int *rate, int count) {
 	
 	srand(time(NULL));
 	srand(rand());
@@ -143,7 +143,14 @@ void randomizeMap(MMAMap *map, int *rate) {
 	int position = 0;
 	int xMax = (*map).size.width;
 	int yMax = (*map).size.height;
-	int maximum = rate[MMANull] + rate[MMAWater] + rate[MMAOil] + rate[MMAWaterFamilier] + rate[MMAOilFamilier] + rate[MMAMembrane];
+	int maximum = 0;
+	int until[count];
+	
+	for (int i = 0; i < count; i++) {
+		maximum += rate[i];
+		until[i] = maximum;
+	}
+	
 	int randomValue = 0;
 	
 	for (int x = 0; x < xMax; x++) {
@@ -152,30 +159,13 @@ void randomizeMap(MMAMap *map, int *rate) {
 			
 			randomValue = rand() % maximum;
 			
-			if (randomValue < rate[MMAWater]) {
-				(*map).currentCells[position] = MMAWater;
-				(*map).previousCells[position] = MMAWater;
+			for (int j = 0; j < count; j++) {
+				if (randomValue < until[j]) {
+					(*map).currentCells[position] = j;
+					(*map).previousCells[position] = j;
+					break;
+				}
 			}
-			else if (randomValue < rate[MMAWater] + rate[MMAOil]) {
-				(*map).currentCells[position] = MMAOil;
-				(*map).previousCells[position] = MMAOil;
-			}
-			else if (randomValue < rate[MMAWater] + rate[MMAOil] + rate[MMAWaterFamilier]) {
-				(*map).currentCells[position] = MMAWaterFamilier;
-				(*map).previousCells[position] = MMAWaterFamilier;
-			}
-			else if (randomValue < rate[MMAWater] + rate[MMAOil] + rate[MMAWaterFamilier] + rate[MMAOilFamilier]) {
-				(*map).currentCells[position] = MMAOilFamilier;
-				(*map).previousCells[position] = MMAOilFamilier;
-			}
-			else if (randomValue < rate[MMAWater] + rate[MMAOil] + rate[MMAWaterFamilier] + rate[MMAOilFamilier] + rate[MMAMembrane]) {
-				(*map).currentCells[position] = MMAMembrane;
-				(*map).previousCells[position] = MMAMembrane;
-			}
-			else {
-				(*map).currentCells[position] = MMANull;
-				(*map).previousCells[position] = MMANull;
-			}			
 		}
 	}
 }
