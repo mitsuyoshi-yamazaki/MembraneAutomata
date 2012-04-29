@@ -90,7 +90,7 @@ byte isComposed(int range, MMARuleSet *set, byte substance) {
 			int maximum = (range * 3 + 1) * 2;
 			int threshold = waterCount - (oilCount  + (*set).amount[3]);
 			
-			if ((*set).amount[4] > 0 && membraneCount < maximum && threshold > 0 && threshold < 16 && (*set).amount[6] == 0) {
+			if ((*set).amount[4] > 0 && membraneCount < maximum && threshold > 0 && threshold < 20 && (*set).amount[6] == 0) {
 				return 1;
 			}
 
@@ -98,7 +98,7 @@ byte isComposed(int range, MMARuleSet *set, byte substance) {
 		}
 			
 		case 5: {
-			int maximum = range * range;
+			int maximum = range * range * 3;
 			if ((*set).amount[5] < maximum && (*set).amount[3] > 0 && (*set).amount[3] < 10 && (*set).amount[0] == 0) {//(*set).amount[5] > 0 && 
 				return 1;
 			}
@@ -172,12 +172,7 @@ byte decompose(int range, MMARuleSet *set, byte target) {
 			break;
 
 		case 5:
-			if (waterCount > oilCount) {
-				return 0;
-			}
-			else {
-				return 1;
-			}
+			return 0;
 			break;
 			
 		case 6:
