@@ -95,8 +95,13 @@ byte isComposed(int range, MMARuleSet *set, byte substance) {
 			return 0;
 		}
 			
-		case 5:
+		case 5: {
+			int maximum = range * range;
+			if ((*set).amount[5] < maximum && (*set).amount[3] > 0 && (*set).amount[3] < 10 && (*set).amount[0] == 0) {//(*set).amount[5] > 0 && 
+				return 1;
+			}
 			return 0;
+		}
 			
 		default:
 			return 0;
@@ -149,6 +154,12 @@ byte decompose(int range, MMARuleSet *set, byte target) {
 			break;
 
 		case 5:
+			if (waterCount > oilCount) {
+				return 0;
+			}
+			else {
+				return 1;
+			}
 			break;
 			
 		default:

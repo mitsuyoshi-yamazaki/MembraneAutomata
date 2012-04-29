@@ -18,7 +18,7 @@
 
 - (void)randomizeAsDefault {
 //	int rate[MMANumberOfSubstance] = {0,1000,1000,0,2,1};	// Rule Automata用
-	int rate[MMANumberOfSubstance] = {10000,10000,1,10,1,0};	// Rule Rule Set用
+	int rate[MMANumberOfSubstance] = {10000,10000,1,100,1,0};	// Rule Rule Set用
 	randomizeMap(&map, rate);
 	frameWith(&map, 0, map.size.width * 0.01);
 }
