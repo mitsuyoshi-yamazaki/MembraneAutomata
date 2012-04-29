@@ -11,6 +11,10 @@
 
 @interface LBLifeView : NSView {
 	MMAMap map;
+	MMAPoint clickedPoint;
+	MMAPoint draggedPoint;
+	
+	BOOL dragging;
 }
 
 - (void)clearCells;

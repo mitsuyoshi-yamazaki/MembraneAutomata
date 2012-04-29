@@ -8,10 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-#define kLBLifeViewControllerRefreshTimeInterval	0.1f
+#define kLBLifeViewControllerRefreshTimeInterval	0.0f
 #define kLBLifeViewControllerRefreshPerCaliculation	5
 
-#define kLBLifeViewControllerDefaultMapSize		500
+#define kLBLifeViewControllerDefaultMapSize		100
 
 #define kLBLifeViewControllerStopAfterNSteps	0
 #define kLBLifeViewControllerSteps				100

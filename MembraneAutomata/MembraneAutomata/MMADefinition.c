@@ -89,12 +89,34 @@ int unstabilityInThePosition(MMAMap *map, byte substance, int position) {
 
 
 #pragma mark - Map Initializer
+MMAPoint MMAPointMake(int x, int y) {
+	MMAPoint point;
+	
+	point.x = x;
+	point.y = y;
+	return point;
+}
+
 MMASize MMASizeMake(int x, int y) {
 	MMASize size;
 	
 	size.width = x;
 	size.height = y;
 	return size;
+}
+
+void MMAPatternInitialize(MMAPattern *pattern, MMASize size, MMARule rule, int range) {
+	
+	(*pattern).rule = rule;
+	(*pattern).range = range;
+	(*pattern).origin = MMAPointMake(0, 0);
+	(*pattern).size = size;
+	
+	(*pattern).cells = (byte *)malloc(sizeof(byte) * (*pattern).size.width * (*pattern).size.height);
+}
+
+void MMAPatternDelete(MMAPattern *pattern) {
+	free((*pattern).cells);
 }
 
 void MMAMapInitialize(MMAMap *map, MMASize size) {	
@@ -188,6 +210,42 @@ void frameWith(MMAMap *map, byte substance, int margin) {
 	}
 }
 
+
+#pragma mark - Pattern Extraction
+void patternIn(MMAMap *map, MMAPattern *pattern, MMAPoint fromPoint, MMAPoint toPoint) {
+	// 余白切り取り未実装
+
+	MMAPoint patternFrom = fromPoint;
+	MMAPoint patternTo = toPoint;
+
+	if (fromPoint.x > toPoint.x) {
+		patternFrom.x = toPoint.x;
+		patternTo.x = fromPoint.x;
+	}
+	if (fromPoint.y > toPoint.y) {
+		patternFrom.y = toPoint.y;
+		patternTo.y = fromPoint.y;
+	}
+	
+	
+	MMASize size = MMASizeMake(patternTo.x - patternFrom.x, patternTo.y - patternFrom.y);
+	MMAPatternInitialize(pattern, size, (*map).rule, (*map).range);
+
+	int x, y;
+	int mapWidth = (*map).size.width;
+	int patternWidth = (*pattern).size.width;
+	int mapPosition;
+	int patternPosition;
+	
+	for (x = patternFrom.x; x < patternTo.x; x++) {
+		for (y = patternFrom.y; y < patternTo.y; y++) {
+			mapPosition = x + y * mapWidth;
+			patternPosition = (x - patternFrom.x) + (y - patternFrom.y) * patternWidth;
+			
+			(*pattern).cells[patternPosition] = (*map).currentCells[mapPosition];
+		}
+	}	
+}
 
 #pragma mark - Print
 void printMap(MMAMap *map) {

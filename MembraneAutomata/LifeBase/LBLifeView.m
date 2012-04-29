@@ -102,13 +102,39 @@
 			}
 		}
 	}
+	
+	if (dragging) {
+		
+		MMAPoint patternFrom = clickedPoint;
+		MMAPoint patternTo = draggedPoint;
+		
+		if (clickedPoint.x > draggedPoint.x) {
+			patternFrom.x = draggedPoint.x;
+			patternTo.x = clickedPoint.x;
+		}
+		if (clickedPoint.y > draggedPoint.y) {
+			patternFrom.y = draggedPoint.y;
+			patternTo.y = clickedPoint.y;
+		}
+
+		MMASize size = MMASizeMake(patternTo.x - patternFrom.x, patternTo.y - patternFrom.y);
+		
+		CGContextSetLineWidth(context, 0.2f);
+		CGContextSetStrokeColorWithColor(context, CGColorCreateGenericRGB(0.0f, 0.0f, 0.0f, 0.8f));
+		
+		CGContextStrokeRect(context, CGRectMake(patternFrom.x * gridSize, patternFrom.y * gridSize, size.width * gridSize, size.height * gridSize));
+	}
 }
 
 
 - (void)initializeCells:(NSUInteger)size
 {
+	dragging = NO;
+	
 	NSUInteger height = (NSUInteger)((self.frame.size.height / self.frame.size.width) * size);
 	
+	clickedPoint = MMAPointMake(0, 0);
+	draggedPoint = MMAPointMake(0, 0);
 	MMAMap aMap;
 	
 	map = aMap;
@@ -176,5 +202,63 @@
 	printMap(&(map));
 }
 
+
+#pragma mark - NSControl
+
+- (void)mouseDown:(NSEvent *)theEvent
+{
+	NSPoint locationInWindow = [theEvent locationInWindow];
+    NSPoint location = [self convertPoint:locationInWindow fromView:nil];
+	
+//	NSLog(@"clicked point : (%f,%f)", location.x, location.y);
+	
+	NSUInteger width = map.size.width;	
+	CGFloat gridSize = self.bounds.size.width / width;	
+
+	clickedPoint = MMAPointMake(location.x / gridSize, location.y / gridSize);
+	
+	dragging = YES;
+}
+
+- (void)mouseDragged:(NSEvent *)theEvent {
+	
+	NSPoint locationInWindow = [theEvent locationInWindow];
+    NSPoint location = [self convertPoint:locationInWindow fromView:nil];
+		
+	NSUInteger width = map.size.width;	
+	CGFloat gridSize = self.bounds.size.width / width;	
+	
+	draggedPoint = MMAPointMake(location.x / gridSize, location.y / gridSize);
+
+	[self setNeedsDisplay:YES];
+}
+
+- (void)mouseUp:(NSEvent *)theEvent {
+	
+	dragging = NO;
+	
+	NSPoint locationInWindow = [theEvent locationInWindow];
+    NSPoint location = [self convertPoint:locationInWindow fromView:nil];
+	
+//	NSLog(@"unclicked point : (%f,%f)", location.x, location.y);
+	
+	NSUInteger width = map.size.width;	
+	CGFloat gridSize = self.bounds.size.width / width;	
+	
+	MMAPoint unclickedPoint = MMAPointMake(location.x / gridSize, location.y / gridSize);
+	
+	MMAPattern pattern;
+	patternIn(&map, &pattern, clickedPoint, unclickedPoint);
+	
+	/*
+	printf("\nPattern is ...\n");
+	
+	for (int y = 0; y < pattern.size.height; y++) {
+		for (int x = 0; x < pattern.size.width; x++) {
+			printf("%01d ", pattern.cells[x + y * pattern.size.width]);
+		}
+		printf("\n");
+	}*/
+}
 
 @end

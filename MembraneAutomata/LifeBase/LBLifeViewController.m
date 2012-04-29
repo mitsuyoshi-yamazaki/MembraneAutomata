@@ -55,7 +55,7 @@
 	}
 	
 	[self redrawLifeView];
-	
+
 	[self performSelector:@selector(repeat) withObject:nil afterDelay:kLBLifeViewControllerRefreshTimeInterval];
 }
 

@@ -26,6 +26,12 @@ typedef enum rule {
 	MMARuleRuleSet,
 }MMARule;
 
+struct MMAPoint {
+	int x;
+	int y;
+};
+typedef struct MMAPoint MMAPoint;
+
 struct MMASize {
 	int width;
 	int height;
@@ -37,6 +43,15 @@ struct MMACell {
 };
 typedef struct MMACell MMACell;
 
+struct MMAPattern {
+	MMARule rule;
+	int range;
+	MMAPoint origin;
+	MMASize size;
+	byte *cells;
+};
+typedef struct MMAPattern MMAPattern;
+
 struct MMAMap {
 	MMARule rule;
 	int range;
@@ -46,7 +61,10 @@ struct MMAMap {
 };
 typedef struct MMAMap MMAMap;
 
+MMAPoint MMAPointMake(int, int);
 MMASize MMASizeMake(int, int);
+void MMAPatternInitialize(MMAPattern *, MMASize, MMARule, int);
+void MMAPatternDelete(MMAPattern *);
 void MMAMapInitialize(MMAMap *, MMASize);
 void MMAMapDelete(MMAMap *);
 
@@ -58,6 +76,7 @@ void fillMapWith(MMAMap *, byte);
 void randomizeMap(MMAMap *, int *, int);
 void frameWith(MMAMap *, byte, int);
 
+void patternIn(MMAMap *, MMAPattern *, MMAPoint, MMAPoint);
 void printMap(MMAMap *);
 void countSubstances(MMAMap *);
 
