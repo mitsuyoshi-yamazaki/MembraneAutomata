@@ -19,6 +19,8 @@
 
 - (void)initializeCells:(NSUInteger)size;
 
+- (void)print;
+
 - (NSString *)rule;
 - (NSUInteger)range;
 

@@ -47,5 +47,6 @@
 - (IBAction)randomizeCells:(id)sender;
 - (IBAction)startPause:(id)sender;
 - (IBAction)step:(id)sender;
+- (IBAction)print:(id)sender;
 
 @end

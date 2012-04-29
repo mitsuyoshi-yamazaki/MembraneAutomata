@@ -18,9 +18,9 @@
 
 - (void)randomizeAsDefault {
 //	int rate[MMANumberOfSubstance] = {0,1000,1000,0,2,1};	// Rule Automata用
-	int rate[7] = {10000,10000,1,100,1,0,1};	// Rule Rule Set用
+	int rate[7] = {10000,10000,0,100,1,0,1};	// Rule Rule Set用
 	randomizeMap(&map, rate, 7);
-	frameWith(&map, 0, map.size.width * 0.01);
+	frameWith(&map, 0, map.size.width * 0.1);
 }
 
 
@@ -122,6 +122,7 @@
 //	fillMapWith(&map, 1);
 //	frameWith(&map, 0, map.size.width * 0.1);
 //	map.currentCells[(int)(map.size.width * 0.1) + (int)(map.size.height * 0.5) * map.size.width] = 4;
+//	map.currentCells[(int)(map.size.width * 0.9) + (int)(map.size.height * 0.5) * map.size.width] = 6;
 	
 /*	
 	[self clearCells];
@@ -169,6 +170,10 @@
 
 - (NSUInteger)range {
 	return map.range;
+}
+
+- (void)print {
+	printMap(&(map));
 }
 
 

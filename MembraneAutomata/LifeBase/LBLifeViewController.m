@@ -147,6 +147,9 @@
 	[self.lifeView setNeedsDisplay:YES];
 }
 
+- (IBAction)print:(id)sender {
+	[self.lifeView print];
+}
 
 
 #pragma mark - Lifecycle

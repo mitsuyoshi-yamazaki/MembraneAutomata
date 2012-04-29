@@ -73,7 +73,9 @@ byte isComposed(int range, MMARuleSet *set, byte substance) {
 		case 3: {
 			int wMax = range * (range * 2 + 1) + range;
 			int maximum = range * range;
-			if ((*set).amount[2] > 0 && (*set).amount[3] > 0 && (*set).amount[3] < maximum && (*set).amount[2] < range * 2 + 1 && (*set).amount[0] > 0 && (*set).amount[0] < wMax) {
+			int membraneCount = (*set).amount[2] + (*set).amount[4] + (*set).amount[6];
+			
+			if (membraneCount > 0 && (*set).amount[3] > 0 && (*set).amount[3] < maximum && membraneCount < range * 2 + 1 && (*set).amount[0] > 0 && (*set).amount[0] < wMax) {
 				return 1;
 			}
 			return 0;
@@ -88,7 +90,7 @@ byte isComposed(int range, MMARuleSet *set, byte substance) {
 			int maximum = (range * 3 + 1) * 2;
 			int threshold = waterCount - (oilCount  + (*set).amount[3]);
 			
-			if ((*set).amount[4] > 0 && membraneCount < maximum && threshold > 0 && threshold < 14) {
+			if ((*set).amount[4] > 0 && membraneCount < maximum && threshold > 0 && threshold < 16 && (*set).amount[6] == 0) {
 				return 1;
 			}
 
@@ -107,12 +109,12 @@ byte isComposed(int range, MMARuleSet *set, byte substance) {
 			
 			int waterCount = (*set).amount[0];
 			int oilCount = (*set).amount[1];
-			int membraneCount = (*set).amount[2] + (*set).amount[4] + (*set).amount[6];
+			int membraneCount = (*set).amount[2] + (*set).amount[4];// + (*set).amount[6];
 			
 			int maximum = (range * 3 + 1) * 2;
-			int threshold = oilCount - (waterCount  + (*set).amount[3]);
+			int threshold = (oilCount + (*set).amount[3]) - (waterCount);
 			
-			if ((*set).amount[6] > 0 && membraneCount < maximum && threshold > 0 && threshold < 14) {
+			if ((*set).amount[6] > 0 && membraneCount < maximum && threshold > 0 && threshold < 14 && (*set).amount[4] < 4) {
 				return 1;
 			}
 			
@@ -126,7 +128,7 @@ byte isComposed(int range, MMARuleSet *set, byte substance) {
 
 byte decompose(int range, MMARuleSet *set, byte target) {
 		
-	int waterCount = (*set).amount[0];
+	int waterCount = (*set).amount[0] + (*set).amount[6];
 	int oilCount = (*set).amount[1] + (*set).amount[3];
 //	int membraneCount = (*set).amount[2];
 	

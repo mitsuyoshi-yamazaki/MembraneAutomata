@@ -13,7 +13,7 @@
 
 #define MMARuleNameExchange	"Exchange"
 #define MMARuleNameAutomata	"Automata"
-#define MMARuleNameRuleSet	"Atom Set"
+#define MMARuleNameRuleSet	"Rule Set"
 
 #define MMARuleDescriptionExchange	"It exchanges cell statuses as like real world. Amount of each substances never change. Not very succeeded."
 #define MMARuleDescriptionAutomata	"It changes cell statuses like cellular automata. Oil drops and membrane appear. Works well"
@@ -243,7 +243,7 @@ void stepInRuleRuleSet(MMAMap *map) {
 	int yMax = (*map).size.height;
 	int position = 0;
 	int subPosition = 0;
-	
+
 	int range = (*map).range;
 	int minimumRange = 0 - range;
 	int maxRange = range + 1;
