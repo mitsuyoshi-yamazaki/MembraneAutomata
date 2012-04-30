@@ -101,7 +101,7 @@
 		self.startButton.title = @"Start";
 	}
 	
-	steps = 0;
+//	steps = 0;
 	
 	[self.lifeView clearCells];
 	[self redraw:self];
@@ -113,7 +113,7 @@
 	[self.lifeView clearCells];
 	[self.lifeView randomizeCells:50];
 	
-	steps = 0;
+//	steps = 0;
 
 	[self redraw:self];
 }

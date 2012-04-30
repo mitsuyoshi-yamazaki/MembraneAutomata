@@ -106,12 +106,44 @@ MMASize MMASizeMake(int x, int y) {
 	return size;
 }
 
+MMARange MMARangeMake(int x, int y, int width, int height) {
+	MMARange range;
+	
+	range.origin.x = x;
+	range.origin.y = y;
+	range.size.width = width;
+	range.size.height = height;
+	return range;
+}
+
+MMARange MMARangeFromPoints(MMAPoint pointA, MMAPoint pointB) {
+	
+	MMAPoint patternFrom = pointA;
+	MMAPoint patternTo = pointB;
+	
+	if (pointA.x > pointB.x) {
+		patternFrom.x = pointB.x;
+		patternTo.x = pointA.x;
+	}
+	if (pointA.y > pointB.y) {
+		patternFrom.y = pointB.y;
+		patternTo.y = pointA.y;
+	}
+
+	return MMARangeMake(patternFrom.x, patternFrom.y, patternTo.x - patternFrom.x, patternTo.y - patternFrom.y);
+}
+
+void printRange(MMARange range) {
+	printf("Range origin : (%d,%d), size : (%d,%d)\n", range.origin.x, range.origin.y, range.size.width, range.size.height);
+}
+
 void MMAPatternInitialize(MMAPattern *pattern, MMASize size, MMARule rule, int range) {
 	
 	(*pattern).rule = rule;
 	(*pattern).range = range;
 	(*pattern).origin = MMAPointMake(0, 0);
 	(*pattern).size = size;
+	(*pattern).identifier = NULL;
 	
 	(*pattern).cells = (byte *)malloc(sizeof(byte) * (*pattern).size.width * (*pattern).size.height);
 }
@@ -125,6 +157,7 @@ void MMAMapInitialize(MMAMap *map, MMASize size) {
 	(*map).range = 1;
 	(*map).size = size;
 	(*map).rule = MMARuleAutomata;
+	(*map).identifier = NULL;
 	
 	(*map).previousCells = (byte *)malloc(sizeof(byte) * (*map).size.width * (*map).size.height);
 	(*map).currentCells = (byte *)malloc(sizeof(byte) * (*map).size.width * (*map).size.height);
@@ -159,38 +192,9 @@ void fillMapWith(MMAMap *map, byte substance) {
 }
 
 void randomizeMap(MMAMap *map, int *rate, int count) {
+	MMARange range = MMARangeMake(0, 0, (*map).size.width, (*map).size.height);
 	
-	srand(time(NULL));
-	srand(rand());
-	
-	int position = 0;
-	int xMax = (*map).size.width;
-	int yMax = (*map).size.height;
-	int maximum = 0;
-	int until[count];
-	
-	for (int i = 0; i < count; i++) {
-		maximum += rate[i];
-		until[i] = maximum;
-	}
-	
-	int randomValue = 0;
-	
-	for (int x = 0; x < xMax; x++) {
-		for (int y = 0; y < yMax; y++) {
-			position = x + y * xMax;
-			
-			randomValue = rand() % maximum;
-			
-			for (int j = 0; j < count; j++) {
-				if (randomValue < until[j]) {
-					(*map).currentCells[position] = j;
-					(*map).previousCells[position] = j;
-					break;
-				}
-			}
-		}
-	}
+	randomizeRange(map, range, rate, count);
 }
 
 void frameWith(MMAMap *map, byte substance, int margin) {
@@ -206,6 +210,98 @@ void frameWith(MMAMap *map, byte substance, int margin) {
 			if (x < margin || x > (xMax - margin) || y < margin || y > (yMax - margin)) {
 				(*map).currentCells[position] = substance;
 				(*map).previousCells[position] = substance;
+			}
+		}
+	}
+}
+
+void clearRange(MMAMap *map, MMARange range) {
+	fillRangeWith(map, range, 0);
+}
+
+void fillRangeWith(MMAMap *map, MMARange range, byte substance) {
+	
+	int xMax = range.origin.x + range.size.width;
+	int yMax = range.origin.y + range.size.height;
+	int width = (*map).size.width;
+	
+	if (xMax > (*map).size.width) {
+		xMax = (*map).size.width;
+	}
+	if (yMax > (*map).size.height) {
+		yMax = (*map).size.height;
+	}
+	
+	int xMin = range.origin.x;
+	int yMin = range.origin.y;
+	
+	if (xMin < 0) {
+		xMin = 0;
+	}
+	if (yMin < 0) {
+		yMin = 0;
+	}
+	
+	int position = 0;
+	
+	for (int x = xMin; x < xMax; x++) {
+		for (int y = yMin; y < yMax; y++) {
+			position = x + y * width;
+			(*map).previousCells[position] = substance;
+			(*map).currentCells[position] = substance;
+		}
+	}
+}
+
+void randomizeRange(MMAMap *map, MMARange range, int *rate, int count) {
+	
+	srand(time(NULL));
+	srand(rand());
+	
+	int maximum = 0;
+	int until[count];
+	
+	for (int i = 0; i < count; i++) {
+		maximum += rate[i];
+		until[i] = maximum;
+	}
+	
+	int xMax = range.origin.x + range.size.width;
+	int yMax = range.origin.y + range.size.height;
+	int width = (*map).size.width;
+	
+	if (xMax > (*map).size.width) {
+		xMax = (*map).size.width;
+	}
+	if (yMax > (*map).size.height) {
+		yMax = (*map).size.height;
+	}
+	
+	int xMin = range.origin.x;
+	int yMin = range.origin.y;
+	
+	if (xMin < 0) {
+		xMin = 0;
+	}
+	if (yMin < 0) {
+		yMin = 0;
+	}
+		
+	int position = 0;
+	int randomValue = 0;
+	
+	for (int x = xMin; x < xMax; x++) {
+		for (int y = yMin; y < yMax; y++) {
+			position = x + y * width;
+
+			randomValue = rand() % maximum;
+			
+			for (int j = 0; j < count; j++) {
+				if (randomValue < until[j]) {
+					(*map).currentCells[position] = j;
+					(*map).previousCells[position] = j;
+					break;
+				}
 			}
 		}
 	}
@@ -228,6 +324,19 @@ void patternIn(MMAMap *map, MMAPattern *pattern, MMAPoint fromPoint, MMAPoint to
 		patternTo.y = fromPoint.y;
 	}
 	
+	if (fromPoint.x < 0) {
+		fromPoint.x = 0;
+	}
+	if (fromPoint.y < 0) {
+		fromPoint.y = 0;
+	}
+	
+	if (toPoint.x > (*map).size.width) {
+		toPoint.x = (*map).size.width;
+	}
+	if (toPoint.y > (*map).size.height) {
+		toPoint.y = (*map).size.height;
+	}
 	
 	MMASize size = MMASizeMake(patternTo.x - patternFrom.x, patternTo.y - patternFrom.y);
 	MMAPatternInitialize(pattern, size, (*map).rule, (*map).range);
@@ -306,15 +415,37 @@ void countSubstances(MMAMap *map) {
 
 #pragma mark - File
 int storeMap(MMAMap *map, char *filename) {
+	MMAPattern pattern;
+	MMAPatternInitialize(&pattern, (*map).size, (*map).rule, (*map).range);
+	pattern.cells = (*map).currentCells;
 	
+	int succeeded = storePattern(&pattern, filename);
+	
+	MMAPatternDelete(&pattern);
+	
+	return succeeded;
 }
 
 int restoreMap(MMAMap *map, char *filename) {
-	
+
 }
 
 int storePattern(MMAPattern *pattern, char *filename) {
 	
+	char identifierKey[] = "identifier";
+	char rangeKey[] = "range";
+	char ruleKey[] = "rule";
+//	char originKey[] = "origin";
+	char sizeKey[] = "size";
+	char cellsKey[] = "cells";
+	
+	struct json_object *cellsObject = json_tokener_parse((const char *)(*pattern).cells);
+	
+	struct json_object *json;
+	json = json_tokener_parse("");
+	json_object_object_add(json, cellsKey, cellsObject);
+	
+	return json_object_to_file(filename, json);
 }
 
 int restorePattern(MMAPattern *pattern, char *filename) {

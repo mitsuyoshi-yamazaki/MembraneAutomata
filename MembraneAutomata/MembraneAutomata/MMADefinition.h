@@ -38,12 +38,19 @@ struct MMASize {
 };
 typedef struct MMASize MMASize;
 
+struct MMARange {
+	MMAPoint origin;
+	MMASize size;
+};
+typedef struct MMARange MMARange;
+
 struct MMACell {
 	
 };
 typedef struct MMACell MMACell;
 
 struct MMAPattern {
+	char *identifier;
 	MMARule rule;
 	int range;
 	MMAPoint origin;
@@ -53,6 +60,7 @@ struct MMAPattern {
 typedef struct MMAPattern MMAPattern;
 
 struct MMAMap {
+	char *identifier;
 	MMARule rule;
 	int range;
 	MMASize size;
@@ -63,6 +71,9 @@ typedef struct MMAMap MMAMap;
 
 MMAPoint MMAPointMake(int, int);
 MMASize MMASizeMake(int, int);
+MMARange MMARangeMake(int, int, int, int);
+MMARange MMARangeFromPoints(MMAPoint, MMAPoint);
+void printRange(MMARange);
 void MMAPatternInitialize(MMAPattern *, MMASize, MMARule, int);
 void MMAPatternDelete(MMAPattern *);
 void MMAMapInitialize(MMAMap *, MMASize);
@@ -75,6 +86,9 @@ void clearMap(MMAMap *);
 void fillMapWith(MMAMap *, byte);
 void randomizeMap(MMAMap *, int *, int);
 void frameWith(MMAMap *, byte, int);
+void clearRange(MMAMap *, MMARange);
+void fillRangeWith(MMAMap *, MMARange, byte);
+void randomizeRange(MMAMap *, MMARange, int *, int);
 
 void patternIn(MMAMap *, MMAPattern *, MMAPoint, MMAPoint);
 void printMap(MMAMap *);

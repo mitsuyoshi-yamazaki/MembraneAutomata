@@ -15,6 +15,7 @@
 	MMAPoint draggedPoint;
 	
 	BOOL dragging;
+	BOOL selecting;
 }
 
 - (void)clearCells;

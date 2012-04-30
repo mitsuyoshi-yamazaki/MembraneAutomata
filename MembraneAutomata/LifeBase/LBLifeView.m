@@ -19,8 +19,15 @@
 - (void)randomizeAsDefault {
 //	int rate[MMANumberOfSubstance] = {0,1000,1000,0,2,1};	// Rule Automata用
 	int rate[7] = {10000,8800,0,100,10,0,20};	// Rule Rule Set用
-	randomizeMap(&map, rate, 7);
-	frameWith(&map, 0, map.size.width * 0.01);
+	int count = 7;
+	
+	if (selecting) {
+		randomizeRange(&map, MMARangeFromPoints(clickedPoint, draggedPoint), rate, count);
+	}
+	else {
+		randomizeMap(&map, rate, 7);
+		frameWith(&map, 0, map.size.width * 0.01);		
+	}
 }
 
 
@@ -130,6 +137,7 @@
 - (void)initializeCells:(NSUInteger)size
 {
 	dragging = NO;
+	selecting = NO;
 	
 	NSUInteger height = (NSUInteger)((self.frame.size.height / self.frame.size.width) * size);
 	
@@ -176,7 +184,12 @@
 
 #pragma mark - Execution
 - (void)clearCells {
-	clearMap(&map);
+	if (selecting) {
+		clearRange(&map, MMARangeFromPoints(clickedPoint, draggedPoint));
+	}
+	else {
+		clearMap(&map);
+	}
 }
 
 - (void)randomizeCells:(NSUInteger)aRate {
@@ -185,6 +198,7 @@
 
 - (void)calculateNextPattern {
 //	countSubstances(&map);
+	selecting = NO;
 	stepMap(&map);
 }
 
@@ -236,6 +250,7 @@
 - (void)mouseUp:(NSEvent *)theEvent {
 	
 	dragging = NO;
+	selecting = YES;
 	
 	NSPoint locationInWindow = [theEvent locationInWindow];
     NSPoint location = [self convertPoint:locationInWindow fromView:nil];
@@ -245,10 +260,10 @@
 	NSUInteger width = map.size.width;	
 	CGFloat gridSize = self.bounds.size.width / width;	
 	
-	MMAPoint unclickedPoint = MMAPointMake(location.x / gridSize, location.y / gridSize);
+	draggedPoint = MMAPointMake(location.x / gridSize, location.y / gridSize);
 	
 	MMAPattern pattern;
-	patternIn(&map, &pattern, clickedPoint, unclickedPoint);
+	patternIn(&map, &pattern, clickedPoint, draggedPoint);
 	
 	/*
 	printf("\nPattern is ...\n");

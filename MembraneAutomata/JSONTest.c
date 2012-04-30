@@ -9,9 +9,31 @@
 #include <stdio.h>
 #include "JSONTest.h"
 #include "json.h"
+#include "MMADefinition.h"
 
 void jsonTest() {
 	
+	char file[] = "pattern_json_test";
+	
+	MMAPattern pattern;
+	MMAPatternInitialize(&pattern, MMASizeMake(10, 10), MMARuleRuleSet, 4);
+	
+//	storePattern(&pattern, file);
+
+	struct json_object *obj;
+    int i;
+    obj = json_tokener_parse("{'a':1,'b':2,'c':3,'d':'hoge','foo':'3244'}");
+	
+	char hogera[] = "3";
+	struct json_object *obj2 = json_tokener_parse(hogera);
+
+	json_object_object_add(obj, "pake", obj2);
+    json_object_object_foreach(obj, key, val) {
+        printf("\t%s: %s\n", key, json_object_to_json_string(val));
+    }
+
+	
+	/*
 	struct json_object *obj;
     int i;
 	
@@ -41,6 +63,9 @@ void jsonTest() {
 //			printf("\t\t%s: %s\n", key00, json_object_to_json_string(val00));
 //		}
     }
+	*/
+	
+		
 	/*
 	char fileName[] = "jsontestfile2";
 	int succeeded = 0;//json_object_to_file(fileName, obj);
