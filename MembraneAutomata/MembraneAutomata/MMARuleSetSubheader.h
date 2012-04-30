@@ -8,10 +8,31 @@
 
 #include "MMADefinition.h"
 
+#define MMASubtracterNull	0xff
+
+struct MMAReactionRule {
+	byte object;
+	byte subtracter;
+	int minimum;
+	int maximum;
+};
+typedef struct MMAReactionRule MMAReactionRule;
+
+struct MMAAtomSet {
+	byte *attributes;
+	MMAReactionRule *composeRules;
+	MMAReactionRule *decomposeRules;
+	int count;
+	int range;
+};
+typedef struct MMAAtomSet MMAAtomSet;
+
 struct MMASubstance {
-	byte code;
-//	byte composeRule;
-//	byte decomposeRule;
+	byte identifier;
+	char *description;
+	unsigned int attributesMask;
+	unsigned int composeRulesMask;
+	unsigned int decomposeRulesMask;
 };
 typedef struct MMASubstance MMASubstance;
 
@@ -21,8 +42,9 @@ struct MMARuleSet {
 };
 typedef struct MMARuleSet MMARuleSet;
 
-
 void initializeSetAsDefault(MMARuleSet *);
 void resetAmount(MMARuleSet *);
+
+void MMAAtomDefaultInitializer(MMAAtomSet *);
 
 byte nextSubstance(int, MMARuleSet *, byte);

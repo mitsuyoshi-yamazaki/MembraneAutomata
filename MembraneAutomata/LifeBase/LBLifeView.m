@@ -150,7 +150,7 @@
 	MMAMapInitialize(&map, MMASizeMake(size, height));
 	
 	map.rule = MMARuleRuleSet;
-	map.range = 4;
+	map.range = 3;
 	[self randomizeAsDefault];
 	
 //	fillMapWith(&map, 1);

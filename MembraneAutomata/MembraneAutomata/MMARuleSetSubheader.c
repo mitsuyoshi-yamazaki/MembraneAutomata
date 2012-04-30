@@ -14,6 +14,12 @@ byte isComposed(int, MMARuleSet *, byte);
 byte decompose(int, MMARuleSet *, byte);
 
 #pragma mark - 
+void MMAAtomDefaultInitializer(MMAAtomSet *atom) {
+#warning hoge
+}
+
+
+#pragma mark - 
 void initializeSetAsDefault(MMARuleSet *set) {
 
 	int numberOfSubstances = 7;
