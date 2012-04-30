@@ -7,6 +7,7 @@
 //
 
 #import "MMAAppDelegate.h"
+#include "JSONTest.h"
 
 @implementation MMAAppDelegate
 
@@ -18,6 +19,8 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	[super applicationDidFinishLaunching:aNotification];
+	
+	jsonTest();
 }
 
 @end

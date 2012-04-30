@@ -80,3 +80,8 @@ void patternIn(MMAMap *, MMAPattern *, MMAPoint, MMAPoint);
 void printMap(MMAMap *);
 void countSubstances(MMAMap *);
 
+int storeMap(MMAMap *, char *);
+int restoreMap(MMAMap *, char *);
+int storePattern(MMAPattern *, char *);
+int restorePattern(MMAPattern *, char *);
+

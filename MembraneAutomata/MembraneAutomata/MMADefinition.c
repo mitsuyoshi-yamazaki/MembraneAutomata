@@ -11,6 +11,7 @@
 #include <time.h>
 #include <math.h>
 #include "MMADefinition.h"
+#include "json.h"
 
 #pragma mark - Calculate Stability
 int unstabilityBetween(byte substanceA, byte substanceB) {
@@ -300,5 +301,23 @@ void countSubstances(MMAMap *map) {
 	printf("wFamil : %5d\n", wFamilier);
 	printf("oFamil : %5d\n", oFamilier);
 	printf("Membra : %5d\n", membrane);
+}
+
+
+#pragma mark - File
+int storeMap(MMAMap *map, char *filename) {
+	
+}
+
+int restoreMap(MMAMap *map, char *filename) {
+	
+}
+
+int storePattern(MMAPattern *pattern, char *filename) {
+	
+}
+
+int restorePattern(MMAPattern *pattern, char *filename) {
+	
 }
 
