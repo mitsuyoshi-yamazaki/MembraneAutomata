@@ -16,6 +16,9 @@
 	
 	BOOL dragging;
 	BOOL selecting;
+	
+	NSUInteger mapId;
+	NSUInteger patternId;
 }
 
 - (void)clearCells;
@@ -28,5 +31,6 @@
 
 - (NSString *)rule;
 - (NSUInteger)range;
+- (NSUInteger)mapId;
 
 @end

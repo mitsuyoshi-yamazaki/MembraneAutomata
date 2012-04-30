@@ -19,3 +19,4 @@ void stepMap(MMAMap *);
 void stepInRuleExchanging(MMAMap *);
 void stepInRuleAutomata(MMAMap *);
 void stepInRuleRuleSet(MMAMap *);
+void stepInRuleVariableRuleSet(MMAMap *);

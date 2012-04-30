@@ -24,6 +24,7 @@ typedef enum rule {
 	MMARuleExchange,
 	MMARuleAutomata,
 	MMARuleRuleSet,
+	MMARuleVariableRuleSet,
 }MMARule;
 
 struct MMAPoint {
@@ -50,7 +51,7 @@ struct MMACell {
 typedef struct MMACell MMACell;
 
 struct MMAPattern {
-	char *identifier;
+	int identifier;
 	MMARule rule;
 	int range;
 	MMAPoint origin;
@@ -60,7 +61,7 @@ struct MMAPattern {
 typedef struct MMAPattern MMAPattern;
 
 struct MMAMap {
-	char *identifier;
+	int identifier;
 	MMARule rule;
 	int range;
 	MMASize size;

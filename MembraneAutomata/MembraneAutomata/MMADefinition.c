@@ -143,7 +143,7 @@ void MMAPatternInitialize(MMAPattern *pattern, MMASize size, MMARule rule, int r
 	(*pattern).range = range;
 	(*pattern).origin = MMAPointMake(0, 0);
 	(*pattern).size = size;
-	(*pattern).identifier = NULL;
+	(*pattern).identifier = 0;
 	
 	(*pattern).cells = (byte *)malloc(sizeof(byte) * (*pattern).size.width * (*pattern).size.height);
 }
@@ -157,7 +157,7 @@ void MMAMapInitialize(MMAMap *map, MMASize size) {
 	(*map).range = 1;
 	(*map).size = size;
 	(*map).rule = MMARuleAutomata;
-	(*map).identifier = NULL;
+	(*map).identifier = 0;
 	
 	(*map).previousCells = (byte *)malloc(sizeof(byte) * (*map).size.width * (*map).size.height);
 	(*map).currentCells = (byte *)malloc(sizeof(byte) * (*map).size.width * (*map).size.height);

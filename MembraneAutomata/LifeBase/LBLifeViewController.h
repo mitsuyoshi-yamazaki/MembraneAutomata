@@ -25,6 +25,7 @@
 	NSTextFieldCell *rangeField;
 	NSTextFieldCell *ruleField;
 	NSTextFieldCell *stepField;
+	NSTextFieldCell *idField;
 	
 	BOOL running;
 	
@@ -36,6 +37,7 @@
 @property (nonatomic, retain) IBOutlet NSTextFieldCell *rangeField;
 @property (nonatomic, retain) IBOutlet NSTextFieldCell *ruleField;
 @property (nonatomic, retain) IBOutlet NSTextFieldCell *stepField;
+@property (nonatomic, retain) IBOutlet NSTextFieldCell *idField;
 
 - (void)redrawLifeView;
 - (void)repeat;

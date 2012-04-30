@@ -26,6 +26,7 @@
 @synthesize rangeField;
 @synthesize ruleField;
 @synthesize stepField;
+@synthesize idField;
 
 
 #pragma mark - behavior
@@ -69,7 +70,8 @@
 	self.rangeField.title = [NSString stringWithFormat:@"Range: %d", self.lifeView.range];
 	self.ruleField.title = [NSString stringWithFormat:@"Rule: %@", self.lifeView.rule];
 	self.stepField.title = [NSString stringWithFormat:@"Steps: %d", steps];
-
+	self.idField.title = [NSString stringWithFormat:@"Map ID: %d", self.lifeView.mapId];
+	
 	self.running = NO;
 	
 	if (self.isRunning) {
@@ -104,6 +106,7 @@
 //	steps = 0;
 	
 	[self.lifeView clearCells];
+	self.idField.title = [NSString stringWithFormat:@"Map ID: %d", self.lifeView.mapId];
 	[self redraw:self];
 }
 
@@ -115,6 +118,7 @@
 	
 //	steps = 0;
 
+	self.idField.title = [NSString stringWithFormat:@"Map ID: %d", self.lifeView.mapId];
 	[self redraw:self];
 }
 
@@ -172,6 +176,7 @@
 	self.rangeField = nil;
 	self.ruleField = nil;
 	self.stepField = nil;
+	self.idField = nil;
 	
     [super dealloc];
 }

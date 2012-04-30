@@ -23,7 +23,7 @@ struct MMAAtomSet {
 	MMAReactionRule *composeRules;
 	MMAReactionRule *decomposeRules;
 	int count;
-	int range;
+	int supposedRange;
 };
 typedef struct MMAAtomSet MMAAtomSet;
 

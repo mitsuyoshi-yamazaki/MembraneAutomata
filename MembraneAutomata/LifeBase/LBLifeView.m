@@ -8,9 +8,15 @@
 
 #import "LBLifeView.h"
 
+#define LBLifeViewMapId		@"LBLifeViewMapId"
+#define LBLifeViewPatternId	@"LBLifeViewPatternId"
+#define LBLifeViewIdentifierFileName	@"Identifiers"
+
 @interface LBLifeView ()
 
 - (void)randomizeAsDefault;
+- (void)storeIds;
+- (void)restoreIds;
 
 @end
 
@@ -18,7 +24,9 @@
 
 - (void)randomizeAsDefault {
 //	int rate[MMANumberOfSubstance] = {0,1000,1000,0,2,1};	// Rule Automata用
-	int rate[7] = {10000,8800,0,100,10,0,20};	// Rule Rule Set用
+	int rate[7] = {10000,8800,10,100,10,0,20};	// Rule Rule Set用
+//	int rate[7] = {10000,10000,10,00,0,0,0};	// Rule Rule Set用
+
 	int count = 7;
 	
 	if (selecting) {
@@ -136,6 +144,8 @@
 
 - (void)initializeCells:(NSUInteger)size
 {
+	[self restoreIds];
+	
 	dragging = NO;
 	selecting = NO;
 	
@@ -144,11 +154,14 @@
 	clickedPoint = MMAPointMake(0, 0);
 	draggedPoint = MMAPointMake(0, 0);
 	MMAMap aMap;
-	
 	map = aMap;
-	
+		
 	MMAMapInitialize(&map, MMASizeMake(size, height));
 	
+	mapId++;
+	[self storeIds];
+	map.identifier = mapId;
+
 	map.rule = MMARuleRuleSet;
 	map.range = 3;
 	[self randomizeAsDefault];
@@ -216,6 +229,10 @@
 	printMap(&(map));
 }
 
+- (NSUInteger)mapId {
+	return map.identifier;
+}
+
 
 #pragma mark - NSControl
 
@@ -264,6 +281,9 @@
 	
 	MMAPattern pattern;
 	patternIn(&map, &pattern, clickedPoint, draggedPoint);
+	patternId++;
+	[self storeIds];
+	pattern.identifier = patternId;
 	
 	/*
 	printf("\nPattern is ...\n");
@@ -274,6 +294,32 @@
 		}
 		printf("\n");
 	}*/
+}
+
+
+#pragma mark - 
+- (void)storeIds {
+	NSNumber *mapNumber = [NSNumber numberWithUnsignedInteger:mapId];
+	NSNumber *patternNumber = [NSNumber numberWithUnsignedInteger:patternId];
+	
+	NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+								mapNumber, LBLifeViewMapId,
+								patternNumber, LBLifeViewPatternId,
+								nil];
+	
+	if (![dictionary writeToFile:LBLifeViewIdentifierFileName atomically:YES]) {
+		NSLog(@"Storing Ids failed");
+	}
+}
+
+- (void)restoreIds {
+	NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:LBLifeViewIdentifierFileName];
+	
+	NSNumber *mapNumber = [dictionary objectForKey:LBLifeViewMapId];
+	NSNumber *patternNumber = [dictionary objectForKey:LBLifeViewPatternId];
+	
+	mapId = mapNumber.unsignedIntegerValue;
+	patternId = patternNumber.unsignedIntegerValue;
 }
 
 @end

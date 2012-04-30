@@ -14,10 +14,12 @@
 #define MMARuleNameExchange	"Exchange"
 #define MMARuleNameAutomata	"Automata"
 #define MMARuleNameRuleSet	"Rule Set"
+#define MMARuleNameVariableRuleSet	"Variable Rule Set"
 
 #define MMARuleDescriptionExchange	"It exchanges cell statuses as like real world. Amount of each substances never change. Not very succeeded."
-#define MMARuleDescriptionAutomata	"It changes cell statuses like cellular automata. Oil drops and membrane appear. Works well"
-#define MMARuleDescriptionRuleSet	"It changes cell statuses like cellular automata. Automata rules are created from combination of small rules. Now working"
+#define MMARuleDescriptionAutomata	"It changes cell statuses like cellular automata. Oil drops and membrane appear. Works well."
+#define MMARuleDescriptionRuleSet	"It changes cell statuses like cellular automata. Automata rules are fixed. map.range = 3 or 4 are interesting."
+#define MMARuleDescriptionVariableRuleSet	"It changes cell statuses like cellular automata. Automata rules are created from combination of small rules. Now working"
 
 void copyCells(MMAMap *);
 
@@ -85,6 +87,11 @@ void stepMap(MMAMap *map) {
 		case MMARuleRuleSet:
 			copyCells(map);
 			stepInRuleRuleSet(map);
+			break;
+			
+		case MMARuleVariableRuleSet:
+			copyCells(map);
+			stepInRuleVariableRuleSet(map);
 			break;
 			
 		default:
@@ -267,6 +274,10 @@ void stepInRuleRuleSet(MMAMap *map) {
 			(*map).currentCells[position] = nextSubstance(range, &set, (*map).previousCells[position]);
 		}
 	}
+}
+
+void stepInRuleVariableRuleSet(MMAMap *map) {
+	
 }
 
 
