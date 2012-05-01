@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-//#include "MMADefinition.h" // included in MMARuleSetSubheader.h
-#include "MMARuleSetSubheader.h"
+#include "MMADefinition.h" // included in MMARuleSetSubheader.h
+//#include "MMARuleSetSubheader.h"
 
 char* ruleName(MMARule);
 char* ruleDescription(MMARule);

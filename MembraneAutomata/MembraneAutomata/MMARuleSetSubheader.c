@@ -10,17 +10,17 @@
 #include <stdlib.h>
 #include "MMARuleSetSubheader.h"
 
-byte isComposed(int, MMARuleSet *, byte);
-byte decompose(int, MMARuleSet *, byte);
+byte isComposed(int, MMAAmount *, byte);
+byte decompose(int, MMAAmount *, byte);
 
 #pragma mark - 
 void MMAAtomDefaultInitializer(MMAAtomSet *atom) {
-#warning hoge
+	
 }
 
 
 #pragma mark - 
-void initializeSetAsDefault(MMARuleSet *set) {
+void initializeSetAsDefault(MMAAmount *set) {
 
 	int numberOfSubstances = 7;
 	
@@ -30,14 +30,22 @@ void initializeSetAsDefault(MMARuleSet *set) {
 	resetAmount(set);	
 }
 
-void resetAmount(MMARuleSet *set) {
+void initializeSet(MMAAmount *set, int count) {
+	
+	(*set).amount = (int *)malloc(sizeof(int) * count);
+	(*set).ruleCount = count;
+	
+	resetAmount(set);	
+}
+
+void resetAmount(MMAAmount *set) {
 	
 	for (int i = 0; i < (*set).ruleCount; i++) {
 		(*set).amount[i] = 0;
 	}
 }
 
-byte nextSubstance(int range, MMARuleSet *set, byte target) {
+byte nextSubstance(int range, MMAAmount *set, byte target) {
 
 	int max = (*set).ruleCount;
 	int i;
@@ -50,9 +58,13 @@ byte nextSubstance(int range, MMARuleSet *set, byte target) {
 	return decompose(range, set, target);
 }
 
+byte nextSubstanceInVariableRule(MMAAmount *amount, byte target) {
+	
+}
+
 
 #pragma mark - Rules
-byte isComposed(int range, MMARuleSet *set, byte substance) {
+byte isComposed(int range, MMAAmount *set, byte substance) {
 	
 	switch (substance) {
 		case 0:		// water
@@ -132,7 +144,7 @@ byte isComposed(int range, MMARuleSet *set, byte substance) {
 	}
 }
 
-byte decompose(int range, MMARuleSet *set, byte target) {
+byte decompose(int range, MMAAmount *set, byte target) {
 		
 	int waterCount = (*set).amount[0] + (*set).amount[6];
 	int oilCount = (*set).amount[1] + (*set).amount[3];

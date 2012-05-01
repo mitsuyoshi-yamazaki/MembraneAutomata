@@ -6,13 +6,16 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#include "MMADefinition.h"
+//#include "MMADefinition.h"
 
 #define MMASubtracterNull	0xff
+
+typedef unsigned char byte;
 
 struct MMAReactionRule {
 	byte object;
 	byte subtracter;
+	byte result;
 	int minimum;
 	int maximum;
 };
@@ -22,7 +25,8 @@ struct MMAAtomSet {
 	byte *attributes;
 	MMAReactionRule *composeRules;
 	MMAReactionRule *decomposeRules;
-	int count;
+	int atomCount;
+	int substanceCount;
 	int supposedRange;
 };
 typedef struct MMAAtomSet MMAAtomSet;
@@ -36,15 +40,17 @@ struct MMASubstance {
 };
 typedef struct MMASubstance MMASubstance;
 
-struct MMARuleSet {
+struct MMAAmount {
 	int *amount;
 	int ruleCount;
 };
-typedef struct MMARuleSet MMARuleSet;
+typedef struct MMAAmount MMAAmount;
 
-void initializeSetAsDefault(MMARuleSet *);
-void resetAmount(MMARuleSet *);
+void initializeSetAsDefault(MMAAmount *);
+void initializeSet(MMAAmount *, int);
+void resetAmount(MMAAmount *);
 
 void MMAAtomDefaultInitializer(MMAAtomSet *);
 
-byte nextSubstance(int, MMARuleSet *, byte);
+byte nextSubstance(int, MMAAmount *, byte);
+byte nextSubstanceInVariableRule(MMAAmount *, byte);

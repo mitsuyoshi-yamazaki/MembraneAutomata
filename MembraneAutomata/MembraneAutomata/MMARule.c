@@ -255,7 +255,7 @@ void stepInRuleRuleSet(MMAMap *map) {
 	int minimumRange = 0 - range;
 	int maxRange = range + 1;
 	
-	MMARuleSet set;
+	MMAAmount set;
 	initializeSetAsDefault(&set);
 
 	for (int x = 0; x < xMax; x++) {

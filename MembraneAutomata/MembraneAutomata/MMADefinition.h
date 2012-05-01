@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#include "MMARuleSetSubheader.h"
+
 #define MMANull		0x00
 #define MMAWater	0x01
 #define MMAOil		0x02
@@ -17,8 +19,6 @@
 
 #define MMAUnstableMax	8
 
-
-typedef unsigned char byte;
 
 typedef enum rule {
 	MMARuleExchange,
@@ -63,6 +63,7 @@ typedef struct MMAPattern MMAPattern;
 struct MMAMap {
 	int identifier;
 	MMARule rule;
+	MMAAtomSet atomSet;
 	int range;
 	MMASize size;
 	byte *currentCells;

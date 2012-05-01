@@ -35,6 +35,8 @@
 	else {
 		randomizeMap(&map, rate, 7);
 		frameWith(&map, 0, map.size.width * 0.01);		
+		mapId++;
+		map.identifier = mapId;
 	}
 }
 
@@ -202,6 +204,8 @@
 	}
 	else {
 		clearMap(&map);
+		mapId++;
+		map.identifier = mapId;
 	}
 }
 
