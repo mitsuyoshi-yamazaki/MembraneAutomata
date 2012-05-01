@@ -10,8 +10,11 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
+#include <string.h>
 #include "MMADefinition.h"
 #include "json.h"
+
+void filenameCreateWithId(char *,unsigned int);
 
 #pragma mark - Calculate Stability
 int unstabilityBetween(byte substanceA, byte substanceB) {
@@ -414,41 +417,59 @@ void countSubstances(MMAMap *map) {
 
 
 #pragma mark - File
-int storeMap(MMAMap *map, char *filename) {
+void filenameCreateWithId(char *filename, unsigned int anIdentifier) {
+	sprintf(filename, "MMAMapFile%d", anIdentifier);
+}
+
+int storeMap(MMAMap *map) {
 	MMAPattern pattern;
 	MMAPatternInitialize(&pattern, (*map).size, (*map).rule, (*map).range);
 	pattern.cells = (*map).currentCells;
+	pattern.identifier = (*map).identifier;
 	
-	int succeeded = storePattern(&pattern, filename);
+	int succeeded = storePattern(&pattern);
 	
 	MMAPatternDelete(&pattern);
 	
 	return succeeded;
 }
 
-int restoreMap(MMAMap *map, char *filename) {
+int restoreMap(MMAMap *map, unsigned int anIdentifier) {
 
 }
 
-int storePattern(MMAPattern *pattern, char *filename) {
+int storePattern(MMAPattern *pattern) {
+	
+	char filename[30];
+	filenameCreateWithId(filename, (*pattern).identifier);
 	
 	char identifierKey[] = "identifier";
 	char rangeKey[] = "range";
 	char ruleKey[] = "rule";
 //	char originKey[] = "origin";
 	char sizeKey[] = "size";
-	char cellsKey[] = "cells";
+	char cellsFileKey[] = "cells_file";
 	
-	struct json_object *cellsObject = json_tokener_parse((const char *)(*pattern).cells);
+	char cellsFilename[30];
+	sprintf(cellsFilename, "%s%d", cellsFileKey, (*pattern).identifier);
+	
+	
+	struct json_object *identifierObject, *rangeObject, *ruleObject, *sizeObject, *cellsFileObject;
+	char identifier[30], range[30], rule[30], size[30], cellsFile[30];
+	
+	sprintf(identifier, "%s:%d", identifierKey, (*pattern).identifier);
+	identifierObject = json_tokener_parse(identifier);
+	
+//	sprintf(size, )
 	
 	struct json_object *json;
 	json = json_tokener_parse("");
-	json_object_object_add(json, cellsKey, cellsObject);
+//	json_object_object_add(json, cellsFileKey, cellsObject);
 	
 	return json_object_to_file(filename, json);
 }
 
-int restorePattern(MMAPattern *pattern, char *filename) {
+int restorePattern(MMAPattern *pattern, unsigned int anIdentifier) {
 	
 }
 

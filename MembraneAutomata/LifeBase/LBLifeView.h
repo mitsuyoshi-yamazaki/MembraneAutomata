@@ -17,7 +17,6 @@
 	BOOL dragging;
 	BOOL selecting;
 	
-	NSUInteger mapId;
 	NSUInteger patternId;
 }
 

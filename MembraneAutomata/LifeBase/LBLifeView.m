@@ -8,7 +8,6 @@
 
 #import "LBLifeView.h"
 
-#define LBLifeViewMapId		@"LBLifeViewMapId"
 #define LBLifeViewPatternId	@"LBLifeViewPatternId"
 #define LBLifeViewIdentifierFileName	@"Identifiers"
 
@@ -35,8 +34,8 @@
 	else {
 		randomizeMap(&map, rate, 7);
 		frameWith(&map, 0, map.size.width * 0.01);		
-		mapId++;
-		map.identifier = mapId;
+		patternId++;
+		map.identifier = patternId;
 	}
 }
 
@@ -160,9 +159,9 @@
 		
 	MMAMapInitialize(&map, MMASizeMake(size, height));
 	
-	mapId++;
+	patternId++;
 	[self storeIds];
-	map.identifier = mapId;
+	map.identifier = patternId;
 
 	map.rule = MMARuleRuleSet;
 	map.range = 3;
@@ -204,8 +203,8 @@
 	}
 	else {
 		clearMap(&map);
-		mapId++;
-		map.identifier = mapId;
+		patternId++;
+		map.identifier = patternId;
 	}
 }
 
@@ -303,11 +302,9 @@
 
 #pragma mark - 
 - (void)storeIds {
-	NSNumber *mapNumber = [NSNumber numberWithUnsignedInteger:mapId];
 	NSNumber *patternNumber = [NSNumber numberWithUnsignedInteger:patternId];
 	
 	NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-								mapNumber, LBLifeViewMapId,
 								patternNumber, LBLifeViewPatternId,
 								nil];
 	
@@ -319,10 +316,8 @@
 - (void)restoreIds {
 	NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:LBLifeViewIdentifierFileName];
 	
-	NSNumber *mapNumber = [dictionary objectForKey:LBLifeViewMapId];
 	NSNumber *patternNumber = [dictionary objectForKey:LBLifeViewPatternId];
 	
-	mapId = mapNumber.unsignedIntegerValue;
 	patternId = patternNumber.unsignedIntegerValue;
 }
 

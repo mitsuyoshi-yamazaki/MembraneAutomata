@@ -7,7 +7,7 @@
 //
 
 #import "MMAAppDelegate.h"
-//#include "JSONTest.h"
+#include "JSONTest.h"
 
 @implementation MMAAppDelegate
 
@@ -20,7 +20,8 @@
 {
 	[super applicationDidFinishLaunching:aNotification];
 	
-//	jsonTest();
+//	fileTest();
+	jsonTest();
 }
 
 @end

@@ -10,9 +10,105 @@
 #include "JSONTest.h"
 #include "json.h"
 #include "MMADefinition.h"
+#include <string.h>
+#include <stdlib.h>
+
+void fileTest() {
+	FILE *outputfile;         // 出力ストリーム
+	
+	char filename[] = "file_writing_test4";
+	
+	outputfile = fopen(filename, "w");  // ファイルを書き込み用にオープン(開く)
+	if (outputfile == NULL) {          // オープンに失敗した場合
+		printf("cannot open\n");         // エラーメッセージを出して
+		return;
+	}
+	
+	
+	int filesize = 0x0f;
+	unsigned char *context = (unsigned char*)malloc(sizeof(const char) * filesize);
+
+	for (int i = 0; i < filesize; i++) {
+		context[i] =i;
+	}
+	
+	fwrite(context, sizeof(unsigned char), 0x0f, outputfile);
+//	fprintf(outputfile, context); // ファイルに書く
+
+	fclose(outputfile);          // ファイルをクローズ(閉じる)
+
+	printf("\n\nhogehoge\n\n");
+	
+	//
+	FILE *fp;
+//	char *fname = "test.bmp";
+	unsigned char buf[10000];
+	int  i, size;
+	
+	fp = fopen( filename, "rb" );
+	if( fp == NULL ){
+		printf( "%sファイルが開けません¥n", filename);
+		return;
+	}
+	
+	size = fread( buf, sizeof( unsigned char ), 0x0b, fp );
+	
+	for( i=0; i<size; i++ ){
+//		if( i % 16 == 0 ) printf( "¥n" );
+		printf( "%02X ", buf[i] );
+	}
+	
+	fclose( fp );
+
+	
+	unsigned int pake = 0 - 1;
+	printf("\n pake : %d", pake);
+	
+	char hogehoge[100];
+	sprintf(hogehoge, "[this is hoge %d, %x, %s]", 3244, 0xb2, "foo");
+	printf("hogehoge : {%s}", hogehoge);
+}
 
 void jsonTest() {
+	/*
+	char buff0[256];   // 連結文字列用 
 	
+	for (int i = 0; i < 256; i++) {
+		buff0[i] = 0x00;
+	}
+	
+    char buff1[] = "{'hoge':'";   // 入力文字列用
+    char buff2[] = "'}";   // 入力文字列用 
+	
+    printf("文字列1 : %s\n", buff1);  // プロンプト表示 
+    printf("文字列2 : %s\n", buff2);  // プロンプト表示 
+	
+	char hoge[8] = {0x03,0x02,0x04,0x04,0x04,0x06,0x04,0x09};	
+	
+	
+	
+    strcpy(buff0, buff1);  // 文字列コピー(buff$ = buff1$) 
+    strcat(buff0, hoge);  // 文字列連結(buff$ = buff$ + buff2$) 
+//	strcat(buff0, buff2);
+	
+    printf("文字列は%sです\n", buff0);    // 連結文字列表示 
+*/
+	
+	struct json_object *obj, *obj2;
+	char buff[] = "{'a':1,'b':2,'c':3,'d':'hoge','foo':'3244'}";
+    obj = json_tokener_parse(buff);
+	
+	obj2 = json_tokener_parse("32");
+	
+	json_object_object_add(obj, "pakerattaKey", obj2);
+	
+    json_object_object_foreach(obj, key, val) {
+        printf("\t%s: %s\n", key, json_object_to_json_string(val));
+    }
+
+
+	
+	/*
 	char file[] = "pattern_json_test";
 	
 	MMAPattern pattern;
@@ -31,7 +127,7 @@ void jsonTest() {
     json_object_object_foreach(obj, key, val) {
         printf("\t%s: %s\n", key, json_object_to_json_string(val));
     }
-
+*/
 	
 	/*
 	struct json_object *obj;
