@@ -13,9 +13,74 @@
 byte isComposed(int, MMAAmount *, byte);
 byte decompose(int, MMAAmount *, byte);
 
+byte isComposedInVariableRule(MMAAmount *, MMAReactionRule *, byte);
+byte decomposeInVariableRule(MMAAmount *, MMAAtomSet *, byte);
+
+byte react(MMAReactionRule, MMAAmount *);
+
 #pragma mark - 
+MMAReactionRule MMAReactionRuleMake(byte object, byte subtracter, byte result, int minimum, int maximum) {
+	
+	MMAReactionRule rule;
+	
+	rule.object = object;
+	rule.subtracter = subtracter;
+	rule.minimum = minimum;
+	rule.maximum = maximum;
+	rule.result = result;
+	
+	return rule;
+}
+
+MMAReactionRule MMAReactionRuleDummy() {
+	MMAReactionRule rule;
+	return rule;
+}
+
 void MMAAtomDefaultInitializer(MMAAtomSet *atom) {
 	
+	byte water = 1;
+	byte oil = 2;
+	byte membrane = 3;
+	
+	MMAReactionRule waterDecomposeRule = MMAReactionRuleMake(oil, 0, oil, 26, MMARuleMaximum);
+	MMAReactionRule oilDecomposeRule = MMAReactionRuleMake(water, 0, water, 26, MMARuleMaximum);
+	MMAReactionRule membraneComposeRule0 = MMAReactionRuleMake(membrane, 0, membrane, 0, 10);
+	MMAReactionRule membraneComposeRule1 = MMAReactionRuleMake(oil, water, membrane, -6, 6);
+	MMAReactionRule membraneDecomposeRule0 = MMAReactionRuleMake(oil, water, oil, -1, MMARuleMaximum);
+	MMAReactionRule membraneDecomposeRule1 = MMAReactionRuleMake(water, oil, water, -1, MMARuleMaximum);
+	
+	(*atom).ruleSet = (MMAReactionRule *)malloc(sizeof(MMAReactionRule) * 6);
+//	(*atom).ruleSet[0] = MMAReactionRuleDummy();
+	(*atom).ruleSet[0] = waterDecomposeRule;
+	(*atom).ruleSet[1] = oilDecomposeRule;
+	(*atom).ruleSet[2] = membraneComposeRule0;
+	(*atom).ruleSet[3] = membraneComposeRule1;
+	(*atom).ruleSet[4] = membraneDecomposeRule0;
+	(*atom).ruleSet[5] = membraneDecomposeRule1;
+	
+	(*atom).atomCount = 4; // actual count + 1(Null substance)
+	
+	(*atom).attributes = (byte *)malloc(sizeof(byte) * (*atom).atomCount);
+	(*atom).attributes[0] = 0x00;	// Null Substance
+	(*atom).attributes[1] = 0x01;
+	(*atom).attributes[2] = 0x02;
+	(*atom).attributes[3] = 0x04;
+	
+	(*atom).composeRules = (byte *)malloc(sizeof(byte) * (*atom).atomCount);
+	(*atom).composeRules[0] = 0x00;
+	(*atom).composeRules[1] = 0x00;
+	(*atom).composeRules[2] = 0x00;
+	(*atom).composeRules[3] = 0x0c;
+	
+	(*atom).decomposeRules = (byte *)malloc(sizeof(byte) * (*atom).atomCount);
+	(*atom).decomposeRules[0] = 0x00;
+	(*atom).decomposeRules[1] = 0x01;
+	(*atom).decomposeRules[2] = 0x02;
+	(*atom).decomposeRules[3] = 0x30;
+	
+	(*atom).substanceCount = 4; // actual count + 1(Null substance)
+	(*atom).supposedRange = 3;
 }
 
 
@@ -30,10 +95,10 @@ void initializeSetAsDefault(MMAAmount *set) {
 	resetAmount(set);	
 }
 
-void initializeSet(MMAAmount *set, int count) {
+void initializeAmount(MMAAmount *set, int atomCount) {
 	
-	(*set).amount = (int *)malloc(sizeof(int) * count);
-	(*set).ruleCount = count;
+	(*set).amount = (int *)malloc(sizeof(int) * atomCount);
+	(*set).ruleCount = atomCount;
 	
 	resetAmount(set);	
 }
@@ -56,10 +121,6 @@ byte nextSubstance(int range, MMAAmount *set, byte target) {
 		}
 	}
 	return decompose(range, set, target);
-}
-
-byte nextSubstanceInVariableRule(MMAAmount *amount, byte target) {
-	
 }
 
 
@@ -207,5 +268,89 @@ byte decompose(int range, MMAAmount *set, byte target) {
 	}
 
 	return target;
+}
+
+
+#pragma mark - In Variable Rule
+byte nextSubstanceInVariableRule(MMAAtomSet *atom, MMAAmount *amount, byte target) {
+	
+	int iMax = (*atom).substanceCount;
+	
+	for (int i = 0; i < iMax; i++) {
+		if (isComposedInVariableRule(amount, (*atom).ruleSet, (*atom).composeRules[i])) {
+			return i;
+		}
+	}
+	
+	return decomposeInVariableRule(amount, atom, target);
+}
+
+byte isComposedInVariableRule(MMAAmount *amount, MMAReactionRule *rules, byte theRule) {
+
+	if (!theRule) {
+		return 0;
+	}
+	
+	byte mask = 0x01;
+	int i = 0;
+	
+	while (theRule != 0) {
+		if (theRule & mask) {
+			if (!react(rules[i], amount)) {
+				return 0;
+			}
+		}
+		
+		theRule = theRule >> 1;
+		i++;
+	}
+	
+	return 1;
+}
+
+byte decomposeInVariableRule(MMAAmount *amount, MMAAtomSet *atom, byte target) {
+	
+	byte theRule = (*atom).decomposeRules[target];
+	const byte mask = 0x01;
+	byte result = 0;
+	int i = 0;
+	
+	while (theRule != 0) {
+		if (theRule & mask) {
+			result = react((*atom).ruleSet[i], amount);
+			if (result) {
+				return result;
+			}
+		}
+		theRule = theRule >> 1;
+		i++;
+	}
+	
+	return target;
+}
+
+byte react(MMAReactionRule rule, MMAAmount *amount) {
+	
+	int value = (*amount).amount[rule.object] - (*amount).amount[rule.subtracter];
+	
+	if (value > rule.minimum && value < rule.maximum) {
+		return rule.result;
+	}
+	return 0;
+}
+
+void countAmount(MMAAmount *amount, byte attribute) {
+	
+	const byte mask = 0x01;
+	int i = 1;
+	
+	while (attribute != 0) {
+		if (attribute & mask) {
+			(*amount).amount[i]++;
+		}
+		
+		attribute = attribute >> 1;
+		i++;
+	}
 }
 

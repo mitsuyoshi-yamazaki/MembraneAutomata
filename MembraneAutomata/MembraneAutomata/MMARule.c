@@ -36,6 +36,9 @@ char* ruleName(MMARule rule) {
 		case MMARuleRuleSet:
 			return MMARuleNameRuleSet;
 			
+		case MMARuleVariableRuleSet:
+			return MMARuleNameVariableRuleSet;
+			
 		default:
 			return NULL;
 	}
@@ -52,6 +55,9 @@ char* ruleDescription(MMARule rule) {
 			
 		case MMARuleRuleSet:
 			return MMARuleDescriptionRuleSet;
+			
+		case MMARuleVariableRuleSet:
+			return MMARuleDescriptionVariableRuleSet;
 			
 		default:
 			return NULL;
@@ -278,6 +284,36 @@ void stepInRuleRuleSet(MMAMap *map) {
 
 void stepInRuleVariableRuleSet(MMAMap *map) {
 	
+	int xMax = (*map).size.width;
+	int yMax = (*map).size.height;
+	int position = 0;
+	int subPosition = 0;
+	
+	int range = (*map).range;
+	int minimumRange = 0 - range;
+	int maxRange = range + 1;
+	
+	MMAAmount amount;
+	initializeAmount(&amount, (*map).atomSet.atomCount);
+	
+	for (int x = 0; x < xMax; x++) {
+		for (int y = 0; y < yMax; y++) {
+			position = x + y * xMax;
+			resetAmount(&amount);
+			
+			for (int i = minimumRange; i < maxRange; i++) {
+				for (int j = minimumRange; j < maxRange; j++) {
+					subPosition = ((x + i + xMax) % xMax) + ((y + j + yMax) % yMax) * xMax;
+					
+					countAmount(&amount, (*map).atomSet.attributes[(*map).previousCells[subPosition]]);
+				}
+			}
+						
+			(*map).currentCells[position] = nextSubstanceInVariableRule(&(*map).atomSet, &amount, (*map).previousCells[position]);
+			
+//			printf("(%d,%d) : (0:%d,1:%d,2:%d) %d -> %d\n", x, y, amount.amount[0], amount.amount[1], amount.amount[2], (*map).previousCells[position], (*map).currentCells[position]);
+		}
+	}
 }
 
 
