@@ -23,9 +23,9 @@
 
 - (void)randomizeAsDefault {
 //	int rate[MMANumberOfSubstance] = {0,1000,1000,0,2,1};	// Rule Automata用
-	int rate[7] = {0,10000,10000,10,0,0,0};	// Rule Variable Rule Set用
+//	int rate[7] = {0,10000,10000,0,10,10,10};	// Rule Variable Rule Set用
 //	int rate[7] = {10000,8800,10,100,10,0,20};	// Rule Rule Set用
-//	int rate[7] = {10000,10000,10,00,0,0,0};	// Rule Rule Set用
+	int rate[7] = {10000,10000,10,00,0,0,0};	// Rule Rule Set用
 
 	int count = 7;
 	
@@ -164,7 +164,8 @@
 	[self storeIds];
 	map.identifier = patternId;
 
-	map.rule = MMARuleVariableRuleSet;//MMARuleRuleSet;
+//	map.rule = MMARuleVariableRuleSet;
+	map.rule = MMARuleRuleSet;
 	MMAAtomSet atom;
 	MMAAtomDefaultInitializer(&atom);
 	map.atomSet = atom;
@@ -173,7 +174,7 @@
 	[self randomizeAsDefault];
 	
 //	fillMapWith(&map, 1);
-//	map.currentCells[0] = 2;
+//	map.currentCells[0] = 3;
 //	frameWith(&map, 0, map.size.width * 0.1);
 //	map.currentCells[(int)(map.size.width * 0.1) + (int)(map.size.height * 0.5) * map.size.width] = 4;
 //	map.currentCells[(int)(map.size.width * 0.9) + (int)(map.size.height * 0.5) * map.size.width] = 6;

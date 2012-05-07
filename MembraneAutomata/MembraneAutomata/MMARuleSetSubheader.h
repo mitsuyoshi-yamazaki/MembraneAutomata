@@ -12,6 +12,7 @@
 #define MMARuleMaximum		1000
 
 typedef unsigned char byte;
+typedef unsigned int quad_byte;
 
 struct MMAReactionRule {
 	byte object;
@@ -24,9 +25,9 @@ typedef struct MMAReactionRule MMAReactionRule;
 
 struct MMAAtomSet {
 	MMAReactionRule *ruleSet;
-	byte *attributes;
-	byte *composeRules;
-	byte *decomposeRules;
+	quad_byte *attributes;
+	quad_byte *composeRules;
+	quad_byte *decomposeRules;
 	int atomCount;
 	int substanceCount;
 	int supposedRange;
@@ -60,4 +61,4 @@ void MMAAtomDefaultInitializer(MMAAtomSet *);
 byte nextSubstance(int, MMAAmount *, byte);
 byte nextSubstanceInVariableRule(MMAAtomSet *,MMAAmount *, byte);
 
-void countAmount(MMAAmount *, byte);
+void countAmount(MMAAmount *, quad_byte);
