@@ -80,6 +80,8 @@ void copyCells(MMAMap *map) {
 
 void stepMap(MMAMap *map) {
 	
+	(*map).step++;
+	
 	switch ((*map).rule) {
 		case MMARuleExchange:
 			stepInRuleExchanging(map);

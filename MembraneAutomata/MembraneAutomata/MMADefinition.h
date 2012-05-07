@@ -64,6 +64,7 @@ struct MMAMap {
 	int identifier;
 	MMARule rule;
 	MMAAtomSet atomSet;
+	int step;
 	int range;
 	MMASize size;
 	byte *currentCells;

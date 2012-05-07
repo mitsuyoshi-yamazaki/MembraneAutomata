@@ -35,8 +35,9 @@
 	else {
 		randomizeMap(&map, rate, 7);
 		frameWith(&map, 1, map.size.width * 0.01);		
-		patternId++;
 		map.identifier = patternId;
+		patternId++;
+		[self storeIds];
 	}
 }
 
@@ -160,18 +161,21 @@
 		
 	MMAMapInitialize(&map, MMASizeMake(size, height));
 	
-	patternId++;
-	[self storeIds];
-	map.identifier = patternId;
+//	map.identifier = patternId;
+	//	patternId++;
+	//	[self storeIds];
 
 //	map.rule = MMARuleVariableRuleSet;
 	map.rule = MMARuleRuleSet;
 	MMAAtomSet atom;
 	MMAAtomDefaultInitializer(&atom);
+	atom.identifier = patternId;
 	map.atomSet = atom;
 	
 	map.range = 3;
 	[self randomizeAsDefault];
+	
+	storeMap(&map);
 	
 //	fillMapWith(&map, 1);
 //	map.currentCells[0] = 3;
@@ -210,8 +214,9 @@
 	}
 	else {
 		clearMap(&map);
-		patternId++;
 		map.identifier = patternId;
+		patternId++;
+		[self storeIds];
 	}
 }
 
@@ -241,6 +246,10 @@
 
 - (NSUInteger)mapId {
 	return map.identifier;
+}
+
+- (NSUInteger)steps {
+	return map.step;
 }
 
 
@@ -291,9 +300,9 @@
 	
 	MMAPattern pattern;
 	patternIn(&map, &pattern, clickedPoint, draggedPoint);
+	pattern.identifier = patternId;
 	patternId++;
 	[self storeIds];
-	pattern.identifier = patternId;
 	
 	/*
 	printf("\nPattern is ...\n");

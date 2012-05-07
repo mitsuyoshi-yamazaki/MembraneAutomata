@@ -24,6 +24,7 @@ struct MMAReactionRule {
 typedef struct MMAReactionRule MMAReactionRule;
 
 struct MMAAtomSet {
+	int identifier;
 	MMAReactionRule *ruleSet;
 	quad_byte *attributes;
 	quad_byte *composeRules;

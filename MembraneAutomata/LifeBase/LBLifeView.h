@@ -31,5 +31,6 @@
 - (NSString *)rule;
 - (NSUInteger)range;
 - (NSUInteger)mapId;
+- (NSUInteger)steps;
 
 @end

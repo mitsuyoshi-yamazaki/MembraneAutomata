@@ -161,6 +161,7 @@ void MMAMapInitialize(MMAMap *map, MMASize size) {
 	(*map).size = size;
 	(*map).rule = MMARuleAutomata;
 	(*map).identifier = 0;
+	(*map).step = 0;
 	
 	(*map).previousCells = (byte *)malloc(sizeof(byte) * (*map).size.width * (*map).size.height);
 	(*map).currentCells = (byte *)malloc(sizeof(byte) * (*map).size.width * (*map).size.height);
@@ -422,15 +423,33 @@ void filenameCreateWithId(char *filename, unsigned int anIdentifier) {
 }
 
 int storeMap(MMAMap *map) {
-	MMAPattern pattern;
-	MMAPatternInitialize(&pattern, (*map).size, (*map).rule, (*map).range);
-	pattern.cells = (*map).currentCells;
-	pattern.identifier = (*map).identifier;
 	
-	int succeeded = storePattern(&pattern);
+	char filename[64];
+	filenameCreateWithId(filename, (*map).identifier);
 	
-	MMAPatternDelete(&pattern);
+	char objects[256];
+	sprintf(objects, "{'identifier':%d,'rule':%d,'atomSetIdentifier':%d,'range':%d,'sizeWidth':%d,'sizeHeight':%d}", (*map).identifier, (*map).rule,(*map).atomSet.identifier,(*map).range,(*map).size.width,(*map).size.height);
+	// ,'cellsIdentifier':%d
 	
+	struct json_object *jsonObject;
+	jsonObject = json_tokener_parse(objects);
+	
+	json_object_object_foreach(jsonObject, key, val) {
+        printf("\t%s: %s\n", key, json_object_to_json_string(val));
+    }
+	
+	int succeeded = json_object_to_file(filename, jsonObject);
+	
+	if (succeeded == -1) {
+		printf("file create failed\n");
+	}
+	else if (succeeded == 0) {
+		printf("file create succeeded\n");
+	}
+	else {
+		printf("( -.-)?\n");
+	}
+
 	return succeeded;
 }
 
@@ -457,6 +476,8 @@ int storePattern(MMAPattern *pattern) {
 	struct json_object *identifierObject, *rangeObject, *ruleObject, *sizeObject, *cellsFileObject;
 	char identifier[30], range[30], rule[30], size[30], cellsFile[30];
 	
+//	identifierObject = json_tokener_parse()
+	
 	sprintf(identifier, "%s:%d", identifierKey, (*pattern).identifier);
 	identifierObject = json_tokener_parse(identifier);
 	
@@ -470,6 +491,7 @@ int storePattern(MMAPattern *pattern) {
 }
 
 int restorePattern(MMAPattern *pattern, unsigned int anIdentifier) {
+	
 	
 }
 

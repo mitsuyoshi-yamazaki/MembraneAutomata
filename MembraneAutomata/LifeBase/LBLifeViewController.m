@@ -35,16 +35,9 @@
 {
 	for (NSUInteger i = 0; i < kLBLifeViewControllerRefreshPerCaliculation; i++) {
 		[self.lifeView calculateNextPattern];
-		steps++;
-		
-		if (kLBLifeViewControllerStopAfterNSteps && steps > kLBLifeViewControllerSteps) {
-			self.running = NO;
-			[self.lifeView setNeedsDisplay:YES];
-			break;
-		}
 	}
 	
-	self.stepField.title = [NSString stringWithFormat:@"Steps: %d", steps];
+	self.stepField.title = [NSString stringWithFormat:@"Steps: %d", self.lifeView.steps];
 	[self.lifeView setNeedsDisplay:YES];
 }
 
@@ -65,11 +58,9 @@
 {
 	[self.lifeView initializeCells:kLBLifeViewControllerDefaultMapSize];
 
-	steps = 0;
-
 	self.rangeField.title = [NSString stringWithFormat:@"Range: %d", self.lifeView.range];
 	self.ruleField.title = [NSString stringWithFormat:@"Rule: %@", self.lifeView.rule];
-	self.stepField.title = [NSString stringWithFormat:@"Steps: %d", steps];
+	self.stepField.title = [NSString stringWithFormat:@"Steps: %d", self.lifeView.steps];
 	self.idField.title = [NSString stringWithFormat:@"Map ID: %d", self.lifeView.mapId];
 	
 	self.running = NO;
@@ -144,9 +135,8 @@
 		self.startButton.title = @"Start";
 	}
 	
-	steps++;
 	[self.lifeView calculateNextPattern];
-	self.stepField.title = [NSString stringWithFormat:@"Steps: %d", steps];
+	self.stepField.title = [NSString stringWithFormat:@"Steps: %d", self.lifeView.steps];
 	
 	[self.lifeView setNeedsDisplay:YES];
 }

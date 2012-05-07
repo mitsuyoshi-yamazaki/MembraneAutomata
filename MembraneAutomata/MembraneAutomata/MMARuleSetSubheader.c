@@ -73,6 +73,7 @@ void MMAAtomDefaultInitializer(MMAAtomSet *atom) {
 	MMAReactionRule greenSubstanceDecomposeRule0 = MMAReactionRuleMake(water, 0, oil, MMARuleMinimum, 1);
 	MMAReactionRule greenSubstanceDecomposeRule1 = MMAReactionRuleMake(water, 0, oil, 26, MMARuleMaximum);
 	
+	(*atom).identifier = 0;
 	
 	(*atom).ruleSet = (MMAReactionRule *)malloc(sizeof(MMAReactionRule) * 19);
 //	(*atom).ruleSet[0] = MMAReactionRuleDummy();

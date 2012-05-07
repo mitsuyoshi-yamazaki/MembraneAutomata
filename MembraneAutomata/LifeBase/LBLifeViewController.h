@@ -27,9 +27,7 @@
 	NSTextFieldCell *stepField;
 	NSTextFieldCell *idField;
 	
-	BOOL running;
-	
-	NSUInteger steps;
+	BOOL running;	
 }
 
 @property (nonatomic, retain) IBOutlet LBLifeView *lifeView;
