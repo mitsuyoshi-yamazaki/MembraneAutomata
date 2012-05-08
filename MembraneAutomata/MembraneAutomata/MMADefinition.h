@@ -98,7 +98,7 @@ void printMap(MMAMap *);
 void countSubstances(MMAMap *);
 
 int storeMap(MMAMap *);
-int restoreMap(MMAMap *, unsigned int);
-int storePattern(MMAPattern *);
-int restorePattern(MMAPattern *, unsigned int);
+int restoreMap(MMAMap *, unsigned int, unsigned int);
+//int storePattern(MMAPattern *);
+//int restorePattern(MMAPattern *, unsigned int);
 

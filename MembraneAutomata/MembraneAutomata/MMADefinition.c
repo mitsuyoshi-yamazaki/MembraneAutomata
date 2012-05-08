@@ -15,6 +15,9 @@
 #include "json.h"
 
 void filenameCreateWithId(char *,unsigned int);
+void cellsFilenameCreate(char *, unsigned int, unsigned int);
+int storeCells(const char *, byte *, int);
+int restoreCells(const char *, byte *, int);
 
 #pragma mark - Calculate Stability
 int unstabilityBetween(byte substanceA, byte substanceB) {
@@ -182,6 +185,8 @@ void clearMap(MMAMap *map) {
 
 void fillMapWith(MMAMap *map, byte substance) {
 	
+	(*map).step = 0;
+	
 	int xMax = (*map).size.width;
 	int yMax = (*map).size.height;
 	int position = 0;
@@ -196,6 +201,9 @@ void fillMapWith(MMAMap *map, byte substance) {
 }
 
 void randomizeMap(MMAMap *map, int *rate, int count) {
+	
+	(*map).step = 0;
+	
 	MMARange range = MMARangeMake(0, 0, (*map).size.width, (*map).size.height);
 	
 	randomizeRange(map, range, rate, count);
@@ -422,18 +430,64 @@ void filenameCreateWithId(char *filename, unsigned int anIdentifier) {
 	sprintf(filename, "MMAMapFile%d", anIdentifier);
 }
 
+void cellsFilenameCreate(char *filename, unsigned int mapIdentifier, unsigned int steps) {
+	sprintf(filename, "MMACellsFile_in_%dmap_%dstep", mapIdentifier, steps);
+}
+
+int storeCells(const char *filename, byte *cells, int size) {
+	
+	FILE *outputfile; 
+	
+	outputfile = fopen(filename, "w");
+	if (outputfile == NULL) {
+		return -1;
+	}
+		
+	fwrite(cells, sizeof(byte), size, outputfile);
+	
+	fclose(outputfile); 
+	return 0;
+}
+
+int restoreCells(const char *filename, byte *cells, int size) {
+	
+	FILE *inputFile;
+	
+	inputFile = fopen( filename, "rb" );
+	if(inputFile == NULL ){
+		return -1;
+	}
+	
+	fread(cells, sizeof(byte), size, inputFile);
+	
+	fclose(inputFile);
+	return 0;
+}
+
 int storeMap(MMAMap *map) {
 	
 	char filename[64];
 	filenameCreateWithId(filename, (*map).identifier);
 	
+	char cellsFilename[64];
+	cellsFilenameCreate(cellsFilename, (*map).identifier, (*map).step);
+	int cellStoringSucceeded = storeCells(cellsFilename, (*map).currentCells, (*map).size.width * (*map).size.height);
+	
+	if (cellStoringSucceeded == -1) {
+		printf("Map%d steps%d cells storing failed\n", (*map).identifier, (*map).step);
+		return -1;
+	}
+	
+	char *keys[] = {"identifier", "rule", "atomSetIdentifier", "range", "sizeWidth", "sizeHeight", NULL};
+		
 	char objects[256];
-	sprintf(objects, "{'identifier':%d,'rule':%d,'atomSetIdentifier':%d,'range':%d,'sizeWidth':%d,'sizeHeight':%d}", (*map).identifier, (*map).rule,(*map).atomSet.identifier,(*map).range,(*map).size.width,(*map).size.height);
+	sprintf(objects, "{'%s':%d,'%s':%d,'%s':%d,'%s':%d,'%s':%d,'%s':%d}", keys[0], (*map).identifier, keys[1], (*map).rule, keys[2], (*map).atomSet.identifier, keys[3], (*map).range, keys[4], (*map).size.width, keys[5], (*map).size.height);
 	// ,'cellsIdentifier':%d
 	
 	struct json_object *jsonObject;
 	jsonObject = json_tokener_parse(objects);
 	
+	printf("\nstore current map\n");
 	json_object_object_foreach(jsonObject, key, val) {
         printf("\t%s: %s\n", key, json_object_to_json_string(val));
     }
@@ -453,45 +507,75 @@ int storeMap(MMAMap *map) {
 	return succeeded;
 }
 
-int restoreMap(MMAMap *map, unsigned int anIdentifier) {
+int restoreMap(MMAMap *map, unsigned int anIdentifier, unsigned int steps) {
 
+	char filename[64];
+	filenameCreateWithId(filename, anIdentifier);
+	
+	struct json_object *jsonObject;
+	jsonObject = json_object_from_file(filename);
+	
+	int i = 0;
+	MMASize size = MMASizeMake(0, 0);
+	printf("\nrestore map\n");
+	json_object_object_foreach(jsonObject, key, val) {
+        printf("\t%s: %s\n", key, json_object_to_json_string(val));
+		
+		switch (i) {
+			case 0:	// identifier
+				(*map).identifier = json_object_get_int(val);
+				break;
+				
+			case 1:	// rule
+				(*map).rule = json_object_get_int(val);
+				break;
+				
+			case 2:	// atom set
+				
+				break;
+				
+			case 3:	// range
+				(*map).range = json_object_get_int(val);
+				break;
+				
+			case 4:	// width
+				size.width = json_object_get_int(val);
+				break;
+				
+			case 5:	// height
+				size.height = json_object_get_int(val);
+				break;
+				
+			case 6:
+				break;
+				
+			default:
+				break;
+		}
+		i++;
+    }
+	
+	(*map).size = size;
+	
+	char cellsFilename[64];
+	cellsFilenameCreate(cellsFilename, (*map).identifier, steps);
+	int cellRestoringSucceeded = restoreCells(cellsFilename, (*map).currentCells, (*map).size.width * (*map).size.height);
+
+	if (cellRestoringSucceeded == -1) {
+		printf("Cell statuses restoring failed\n");
+		return -1;
+	}
+	
+	(*map).step = steps;
+	
+	return 0;
 }
-
+/*
 int storePattern(MMAPattern *pattern) {
 	
-	char filename[30];
-	filenameCreateWithId(filename, (*pattern).identifier);
-	
-	char identifierKey[] = "identifier";
-	char rangeKey[] = "range";
-	char ruleKey[] = "rule";
-//	char originKey[] = "origin";
-	char sizeKey[] = "size";
-	char cellsFileKey[] = "cells_file";
-	
-	char cellsFilename[30];
-	sprintf(cellsFilename, "%s%d", cellsFileKey, (*pattern).identifier);
-	
-	
-	struct json_object *identifierObject, *rangeObject, *ruleObject, *sizeObject, *cellsFileObject;
-	char identifier[30], range[30], rule[30], size[30], cellsFile[30];
-	
-//	identifierObject = json_tokener_parse()
-	
-	sprintf(identifier, "%s:%d", identifierKey, (*pattern).identifier);
-	identifierObject = json_tokener_parse(identifier);
-	
-//	sprintf(size, )
-	
-	struct json_object *json;
-	json = json_tokener_parse("");
-//	json_object_object_add(json, cellsFileKey, cellsObject);
-	
-	return json_object_to_file(filename, json);
 }
 
 int restorePattern(MMAPattern *pattern, unsigned int anIdentifier) {
 	
-	
 }
-
+*/

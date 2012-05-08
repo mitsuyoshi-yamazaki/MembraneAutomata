@@ -48,5 +48,6 @@
 - (IBAction)startPause:(id)sender;
 - (IBAction)step:(id)sender;
 - (IBAction)print:(id)sender;
+- (IBAction)store:(id)sender;
 
 @end

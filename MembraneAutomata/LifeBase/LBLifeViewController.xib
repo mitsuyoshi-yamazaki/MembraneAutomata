@@ -165,6 +165,7 @@
 						<string key="NSFrame">{{572, 11}, {80, 19}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:1534</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="57978419">
@@ -222,7 +223,7 @@
 						<object class="NSButtonCell" key="NSCell" id="953039301">
 							<int key="NSCellFlags">-2080244224</int>
 							<int key="NSCellFlags2">134217728</int>
-							<string key="NSContents">Print</string>
+							<string key="NSContents">Store</string>
 							<reference key="NSSupport" ref="697796023"/>
 							<string key="NSCellIdentifier">_NS:1534</string>
 							<reference key="NSControlView" ref="936814575"/>
@@ -383,20 +384,20 @@
 					<int key="connectionID">37</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">print:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="936814575"/>
-					</object>
-					<int key="connectionID">41</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">idField</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="237108730"/>
 					</object>
 					<int key="connectionID">45</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">store:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="936814575"/>
+					</object>
+					<int key="connectionID">46</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -611,7 +612,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">45</int>
+			<int key="maxID">46</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -633,6 +634,7 @@
 						<string key="redraw:">id</string>
 						<string key="startPause:">id</string>
 						<string key="step:">id</string>
+						<string key="store:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="clearCells:">
@@ -657,6 +659,10 @@
 						</object>
 						<object class="IBActionInfo" key="step:">
 							<string key="name">step:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="store:">
+							<string key="name">store:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

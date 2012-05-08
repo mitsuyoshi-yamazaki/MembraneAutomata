@@ -93,9 +93,7 @@
 		self.running = NO;
 		self.startButton.title = @"Start";
 	}
-	
-//	steps = 0;
-	
+		
 	[self.lifeView clearCells];
 	self.idField.title = [NSString stringWithFormat:@"Map ID: %d", self.lifeView.mapId];
 	[self redraw:self];
@@ -107,8 +105,6 @@
 	[self.lifeView clearCells];
 	[self.lifeView randomizeCells:50];
 	
-//	steps = 0;
-
 	self.idField.title = [NSString stringWithFormat:@"Map ID: %d", self.lifeView.mapId];
 	[self redraw:self];
 }
@@ -143,6 +139,10 @@
 
 - (IBAction)print:(id)sender {
 	[self.lifeView print];
+}
+
+- (IBAction)store:(id)sender {
+	[self.lifeView storeMap];
 }
 
 

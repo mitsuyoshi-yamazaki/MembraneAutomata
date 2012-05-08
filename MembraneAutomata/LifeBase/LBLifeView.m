@@ -174,8 +174,8 @@
 	
 	map.range = 3;
 	[self randomizeAsDefault];
-	
-	storeMap(&map);
+
+//	restoreMap(&map, 150, 45);
 	
 //	fillMapWith(&map, 1);
 //	map.currentCells[0] = 3;
@@ -250,6 +250,10 @@
 
 - (NSUInteger)steps {
 	return map.step;
+}
+
+- (void)storeMap {
+	storeMap(&map);
 }
 
 

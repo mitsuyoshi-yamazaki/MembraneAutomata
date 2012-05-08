@@ -27,6 +27,7 @@
 - (void)initializeCells:(NSUInteger)size;
 
 - (void)print;
+- (void)storeMap;
 
 - (NSString *)rule;
 - (NSUInteger)range;
