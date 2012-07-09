@@ -192,7 +192,7 @@ byte isComposed(int range, MMAAmount *set, byte substance) {
 			int oilCount = (*set).amount[1];
 			int membraneCount = (*set).amount[2] + (*set).amount[4];
 			
-			int membraneMaximum = range * 3 + 1;
+			int membraneMaximum = range * range + 1;
 			int membraneThreshold = range * 2;
 			
 			if ((*set).amount[2] > 0 && membraneCount < membraneMaximum && abs(waterCount - (oilCount  + (*set).amount[3])) <= membraneThreshold) {
@@ -222,7 +222,7 @@ byte isComposed(int range, MMAAmount *set, byte substance) {
 			int maximum = (range * 3 + 1) * 2;
 			int threshold = waterCount - (oilCount  + (*set).amount[3]);
 			
-			if ((*set).amount[4] > 0 && membraneCount < maximum && threshold > 0 && threshold < 20 && (*set).amount[6] == 0) {
+			if ((*set).amount[4] > 0 && membraneCount < maximum && threshold > 0 && threshold < (range * (range * 2 + 1)) - 1 && (*set).amount[6] == 0) {
 				return 1;
 			}
 
@@ -232,7 +232,7 @@ byte isComposed(int range, MMAAmount *set, byte substance) {
 		case 5: {
 //			return 0;
 			int maximum = range * range * 3;
-			if ((*set).amount[5] < maximum && (*set).amount[3] > 0 && (*set).amount[3] < 10 && (*set).amount[0] == 0) {//(*set).amount[5] > 0 && 
+			if ((*set).amount[5] < maximum && (*set).amount[3] > 0 && (*set).amount[3] < range * 3 + 1 && (*set).amount[0] == 0) {//(*set).amount[5] > 0 && 
 				return 1;
 			}
 			return 0;
@@ -247,7 +247,7 @@ byte isComposed(int range, MMAAmount *set, byte substance) {
 			int maximum = (range * 3 + 1) * 2;
 			int threshold = (oilCount + (*set).amount[3]) - (waterCount);
 			
-			if ((*set).amount[6] > 0 && membraneCount < maximum && threshold > 0 && threshold < 14 && (*set).amount[4] < 3) {
+			if ((*set).amount[6] > 0 && membraneCount < maximum && threshold > 0 && threshold < (range * 2 + 1) * 2 && (*set).amount[4] < range) {
 				return 1;
 			}
 			

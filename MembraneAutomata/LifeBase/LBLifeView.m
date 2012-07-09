@@ -24,8 +24,8 @@
 - (void)randomizeAsDefault {
 //	int rate[MMANumberOfSubstance] = {0,1000,1000,0,2,1};	// Rule Automata用
 //	int rate[7] = {0,10000,10000,0,10,10,10};	// Rule Variable Rule Set用
-//	int rate[7] = {10000,8800,10,100,10,0,20};	// Rule Rule Set用
-	int rate[7] = {10000,10000,10,00,0,0,0};	// Rule Rule Set用
+	int rate[7] = {10000,8800,10,100,10,0,20};	// Rule Rule Set用 // ? ? ? 緑　赤 ? ?
+//	int rate[7] = {10000,10000,10,00,0,0,0};	// Rule Rule Set用
 
 	int count = 7;
 	
