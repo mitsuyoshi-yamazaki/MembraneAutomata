@@ -12,7 +12,7 @@
 #include <math.h>
 #include <string.h>
 #include "MMADefinition.h"
-#include "json.h"
+//#include "json.h"
 
 void filenameCreateWithId(char *,unsigned int);
 void cellsFilenameCreate(char *, unsigned int, unsigned int);
@@ -465,110 +465,114 @@ int restoreCells(const char *filename, byte *cells, int size) {
 }
 
 int storeMap(MMAMap *map) {
-	
-	char filename[64];
-	filenameCreateWithId(filename, (*map).identifier);
-	
-	char cellsFilename[64];
-	cellsFilenameCreate(cellsFilename, (*map).identifier, (*map).step);
-	int cellStoringSucceeded = storeCells(cellsFilename, (*map).currentCells, (*map).size.width * (*map).size.height);
-	
-	if (cellStoringSucceeded == -1) {
-		printf("Map%d steps%d cells storing failed\n", (*map).identifier, (*map).step);
-		return -1;
-	}
-	
-	char *keys[] = {"identifier", "rule", "atomSetIdentifier", "range", "sizeWidth", "sizeHeight", NULL};
-		
-	char objects[256];
-	sprintf(objects, "{'%s':%d,'%s':%d,'%s':%d,'%s':%d,'%s':%d,'%s':%d}", keys[0], (*map).identifier, keys[1], (*map).rule, keys[2], (*map).atomSet.identifier, keys[3], (*map).range, keys[4], (*map).size.width, keys[5], (*map).size.height);
-	// ,'cellsIdentifier':%d
-	
-	struct json_object *jsonObject;
-	jsonObject = json_tokener_parse(objects);
-	
-	printf("\nstore current map\n");
-	json_object_object_foreach(jsonObject, key, val) {
-        printf("\t%s: %s\n", key, json_object_to_json_string(val));
-    }
-	
-	int succeeded = json_object_to_file(filename, jsonObject);
-	
-	if (succeeded == -1) {
-		printf("file create failed\n");
-	}
-	else if (succeeded == 0) {
-		printf("file create succeeded\n");
-	}
-	else {
-		printf("( -.-)?\n");
-	}
+    printf("not implemented");
+    return -1;
 
-	return succeeded;
+//	char filename[64];
+//	filenameCreateWithId(filename, (*map).identifier);
+//
+//	char cellsFilename[64];
+//	cellsFilenameCreate(cellsFilename, (*map).identifier, (*map).step);
+//	int cellStoringSucceeded = storeCells(cellsFilename, (*map).currentCells, (*map).size.width * (*map).size.height);
+//
+//	if (cellStoringSucceeded == -1) {
+//		printf("Map%d steps%d cells storing failed\n", (*map).identifier, (*map).step);
+//		return -1;
+//	}
+//
+//	char *keys[] = {"identifier", "rule", "atomSetIdentifier", "range", "sizeWidth", "sizeHeight", NULL};
+//
+//	char objects[256];
+//	sprintf(objects, "{'%s':%d,'%s':%d,'%s':%d,'%s':%d,'%s':%d,'%s':%d}", keys[0], (*map).identifier, keys[1], (*map).rule, keys[2], (*map).atomSet.identifier, keys[3], (*map).range, keys[4], (*map).size.width, keys[5], (*map).size.height);
+//	// ,'cellsIdentifier':%d
+//
+//	struct json_object *jsonObject;
+//	jsonObject = json_tokener_parse(objects);
+//
+//	printf("\nstore current map\n");
+//	json_object_object_foreach(jsonObject, key, val) {
+//        printf("\t%s: %s\n", key, json_object_to_json_string(val));
+//    }
+//
+//	int succeeded = json_object_to_file(filename, jsonObject);
+//
+//	if (succeeded == -1) {
+//		printf("file create failed\n");
+//	}
+//	else if (succeeded == 0) {
+//		printf("file create succeeded\n");
+//	}
+//	else {
+//		printf("( -.-)?\n");
+//	}
+//
+//	return succeeded;
 }
 
 int restoreMap(MMAMap *map, unsigned int anIdentifier, unsigned int steps) {
+    printf("not implemented");
+    return -1;
 
-	char filename[64];
-	filenameCreateWithId(filename, anIdentifier);
-	
-	struct json_object *jsonObject;
-	jsonObject = json_object_from_file(filename);
-	
-	int i = 0;
-	MMASize size = MMASizeMake(0, 0);
-	printf("\nrestore map\n");
-	json_object_object_foreach(jsonObject, key, val) {
-        printf("\t%s: %s\n", key, json_object_to_json_string(val));
-		
-		switch (i) {
-			case 0:	// identifier
-				(*map).identifier = json_object_get_int(val);
-				break;
-				
-			case 1:	// rule
-				(*map).rule = json_object_get_int(val);
-				break;
-				
-			case 2:	// atom set
-				
-				break;
-				
-			case 3:	// range
-				(*map).range = json_object_get_int(val);
-				break;
-				
-			case 4:	// width
-				size.width = json_object_get_int(val);
-				break;
-				
-			case 5:	// height
-				size.height = json_object_get_int(val);
-				break;
-				
-			case 6:
-				break;
-				
-			default:
-				break;
-		}
-		i++;
-    }
-	
-	(*map).size = size;
-	
-	char cellsFilename[64];
-	cellsFilenameCreate(cellsFilename, (*map).identifier, steps);
-	int cellRestoringSucceeded = restoreCells(cellsFilename, (*map).currentCells, (*map).size.width * (*map).size.height);
-
-	if (cellRestoringSucceeded == -1) {
-		printf("Cell statuses restoring failed\n");
-		return -1;
-	}
-	
-	(*map).step = steps;
-	
-	return 0;
+//	char filename[64];
+//	filenameCreateWithId(filename, anIdentifier);
+//
+//	struct json_object *jsonObject;
+//	jsonObject = json_object_from_file(filename);
+//
+//	int i = 0;
+//	MMASize size = MMASizeMake(0, 0);
+//	printf("\nrestore map\n");
+//	json_object_object_foreach(jsonObject, key, val) {
+//        printf("\t%s: %s\n", key, json_object_to_json_string(val));
+//
+//		switch (i) {
+//			case 0:	// identifier
+//				(*map).identifier = json_object_get_int(val);
+//				break;
+//
+//			case 1:	// rule
+//				(*map).rule = json_object_get_int(val);
+//				break;
+//
+//			case 2:	// atom set
+//
+//				break;
+//
+//			case 3:	// range
+//				(*map).range = json_object_get_int(val);
+//				break;
+//
+//			case 4:	// width
+//				size.width = json_object_get_int(val);
+//				break;
+//
+//			case 5:	// height
+//				size.height = json_object_get_int(val);
+//				break;
+//
+//			case 6:
+//				break;
+//
+//			default:
+//				break;
+//		}
+//		i++;
+//    }
+//
+//	(*map).size = size;
+//
+//	char cellsFilename[64];
+//	cellsFilenameCreate(cellsFilename, (*map).identifier, steps);
+//	int cellRestoringSucceeded = restoreCells(cellsFilename, (*map).currentCells, (*map).size.width * (*map).size.height);
+//
+//	if (cellRestoringSucceeded == -1) {
+//		printf("Cell statuses restoring failed\n");
+//		return -1;
+//	}
+//
+//	(*map).step = steps;
+//
+//	return 0;
 }
 /*
 int storePattern(MMAPattern *pattern) {
