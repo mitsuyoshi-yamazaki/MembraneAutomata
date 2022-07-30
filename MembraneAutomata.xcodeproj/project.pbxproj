@@ -1,0 +1,358 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2C8F9B2B154C4FE100D75557 /* MMADefinition.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F9B2A154C4FE000D75557 /* MMADefinition.c */; };
+		2C8F9B2E154C58EC00D75557 /* MMARuleSetSubheader.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F9B2D154C58EC00D75557 /* MMARuleSetSubheader.c */; };
+		2CF581DA154AB252004CF830 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF581D9154AB252004CF830 /* Cocoa.framework */; };
+		2CF581E4154AB252004CF830 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CF581E2154AB252004CF830 /* InfoPlist.strings */; };
+		2CF581E6154AB252004CF830 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF581E5154AB252004CF830 /* main.m */; };
+		2CF581EA154AB252004CF830 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2CF581E8154AB252004CF830 /* Credits.rtf */; };
+		2CF581ED154AB252004CF830 /* MMAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF581EC154AB252004CF830 /* MMAAppDelegate.m */; };
+		2CF581F0154AB253004CF830 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF581EE154AB253004CF830 /* MainMenu.xib */; };
+		2CF581F9154AC351004CF830 /* MitsuyoshisMembraneAutomata.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CF581F8154AC351004CF830 /* MitsuyoshisMembraneAutomata.c */; };
+		2CF5820F154AE6BA004CF830 /* LBLifeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF5820A154AE6BA004CF830 /* LBLifeView.m */; };
+		2CF58210154AE6BA004CF830 /* LBLifeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF5820C154AE6BA004CF830 /* LBLifeViewController.m */; };
+		2CF58211154AE6BA004CF830 /* LBLifeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF5820D154AE6BA004CF830 /* LBLifeViewController.xib */; };
+		2CF58214154AEE88004CF830 /* LBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF58213154AE6C6004CF830 /* LBAppDelegate.m */; };
+		2CF58222154C4C0F004CF830 /* MMARule.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CF58221154C4C0F004CF830 /* MMARule.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2C8F9B28154C4FD300D75557 /* MMADefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMADefinition.h; sourceTree = "<group>"; };
+		2C8F9B2A154C4FE000D75557 /* MMADefinition.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MMADefinition.c; sourceTree = "<group>"; };
+		2C8F9B2C154C56CB00D75557 /* MMARuleSetSubheader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMARuleSetSubheader.h; sourceTree = "<group>"; };
+		2C8F9B2D154C58EC00D75557 /* MMARuleSetSubheader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MMARuleSetSubheader.c; sourceTree = "<group>"; };
+		2CF581D5154AB252004CF830 /* MembraneAutomata.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MembraneAutomata.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CF581D9154AB252004CF830 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		2CF581DC154AB252004CF830 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		2CF581DD154AB252004CF830 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2CF581DE154AB252004CF830 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2CF581E1154AB252004CF830 /* MembraneAutomata-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MembraneAutomata-Info.plist"; sourceTree = "<group>"; };
+		2CF581E3154AB252004CF830 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2CF581E5154AB252004CF830 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2CF581E7154AB252004CF830 /* MembraneAutomata-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MembraneAutomata-Prefix.pch"; sourceTree = "<group>"; };
+		2CF581E9154AB252004CF830 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		2CF581EB154AB252004CF830 /* MMAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMAAppDelegate.h; sourceTree = "<group>"; };
+		2CF581EC154AB252004CF830 /* MMAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMAAppDelegate.m; sourceTree = "<group>"; };
+		2CF581EF154AB253004CF830 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		2CF581F7154AB281004CF830 /* MitsuyoshisMembraneAutomata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MitsuyoshisMembraneAutomata.h; sourceTree = "<group>"; };
+		2CF581F8154AC351004CF830 /* MitsuyoshisMembraneAutomata.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MitsuyoshisMembraneAutomata.c; sourceTree = "<group>"; };
+		2CF58209154AE6BA004CF830 /* LBLifeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBLifeView.h; sourceTree = "<group>"; };
+		2CF5820A154AE6BA004CF830 /* LBLifeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBLifeView.m; sourceTree = "<group>"; };
+		2CF5820B154AE6BA004CF830 /* LBLifeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBLifeViewController.h; sourceTree = "<group>"; };
+		2CF5820C154AE6BA004CF830 /* LBLifeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBLifeViewController.m; sourceTree = "<group>"; };
+		2CF5820D154AE6BA004CF830 /* LBLifeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LBLifeViewController.xib; sourceTree = "<group>"; };
+		2CF58212154AE6C6004CF830 /* LBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBAppDelegate.h; sourceTree = "<group>"; };
+		2CF58213154AE6C6004CF830 /* LBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBAppDelegate.m; sourceTree = "<group>"; };
+		2CF58220154C4C08004CF830 /* MMARule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMARule.h; sourceTree = "<group>"; };
+		2CF58221154C4C0F004CF830 /* MMARule.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MMARule.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2CF581D2154AB252004CF830 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CF581DA154AB252004CF830 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2CF581CA154AB252004CF830 = {
+			isa = PBXGroup;
+			children = (
+				2CF581DF154AB252004CF830 /* MembraneAutomata */,
+				2CF581D8154AB252004CF830 /* Frameworks */,
+				2CF581D6154AB252004CF830 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2CF581D6154AB252004CF830 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2CF581D5154AB252004CF830 /* MembraneAutomata.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2CF581D8154AB252004CF830 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2CF581D9154AB252004CF830 /* Cocoa.framework */,
+				2CF581DB154AB252004CF830 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2CF581DB154AB252004CF830 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2CF581DC154AB252004CF830 /* AppKit.framework */,
+				2CF581DD154AB252004CF830 /* CoreData.framework */,
+				2CF581DE154AB252004CF830 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		2CF581DF154AB252004CF830 /* MembraneAutomata */ = {
+			isa = PBXGroup;
+			children = (
+				2CF581EB154AB252004CF830 /* MMAAppDelegate.h */,
+				2CF581EC154AB252004CF830 /* MMAAppDelegate.m */,
+				2CF581EE154AB253004CF830 /* MainMenu.xib */,
+				2CF58206154AE6BA004CF830 /* LifeBase */,
+				2CF581F6154AB270004CF830 /* MembraneAutomata */,
+				2CF581E0154AB252004CF830 /* Supporting Files */,
+			);
+			path = MembraneAutomata;
+			sourceTree = "<group>";
+		};
+		2CF581E0154AB252004CF830 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2CF581E1154AB252004CF830 /* MembraneAutomata-Info.plist */,
+				2CF581E2154AB252004CF830 /* InfoPlist.strings */,
+				2CF581E5154AB252004CF830 /* main.m */,
+				2CF581E7154AB252004CF830 /* MembraneAutomata-Prefix.pch */,
+				2CF581E8154AB252004CF830 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2CF581F6154AB270004CF830 /* MembraneAutomata */ = {
+			isa = PBXGroup;
+			children = (
+				2CF581F7154AB281004CF830 /* MitsuyoshisMembraneAutomata.h */,
+				2CF581F8154AC351004CF830 /* MitsuyoshisMembraneAutomata.c */,
+				2C8F9B28154C4FD300D75557 /* MMADefinition.h */,
+				2C8F9B2A154C4FE000D75557 /* MMADefinition.c */,
+				2C8F9B2C154C56CB00D75557 /* MMARuleSetSubheader.h */,
+				2C8F9B2D154C58EC00D75557 /* MMARuleSetSubheader.c */,
+				2CF58220154C4C08004CF830 /* MMARule.h */,
+				2CF58221154C4C0F004CF830 /* MMARule.c */,
+			);
+			path = MembraneAutomata;
+			sourceTree = "<group>";
+		};
+		2CF58206154AE6BA004CF830 /* LifeBase */ = {
+			isa = PBXGroup;
+			children = (
+				2CF58212154AE6C6004CF830 /* LBAppDelegate.h */,
+				2CF58213154AE6C6004CF830 /* LBAppDelegate.m */,
+				2CF58209154AE6BA004CF830 /* LBLifeView.h */,
+				2CF5820A154AE6BA004CF830 /* LBLifeView.m */,
+				2CF5820B154AE6BA004CF830 /* LBLifeViewController.h */,
+				2CF5820C154AE6BA004CF830 /* LBLifeViewController.m */,
+				2CF5820D154AE6BA004CF830 /* LBLifeViewController.xib */,
+			);
+			path = LifeBase;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2CF581D4154AB252004CF830 /* MembraneAutomata */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CF581F3154AB253004CF830 /* Build configuration list for PBXNativeTarget "MembraneAutomata" */;
+			buildPhases = (
+				2CF581D1154AB252004CF830 /* Sources */,
+				2CF581D2154AB252004CF830 /* Frameworks */,
+				2CF581D3154AB252004CF830 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MembraneAutomata;
+			productName = MembraneAutomata;
+			productReference = 2CF581D5154AB252004CF830 /* MembraneAutomata.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2CF581CC154AB252004CF830 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = MMA;
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 2CF581CF154AB252004CF830 /* Build configuration list for PBXProject "MembraneAutomata" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				en,
+			);
+			mainGroup = 2CF581CA154AB252004CF830;
+			productRefGroup = 2CF581D6154AB252004CF830 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2CF581D4154AB252004CF830 /* MembraneAutomata */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2CF581D3154AB252004CF830 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CF581E4154AB252004CF830 /* InfoPlist.strings in Resources */,
+				2CF581EA154AB252004CF830 /* Credits.rtf in Resources */,
+				2CF581F0154AB253004CF830 /* MainMenu.xib in Resources */,
+				2CF58211154AE6BA004CF830 /* LBLifeViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2CF581D1154AB252004CF830 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CF58214154AEE88004CF830 /* LBAppDelegate.m in Sources */,
+				2CF581E6154AB252004CF830 /* main.m in Sources */,
+				2CF581ED154AB252004CF830 /* MMAAppDelegate.m in Sources */,
+				2CF581F9154AC351004CF830 /* MitsuyoshisMembraneAutomata.c in Sources */,
+				2CF5820F154AE6BA004CF830 /* LBLifeView.m in Sources */,
+				2CF58210154AE6BA004CF830 /* LBLifeViewController.m in Sources */,
+				2CF58222154C4C0F004CF830 /* MMARule.c in Sources */,
+				2C8F9B2B154C4FE100D75557 /* MMADefinition.c in Sources */,
+				2C8F9B2E154C58EC00D75557 /* MMARuleSetSubheader.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2CF581E2154AB252004CF830 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2CF581E3154AB252004CF830 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		2CF581E8154AB252004CF830 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2CF581E9154AB252004CF830 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		2CF581EE154AB253004CF830 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2CF581EF154AB253004CF830 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2CF581F1154AB253004CF830 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		2CF581F2154AB253004CF830 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		2CF581F4154AB253004CF830 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MembraneAutomata/MembraneAutomata-Prefix.pch";
+				INFOPLIST_FILE = "MembraneAutomata/MembraneAutomata-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		2CF581F5154AB253004CF830 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MembraneAutomata/MembraneAutomata-Prefix.pch";
+				INFOPLIST_FILE = "MembraneAutomata/MembraneAutomata-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2CF581CF154AB252004CF830 /* Build configuration list for PBXProject "MembraneAutomata" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CF581F1154AB253004CF830 /* Debug */,
+				2CF581F2154AB253004CF830 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2CF581F3154AB253004CF830 /* Build configuration list for PBXNativeTarget "MembraneAutomata" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CF581F4154AB253004CF830 /* Debug */,
+				2CF581F5154AB253004CF830 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2CF581CC154AB252004CF830 /* Project object */;
+}
