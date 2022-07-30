@@ -47,7 +47,8 @@ void MMAAtomDefaultInitializer(MMAAtomSet *atom) {
 	
 	byte waterMembrane = 5;
 	byte greenSubstance = 6;
-	byte blackSubstance = 7;
+//	byte blackSubstance = 7;
+	byte scissorSubstance = 7;
 	
 	MMAReactionRule waterDecomposeRule = MMAReactionRuleMake(oil, 0, oil, 26, MMARuleMaximum);
 	MMAReactionRule oilDecomposeRule = MMAReactionRuleMake(water, 0, water, 26, MMARuleMaximum);
@@ -73,9 +74,14 @@ void MMAAtomDefaultInitializer(MMAAtomSet *atom) {
 	MMAReactionRule greenSubstanceDecomposeRule0 = MMAReactionRuleMake(water, 0, oil, MMARuleMinimum, 1);
 	MMAReactionRule greenSubstanceDecomposeRule1 = MMAReactionRuleMake(water, 0, oil, 26, MMARuleMaximum);
 	
+	MMAReactionRule scissorSubstanceComposeRule0 = MMAReactionRuleMake(oilMembrane, 0, scissorSubstance, 7, MMARuleMaximum);
+	MMAReactionRule scissorSubstanceComposeRule1 = MMAReactionRuleMake(oil, water, scissorSubstance, -3, 3);
+	MMAReactionRule scissorSubstanceComposeRule2 = MMAReactionRuleMake(scissorSubstance, 0, scissorSubstance, MMARuleMinimum, 3);
+	MMAReactionRule scissorSubstanceDecomposeRule0 = MMAReactionRuleMake(scissorSubstance, 0, oilMembrane, 1, MMARuleMaximum);
+	
 	(*atom).identifier = 0;
 	
-	(*atom).ruleSet = (MMAReactionRule *)malloc(sizeof(MMAReactionRule) * 19);
+	(*atom).ruleSet = (MMAReactionRule *)malloc(sizeof(MMAReactionRule) * 23);
 //	(*atom).ruleSet[0] = MMAReactionRuleDummy();
 	(*atom).ruleSet[0] = waterDecomposeRule;
 	(*atom).ruleSet[1] = oilDecomposeRule;
@@ -100,10 +106,16 @@ void MMAAtomDefaultInitializer(MMAAtomSet *atom) {
 	(*atom).ruleSet[16] = greenSubstanceComposeRule2;
 	(*atom).ruleSet[17] = greenSubstanceDecomposeRule0;
 	(*atom).ruleSet[18] = greenSubstanceDecomposeRule1;
+	
+	(*atom).ruleSet[19] = scissorSubstanceComposeRule0;
+	(*atom).ruleSet[20] = scissorSubstanceComposeRule1;
+	(*atom).ruleSet[21] = scissorSubstanceComposeRule2;
+	(*atom).ruleSet[22] = scissorSubstanceDecomposeRule0;
 
 	
 	(*atom).atomCount = 7; // actual count + 1(Null substance)
 	
+	// attributesはその分子がどの原子の複合でできているのかを示す
 	(*atom).attributes = (quad_byte *)malloc(sizeof(quad_byte) * (*atom).atomCount);
 	(*atom).attributes[0] = 0x00;	// Null Substance
 	(*atom).attributes[1] = 0x01;
@@ -112,6 +124,7 @@ void MMAAtomDefaultInitializer(MMAAtomSet *atom) {
 	(*atom).attributes[4] = 0x0c;
 	(*atom).attributes[5] = 0x15;
 	(*atom).attributes[6] = 0x22;
+	(*atom).attributes[7] = 0x4c;
 	
 	(*atom).composeRules = (quad_byte *)malloc(sizeof(quad_byte) * (*atom).atomCount);
 	(*atom).composeRules[0] = 0x00;
@@ -121,6 +134,7 @@ void MMAAtomDefaultInitializer(MMAAtomSet *atom) {
 	(*atom).composeRules[4] = 0x11c0;
 	(*atom).composeRules[5] = 0x2e00;
 	(*atom).composeRules[6] = 0x01c000;
+	(*atom).composeRules[7] = 0x380000;
 
 	(*atom).decomposeRules = (quad_byte *)malloc(sizeof(quad_byte) * (*atom).atomCount);
 	(*atom).decomposeRules[0] = 0x00;
@@ -130,10 +144,110 @@ void MMAAtomDefaultInitializer(MMAAtomSet *atom) {
 	(*atom).decomposeRules[4] = 0x30;
 	(*atom).decomposeRules[5] = 0x30;
 	(*atom).decomposeRules[6] = 0x060000;
+	(*atom).decomposeRules[7] = 0x400000;
 
-	(*atom).substanceCount = 7; // actual count + 1(Null substance)
+	(*atom).substanceCount = 8; // actual count + 1(Null substance)
 	(*atom).supposedRange = 3;
 }
+
+// original
+//void MMAAtomDefaultInitializer(MMAAtomSet *atom) {
+//	
+//	//	byte nullSubstance = 0;
+//	byte water = 1;
+//	byte oil = 2;
+//	byte membrane = 3;
+//	byte oilMembrane = 4;
+//	
+//	byte waterMembrane = 5;
+//	byte greenSubstance = 6;
+//	byte blackSubstance = 7;
+//	
+//	MMAReactionRule waterDecomposeRule = MMAReactionRuleMake(oil, 0, oil, 26, MMARuleMaximum);
+//	MMAReactionRule oilDecomposeRule = MMAReactionRuleMake(water, 0, water, 26, MMARuleMaximum);
+//	MMAReactionRule membraneComposeRule0 = MMAReactionRuleMake(membrane, 0, membrane, 0, 10);
+//	MMAReactionRule membraneComposeRule1 = MMAReactionRuleMake(oil, water, membrane, -6, 6);
+//	
+//	MMAReactionRule membraneDecomposeRule0 = MMAReactionRuleMake(oil, water, oil, -1, MMARuleMaximum);
+//	MMAReactionRule membraneDecomposeRule1 = MMAReactionRuleMake(water, oil, water, -1, MMARuleMaximum);
+//	MMAReactionRule oilMembraneComposeRule0 = MMAReactionRuleMake(oilMembrane, 0, oilMembrane, 0, MMARuleMaximum);
+//	MMAReactionRule oilMembraneComposeRule1 = MMAReactionRuleMake(membrane, 0, oilMembrane, 0, 20);
+//	
+//	MMAReactionRule oilMembraneComposeRule2 = MMAReactionRuleMake(water, oil, oilMembrane, 0, 20);
+//	MMAReactionRule waterMembraneComposeRule0 = MMAReactionRuleMake(waterMembrane, 0, waterMembrane, 0, MMARuleMaximum);
+//	MMAReactionRule waterMembraneComposeRule1 = MMAReactionRuleMake(membrane, 0, waterMembrane, 0, 20);
+//	MMAReactionRule waterMembraneComposeRule2 = MMAReactionRuleMake(oil, water, waterMembrane, 0, 14);
+//	
+//	MMAReactionRule oilMembraneComposeRule3 = MMAReactionRuleMake(waterMembrane, 0, oilMembrane, MMARuleMinimum, 1);
+//	MMAReactionRule waterMembraneComposeRule3 = MMAReactionRuleMake(oilMembrane, 0, waterMembrane, MMARuleMinimum, 3);
+//	MMAReactionRule greenSubstanceComposeRule0 = MMAReactionRuleMake(membrane, 0, greenSubstance, 0, 7);
+//	MMAReactionRule greenSubstanceComposeRule1 = MMAReactionRuleMake(greenSubstance, 0, greenSubstance, 0, 9);
+//	
+//	MMAReactionRule greenSubstanceComposeRule2 = MMAReactionRuleMake(water, 0, greenSubstance, 0, 24);
+//	MMAReactionRule greenSubstanceDecomposeRule0 = MMAReactionRuleMake(water, 0, oil, MMARuleMinimum, 1);
+//	MMAReactionRule greenSubstanceDecomposeRule1 = MMAReactionRuleMake(water, 0, oil, 26, MMARuleMaximum);
+//	
+//	(*atom).identifier = 0;
+//	
+//	(*atom).ruleSet = (MMAReactionRule *)malloc(sizeof(MMAReactionRule) * 19);
+//	//	(*atom).ruleSet[0] = MMAReactionRuleDummy();
+//	(*atom).ruleSet[0] = waterDecomposeRule;
+//	(*atom).ruleSet[1] = oilDecomposeRule;
+//	(*atom).ruleSet[2] = membraneComposeRule0;
+//	(*atom).ruleSet[3] = membraneComposeRule1;
+//	
+//	(*atom).ruleSet[4] = membraneDecomposeRule0;
+//	(*atom).ruleSet[5] = membraneDecomposeRule1;
+//	(*atom).ruleSet[6] = oilMembraneComposeRule0;
+//	(*atom).ruleSet[7] = oilMembraneComposeRule1;
+//	
+//	(*atom).ruleSet[8] = oilMembraneComposeRule2;
+//	(*atom).ruleSet[9] = waterMembraneComposeRule0;
+//	(*atom).ruleSet[10] = waterMembraneComposeRule1;
+//	(*atom).ruleSet[11] = waterMembraneComposeRule2;
+//	
+//	(*atom).ruleSet[12] = oilMembraneComposeRule3;
+//	(*atom).ruleSet[13] = waterMembraneComposeRule3;
+//	(*atom).ruleSet[14] = greenSubstanceComposeRule0;
+//	(*atom).ruleSet[15] = greenSubstanceComposeRule1;
+//	
+//	(*atom).ruleSet[16] = greenSubstanceComposeRule2;
+//	(*atom).ruleSet[17] = greenSubstanceDecomposeRule0;
+//	(*atom).ruleSet[18] = greenSubstanceDecomposeRule1;
+//	
+//	
+//	(*atom).atomCount = 7; // actual count + 1(Null substance)
+//	
+//	(*atom).attributes = (quad_byte *)malloc(sizeof(quad_byte) * (*atom).atomCount);
+//	(*atom).attributes[0] = 0x00;	// Null Substance
+//	(*atom).attributes[1] = 0x01;
+//	(*atom).attributes[2] = 0x02;
+//	(*atom).attributes[3] = 0x04;
+//	(*atom).attributes[4] = 0x0c;
+//	(*atom).attributes[5] = 0x15;
+//	(*atom).attributes[6] = 0x22;
+//	
+//	(*atom).composeRules = (quad_byte *)malloc(sizeof(quad_byte) * (*atom).atomCount);
+//	(*atom).composeRules[0] = 0x00;
+//	(*atom).composeRules[1] = 0x00;
+//	(*atom).composeRules[2] = 0x00;
+//	(*atom).composeRules[3] = 0x00;//0x0c;
+//	(*atom).composeRules[4] = 0x11c0;
+//	(*atom).composeRules[5] = 0x2e00;
+//	(*atom).composeRules[6] = 0x01c000;
+//	
+//	(*atom).decomposeRules = (quad_byte *)malloc(sizeof(quad_byte) * (*atom).atomCount);
+//	(*atom).decomposeRules[0] = 0x00;
+//	(*atom).decomposeRules[1] = 0x01;
+//	(*atom).decomposeRules[2] = 0x02;
+//	(*atom).decomposeRules[3] = 0x30;
+//	(*atom).decomposeRules[4] = 0x30;
+//	(*atom).decomposeRules[5] = 0x30;
+//	(*atom).decomposeRules[6] = 0x060000;
+//	
+//	(*atom).substanceCount = 7; // actual count + 1(Null substance)
+//	(*atom).supposedRange = 3;
+//}
 
 
 #pragma mark - 

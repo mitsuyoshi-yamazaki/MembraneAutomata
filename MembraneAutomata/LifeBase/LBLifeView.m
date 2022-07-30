@@ -24,7 +24,7 @@
 - (void)randomizeAsDefault {
 //	int rate[MMANumberOfSubstance] = {0,1000,1000,0,2,1};	// Rule Automata用
 //	int rate[7] = {0,10000,10000,0,10,10,10};	// Rule Variable Rule Set用
-	int rate[7] = {10000,8800,10,100,10,0,20};	// Rule Rule Set用 // ? ? ? 緑　赤 ? ?
+	int rate[7] = {10000,8800,10,100,10,0,20,0};	// Rule Rule Set用 // ? ? ? 緑　赤 ? ?	// 2016/01/13
 //	int rate[7] = {10000,10000,10,00,0,0,0};	// Rule Rule Set用
 
 	int count = 7;
@@ -94,7 +94,7 @@
 						CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.1f, 1.0f, 0.4f, 0.8f));	// Green
 						break;
 						
-					case MMAOilFamilier:
+					case MMAOilFamilier:	// 油を広げる膜
 						CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(1.0f, 0.1f, 0.8f, 0.8f));	// Purple
 						break;
 						
@@ -106,17 +106,21 @@
 						CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.0f, 0.8f, 1.0f, 0.8f));
 						break;
 						
+					case 7:
+						CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.0f, 0.0f, 0.0f, 0.8f));
+						break;
+						
 					default:
-						CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(0.0f, 0.0f, 0.0f, 1.0f));
+						CGContextSetFillColorWithColor(context, CGColorCreateGenericRGB(1.0f, 1.0f, 0.0f, 1.0f));
 						break;
 				}
-
-				if (gridSize > 1.0f) {
-					CGContextFillEllipseInRect(context, CGRectMake(x * gridSize, y * gridSize, gridSize, gridSize));
-				}
-				else {
+//
+//				if (gridSize > 1.0f) {
+//					CGContextFillEllipseInRect(context, CGRectMake(x * gridSize, y * gridSize, gridSize, gridSize));
+//				}
+//				else {
 					CGContextFillRect(context, CGRectMake(x * gridSize, y * gridSize, gridSize, gridSize));
-				}
+//				}
 			}
 		}
 	}
